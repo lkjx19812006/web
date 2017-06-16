@@ -1,0 +1,637 @@
+html,
+body {
+    background-color: #fff;
+    color: #000;
+    letter-spacing: 0.5px;
+    font-family: "微软雅黑", "Source Sans Pro", Arial, sans-serif;
+    margin: 0;
+    overflow: auto !important;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+pre {
+    width: 100% !important;
+    display: inline-block !important;
+    font-family: monospace;
+    white-space: pre-wrap!important;
+    margin: 1em 0px 1em;
+}
+pre span {
+    white-space : pre-wrap!important;
+    width: 783px !important;
+}
+a,
+a:hover,
+a:focus,
+a:visited {
+    color: #000;
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    max-height: 289px;
+}
+
+.el-menu {
+    background: #EEE7E1;
+}
+
+.el-submenu .el-menu {
+    background-color: #FBFAF6;
+}
+
+.el-tooltip__popper.is-dark {
+    max-width: 300px;
+}
+
+.el-menu-item.is-active {
+    color: #FA6705;
+}
+
+.el-pager li.active {
+    background-color: #FA8435;
+    border-color: #FA8435;
+}
+
+.el-table__fixed-header-wrapper thead div,
+.el-table__header-wrapper thead div {
+    background-color: #fff;
+}
+
+.el-table th {
+    background-color: #fff;
+    text-align: center;
+}
+
+.el-table--enable-row-transition .el-table__body td {
+    text-align: center;
+}
+
+.my_Resource .el-table th {
+    background-color: #FBFAF6;
+}
+
+.my_Resource .el-table th,
+.my_need .el-table th,
+.my_suggest .el-table th,
+.my_report_price .el-table th {
+    background-color: #FBFAF6;
+}
+
+.my_Resource .el-table th>.cell,
+.my_need .el-table th>.cell,
+.my_suggest .el-table th>.cell,
+.my_report_price .el-table th>.cell {
+    background-color: #FBFAF6;
+}
+
+.el-pager li:hover,
+.el-pager li.btn-quicknext:hover,
+.el-pager li.btn-quickprev:hover {
+    color: #FA8435;
+}
+
+.el-pagination .btn-next:hover,
+.el-pagination .btn-prev:hover {
+    color: #FA8435;
+}
+
+.el-submenu .el-menu-item {
+    border-bottom: 1px solid #DBD6D0;
+}
+
+.el-select {
+    width: 100%;
+}
+
+.el-date-editor.el-input {
+    width: 100%;
+}
+
+.el-form--label-left .el-form-item__label {
+    font-size: 16px;
+}
+
+.el-menu--horizontal>.el-menu-item:hover {
+    border-bottom: 5px solid #FA8435;
+}
+
+.orange_button {
+    background: #FA8435;
+    background-color: #FA8435;
+    border: none;
+    color: #fff;
+}
+
+.border_orange_button {
+    border: 1px solid #FA8435;
+    color: #FA8435;
+    background-color: transparent;
+}
+
+.orange_span {
+    color: #FA8435;
+}
+
+.head_logo .el-input__inner {
+    border: 1px solid #FA8435;
+}
+
+.head_logo .el-input-group__prepend {
+    border: 1px solid #FA8435;
+}
+
+.head_logo .el-input-group__append {
+    background-color: #FA8435;
+    color: #fff;
+    border: 1px solid #FA8435;
+}
+
+.need_table .table .el-table,
+.deal .table .el-table {
+    text-align: center;
+}
+
+.need_table .table .el-table::after,
+.deal .table .el-table::after {
+    width: 0;
+}
+
+.need_table .table .el-table::before,
+.deal .table .el-table::before {
+    background-color: #fff;
+}
+
+.need_table .table .el-table .el-table__header-wrapper table thead tr th,
+.deal .table .el-table .el-table__header-wrapper table thead tr th {
+    background-color: #FBFBF6;
+    text-align: center;
+}
+
+
+/* .my_suggest .table .el-table .el-table__header-wrapper table thead tr th {
+    background-color: #FBFBF6;
+    text-align: center;
+} */
+
+.need_table .table .el-table .el-table__header-wrapper thead div,
+.deal .table .el-table .el-table__header-wrapper thead div {
+    background-color: #FBFBF6;
+}
+
+.need_table .table .el-table th.is-leaf,
+.deal .table .el-table th.is-leaf {
+    border-bottom: 0;
+    font-size: 14px;
+    color: #808080;
+}
+
+.need_table .table .el-table td,
+.deal .table .el-table td {
+    border-bottom: 0;
+    font-size: 14px;
+    color: #4D4D4D;
+}
+
+.need_table .table .el-table tr:nth-child(even),
+.deal .table .el-table tr:nth-child(even) {
+    background: #FBFBF6;
+}
+
+.need_table .table .el-table tr:nth-child(odd),
+.deal .table .el-table tr:nth-child(odd) {
+    background: #fff;
+}
+
+.deal .table .el-table tr:nth-child(even) {
+    background: #fff;
+}
+
+.find_good .content .el-form--label-left .el-form-item__label {
+    font-size: 14px;
+    color: #676767;
+}
+
+.need_arrondi_compent .find_good .content .el-form-item {
+    margin-bottom: 14px;
+}
+
+.el-select .el-input {
+    min-width: 100px;
+}
+
+.need_arrondi_compent .find_good .content .el-form-item {
+    margin-bottom: 14px;
+}
+
+.pre_sale_order .el-dialog__header,
+.sale_order .el-dialog__header,
+.pre_sale .el-dialog__header,
+.my_suggest .el-dialog__header {
+    background-color: #FA6705;
+    padding: 10px;
+    text-align: center;
+}
+
+.pre_sale_order .el-dialog__header>span,
+.sale_order .el-dialog__header>span,
+.pre_sale .el-dialog__header>span,
+.my_suggest .el-dialog__header>span {
+    color: white;
+    font-size: 20px;
+}
+
+.my_report_price .el-dialog__body,
+.el-dialog__header {
+    padding: 0;
+}
+
+.presell_detail .el-dialog__body,
+.el-dialog__header {
+    padding: 0;
+}
+
+.my_report_price .el-dialog__headerbtn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 100;
+}
+
+.presell_detail .el-dialog__headerbtn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 100;
+}
+
+.presell_detail .el-dialog__body {
+    font-size: 0px;
+}
+
+.sale_order .el-dialog__body {
+    font-size: 0px;
+}
+
+.sale_order .el-dialog__headerbtn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 100;
+}
+
+.title_font {
+    font-size: 20px;
+    color: #343434;
+}
+
+.border_bottom {
+    border-bottom: 1px solid #eee;
+}
+
+.resource_detail .el-input-group--append .el-input__inner {
+    text-align: center;
+}
+
+.left_dis {
+    margin-left: 10px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.border_top {
+    border-top: 1px solid #eee;
+}
+
+.drugsEncy .search_wrap .el-input__inner {
+    border-radius: 0;
+    border: 2px solid #FA8435;
+    height: 46px;
+    text-indent: 30px;
+}
+
+.drugsEncy .search_wrap .el-input-group__append {
+    border-radius: 0;
+    width: 100px;
+    border: 2px solid #FA8435;
+    text-align: center;
+    background-color: #FA8435;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.drugsEncy .drugsEncy_body .el-carousel__item {
+    height: 380px;
+}
+
+.drugsEncy .drugsEncy_body .el-carousel {
+    height: 380px;
+}
+
+.imgUploade .el-dialog {
+    width: 600px;
+    height: 500px;
+    box-sizing: border-box;
+}
+
+.imgUploade .el-dialog__header {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    height: 50px;
+    line-height: 50px;
+    background-color: #FA8535;
+    text-align: center;
+    position: relative;
+}
+
+.imgUploade .el-dialog__header .el-dialog__title {
+    color: #fff;
+    font-size: 22px;
+    line-height: 50px;
+}
+
+.imgUploade .el-dialog__header .el-dialog__close {
+    width: 54px;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.imgUploade .el-dialog__body {
+    box-sizing: border-box;
+    height: 450px;
+    padding: 45px;
+}
+
+.publish .el-radio__input.is-checked .el-radio__inner,
+.need_detail .el-radio__input.is-checked .el-radio__inner {
+    border-color: #FA8535;
+    background: #FA8535;
+}
+
+.el-button.el-button--primary,
+.el-button.el-button--primary:hover {
+    color: #fff;
+    background-color: #FA8535;
+    border-color: #FA8535;
+}
+
+.el-message-box__status.el-icon-information {
+    color: #FA8535;
+}
+
+.el-message-box__close:hover {
+    color: #FA8535;
+}
+
+.my_msg .el-dialog {
+    width: 520px;
+    height: 350px;
+    margin: 0;
+}
+
+.my_msg .el-dialog__header {
+    height: 40px;
+    padding: 15px 15px 0 15px;
+    margin: 0;
+}
+
+.my_msg .el-dialog__body {
+    padding: 0;
+    margin: 0;
+}
+
+.my_msg .el-dialog .el-dialog__close:hover {
+    color: #FA8535;
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+    border-color: #FA8535;
+    background: #FA8535;
+}
+
+.presell_detail .intention_row .el-input__inner {
+    text-align: center !important;
+}
+
+.head_content .head_logo .mySearch input {
+    height: 45px;
+    border-radius: 0;
+    border: 0 none;
+    border-top: 1px solid #F98435;
+    border-bottom: 1px solid #F98435;
+}
+
+.head_content .head_logo .el-select .el-input input {
+    height: 45px;
+    border-radius: 0;
+    border: 1px solid #F98435;
+}
+
+.head_content .head_logo .el-button.orange_button {
+    padding: 0 25px;
+    border-radius: 0;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.el-select .el-tag {
+    height: 24px;
+    line-height: 24px;
+    box-sizing: border-box;
+    margin: 3px 0 3px 6px;
+}
+
+.el-select .el-tag--primary {
+    background-color: rgba(249, 132, 53, .1);
+    border-color: rgba(249, 132, 53, .2);
+    color: #F98435;
+}
+
+.el-select .el-tag__close:hover {
+    background-color: #F98435;
+}
+
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
+    color: #F98435;
+}
+
+.head_content .head_logo .mySearch ul {
+    top: 50px;
+}
+
+textarea:hover {
+    border-color: #F98435 !important;
+}
+
+input:hover {
+    border-color: #F98435 !important;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #F98435 !important;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #999 !important;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #999 !important;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #999 !important;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #999 !important;
+}
+
+.el-input__inner,
+.el-textarea__inner {
+    border-color: #DBDBDB;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #F98435;
+    border-color: #F98435;
+}
+
+.el-checkbox__inner:hover {
+    border-color: #F98435;
+}
+
+.el-table .cell,
+.el-table th>div {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.el-select-dropdown__item.selected {
+    background-color: #F98435;
+}
+
+.el-select-dropdown__item.selected.hover {
+    background-color: #F98435;
+}
+
+.protol_wrap {
+    height: 564px !important;
+    width: 960px !important;
+}
+
+.protol_wrap .el-dialog__body {
+    padding: 0px !important;
+}
+
+.protol_wrap .el-dialog__headerbtn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.protol_wrap .el-dialog__headerbtn .el-dialog__close:hover {
+    color: #F98435;
+}
+
+.container {
+    height: auto!important;
+}
+
+.market .search .btn_wrap .el-button--text {
+    color: #F98435;
+}
+
+.market .search .btn_wrap .el-button--text:active {
+    color: #ccc;
+}
+
+.popper_wrap {
+    padding: 0;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.el-popover {
+    min-width: auto !important;
+}
+
+.popper_wrap .ewm_title {
+    font-size: 16px;
+    color: #3B6A47;
+    text-align: center;
+}
+
+.offerNeedNew .check_box_wrap .check_box_item .el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #4FB175;
+    border-color: #4FB175;
+}
+
+.el-input-group__append,
+.el-input-group__prepend {
+    background-color: #fff;
+    color: #FA8435;
+}
+
+.el-input-group__append input,
+.el-input-group__prepend input {
+    outline-style: none;
+}
+
+.el-input.is-disabled .el-input__inner {
+    background-color: rgb(235, 235, 228);
+    border-color: #dbdbdb;
+    color: #bbb;
+    cursor: not-allowed;
+}
+
+.aboutUsNew .head_content {
+    min-height: 140px !important;
+    border-bottom-color: #fff !important;
+}
+
+.my_report_price .el-table .cell,
+.el-table__footer-wrapper,
+.el-table__header-wrapper {
+    overflow: visible;
+}
+
+.my_report_price .el-table__body-wrapper {
+    overflow: visible;
+}
+
+.my_report_price .el-table {
+    overflow: visible;
+}
