@@ -49,6 +49,7 @@ body {
                             bottom: 0;
                             width: 300px;
                             min-height: 150px;
+                            cursor: pointer;
                         }
                     }
                     .need_detail_left {

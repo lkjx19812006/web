@@ -63,17 +63,17 @@
                 </el-table-column>
                 <el-table-column label="品名">
                     <template scope="scope">
-                        <span>{{scope.row.breedName}}</span>
+                        <span>{{scope.row.breedName,5 | filterTxt}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column label="规格">
                     <template scope="scope">
-                        <span>{{scope.row.spec}}</span>
+                        <span>{{scope.row.spec,5 | filterTxt}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column label="产地">
                     <template scope="scope">
-                        <span>{{scope.row.location}}</span>
+                        <span>{{scope.row.location,5 | filterTxt}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column label="数量">

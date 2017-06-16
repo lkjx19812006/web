@@ -82,6 +82,9 @@
                 width: 100px;
                 margin: 0 10px;
             }
+            .radio_input_wrap {
+                margin-bottom: 20px;
+            }
         }
         .check_box_wrap {
             display: flex;
@@ -93,13 +96,21 @@
             }
         }
     }
+    .price_radio {
+        height: 220px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        .radio_inupt_wrap {
+            padding-left: 23px;
+        }
+    }
 }
 </style>
 <template>
     <div class="offer offerNeedNew">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="产品" prop="breedName">
-                <search v-model="ruleForm.breedName" style="width: 380px;" placeholder="请输入您需要的产品名称" v-on:fetch-suggestions="querySearchAsync" v-on:select="handleSelect"></search>
+                <mySelect v-model="ruleForm.breedName" style="width: 380px;" placeholder="请输入您需要的产品名称" v-on:fetch-suggestions="querySearchAsync" v-on:select="handleSelect"></mySelect>
             </el-form-item>
             <el-form-item label="规格" prop="spec">
                 <el-select v-model="ruleForm.spec" placeholder="请选择规格">
@@ -134,45 +145,50 @@
             <el-form-item label="交货地" prop="address">
                 <el-cascader style="width: 380px;" v-model="ruleForm.address" placeholder="请输入城市" :options="citys" filterable></el-cascader>
             </el-form-item>
-            <el-form-item label="付款方式">
-                <el-radio-group @change="radioChange" v-model="payment">
-                    <template>
-                        <div class="radio_item_wrap">
-                            <el-radio :label="0">
-                                <template>
-                                    <span>合同签订后，预付定金</span>
-                                    <input :disabled="payment != 0" type="number" v-model.number="frontMoney">
-                                    <span>%</span>
-                                </template>
-                            </el-radio>
-                        </div>
-                        <div class="radio_item_wrap">
-                            <el-radio :label="1">
-                                <template>
-                                    <span>验收合格后，立即付款</span>
-                                </template>
-                            </el-radio>
-                        </div>
-                        <div class="radio_item_wrap">
-                            <el-radio :label="2">
-                                <template>
-                                    <span>验收合格后</span>
-                                    <input :disabled="payment != 2" type="number" v-model.number="frontDate">
-                                    <span>天内付款</span>
-                                </template>
-                            </el-radio>
-                        </div>
-                        <div class="radio_item_wrap">
-                            <el-radio :label="3">
-                                <template>
-                                    <span style="margin-right: 10px;">其他</span>
-                                    <el-input :disabled="payment != 3" style="width: 318px;" :placeholder="placeholderOtherStr" v-model="otherStr"></el-input>
-                                </template>
-                            </el-radio>
-                        </div>
-                    </template>
-                </el-radio-group>
-            </el-form-item>
+            <div class="price_radio">
+                <el-form-item label="付款方式">
+                    <el-radio-group @change="radioChange" v-model="payment">
+                        <template>
+                            <div class="radio_item_wrap">
+                                <el-radio :label="0">
+                                    <template>
+                                        <span>合同签订后，预付定金</span>
+                                        <input :disabled="payment != 0" type="number" v-model.number="frontMoney">
+                                        <span>%</span>
+                                    </template>
+                                </el-radio>
+                            </div>
+                            <div class="radio_item_wrap">
+                                <el-radio :label="1">
+                                    <template>
+                                        <span>验收合格后，立即付款</span>
+                                    </template>
+                                </el-radio>
+                            </div>
+                            <div class="radio_item_wrap">
+                                <el-radio :label="2">
+                                    <template>
+                                        <span>验收合格后，</span>
+                                        <input :disabled="payment != 2" type="number" v-model.number="frontDate">
+                                        <span>天内付款</span>
+                                    </template>
+                                </el-radio>
+                            </div>
+                            <div class="radio_item_wrap">
+                                <el-radio :label="3">
+                                    <template>
+                                        <span style="margin-right: 10px;">其他</span>
+                                    </template>
+                                </el-radio>
+                                <div class="radio_inupt_wrap">
+                                    <el-input :disabled="payment != 3" style="width: 355px;" :placeholder="placeholderOtherStr" v-model="otherStr"></el-input>
+                                </div>
+                            </div>
+                        </template>
+                    </el-radio-group>
+                </el-form-item>
+
+            </div>
             <el-form-item label="截止时间">
                 <el-radio-group @change="radioDate" v-model="ruleForm.duedate">
                     <template>
@@ -200,7 +216,7 @@
                         </div>
                     </template>
                 </el-checkbox-group>
-                <el-input type="textarea" :rows="4" :placeholder="otherdescription" v-model="otherdes">
+                <el-input v-on:change="changeText" type="textarea" :rows="4" :placeholder="otherdescription" v-model="otherdes">
                 </el-input>
             </el-form-item>
             <!--   <el-form-item label="姓名" prop="customerName">
@@ -223,7 +239,7 @@ import common from '../../common/httpService.js'
 import imgUpload from './imgUploade.vue'
 import breed from './breed.vue'
 import msg from '../msg.vue'
-import search from '../../components/search.vue'
+import mySelect from '../../components/select.vue'
 let qualitys = [{
     label: '符合药典',
     value: '符合药典'
@@ -231,8 +247,8 @@ let qualitys = [{
     label: '硫不超标',
     value: '硫不超标'
 }, {
-    label: '无蛀虫',
-    value: '无蛀虫'
+    label: '无虫蛀',
+    value: '无虫蛀'
 }, {
     label: '无霉',
     value: '无霉'
@@ -256,11 +272,11 @@ let des = [{
     label: '时间紧',
     value: '时间紧'
 }, {
-    label: '价格合适，立即合作',
-    value: '价格合适，立即合作'
+    label: '价格适合，立即合作',
+    value: '价格适合，立即合作'
 }, {
-    label: '现款无帐期',
-    value: '现款无帐期'
+    label: '现款无账期',
+    value: '现款无账期'
 }, {
     label: '常年有需求，可建立稳固渠道',
     value: '常年有需求，可建立稳固渠道'
@@ -377,7 +393,7 @@ export default {
             imgUpload,
             breed,
             msg,
-            search
+            mySelect
         },
         created() {
             this.getUnit();
@@ -398,6 +414,15 @@ export default {
 
         },
         methods: {
+            //文本域发生变化 修改值
+            changeText(val) {
+                let arr = val.split(',');
+                if (arr.length === 1 && arr[0] === '') {
+                    this.ruleForm.description = []
+                } else {
+                    this.ruleForm.description = arr
+                }
+            },
             //付款方式
             radioChange(val) {
                 switch (val) {
@@ -469,7 +494,7 @@ export default {
                         if (this.frontDate <= 0) {
                             msg = '付款期限不能少于0';
                         }
-                        this.paymentWay = '验收合格后' + this.frontDate + '天内付款';
+                        this.paymentWay = '验收合格后，' + this.frontDate + '天内付款';
 
                         break;
                     case 3:
@@ -501,10 +526,10 @@ export default {
                 // };
                 let Reg0 = /^\u5408\u540c\u7b7e\u8ba2\u540e\uff0c\u9884\u4ed8\u5b9a\u91d1[1-9]\d*.\d*|0.\d*[1-9]\d*%$/;
                 let Reg1 = /^\u9a8c\u6536\u5408\u683c\u540e\uff0c\u7acb\u5373\u4ed8\u6b3e$/;
-                let Reg2 = /^\u9a8c\u6536\u5408\u683c\u540e[1-9]\d*\u5929\u5185\u4ed8\u6b3e$/;
+                let Reg2 = /^\u9a8c\u6536\u5408\u683c\u540e\uff0c[1-9]\d*\u5929\u5185\u4ed8\u6b3e$/;
                 // 合同签订后，预付定金  % 0
                 // 验收合格后，立即付款    1
-                // 验收合格后 ? 天内付款   2
+                // 验收合格后，? 天内付款   2
                 // 其他                    3
                 if (Reg0.test(paymentWay)) {
                     //处理第一种方式
@@ -524,7 +549,7 @@ export default {
                         _self.frontMoney = paymentWay.substring(10, paymentWay.length - 1);
                         break;
                     case 2:
-                        _self.frontDate = paymentWay.substring(5, paymentWay.length - 4);
+                        _self.frontDate = paymentWay.substring(6, paymentWay.length - 4);
                         break;
                     case 3:
                         _self.otherStr = paymentWay;
@@ -734,6 +759,7 @@ export default {
                         let src = suc.biz_result.list;
                         for (var i = 0; i < src.length; i++) {
                             let obj = src[i];
+                            obj.label = obj.keyWord + '（' + obj.breedName + '）';
                             obj.value = obj.breedName;
                             cb(suc.biz_result.list);
                         };

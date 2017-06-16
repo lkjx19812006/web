@@ -53,6 +53,7 @@ a {
                     .big_img {
                         min-height: 150px;
                         width: 100%;
+                        cursor: pointer;
                     }
                     .icon {
                         position: absolute;

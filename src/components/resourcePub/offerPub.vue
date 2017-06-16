@@ -108,7 +108,7 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="产品" prop="breedName">
                 <!-- <breed v-model="ruleForm.breedName" v-on:getBreedId="getBreedId"></breed> -->
-                <search v-model="ruleForm.breedName" style="width: 380px;" placeholder="请输入您需要的产品名称" v-on:fetch-suggestions="querySearchAsync" v-on:select="handleSelect"></search>
+                <mySelect v-model="ruleForm.breedName" style="width: 380px;" placeholder="请输入您需要的产品名称" v-on:fetch-suggestions="querySearchAsync" v-on:select="handleSelect"></mySelect>
             </el-form-item>
             <el-form-item label="规格" prop="spec">
                 <!-- <el-autocomplete style="width: 380px;" class="inline-input" v-model="ruleForm.spec" :fetch-suggestions="querySearchSpec" placeholder="请输入内容"></el-autocomplete> -->
@@ -218,7 +218,7 @@ import common from '../../common/httpService.js'
 import imgUpload from '../publish/imgUploade.vue'
 import breed from '../publish/breed.vue'
 import msg from '../msg.vue'
-import search from '../../components/search.vue'
+import mySelect from '../../components/select.vue'
 export default {
     data() {
             function validateAddress(rule, value, callback) {
@@ -339,7 +339,7 @@ export default {
             imgUpload,
             breed,
             msg,
-            search
+            mySelect
         },
         created() {
             this.getUnit();

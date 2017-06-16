@@ -46,6 +46,7 @@
                 .big_img {
                     min-height: 230px;
                     width: 100%;
+                    cursor: pointer;
                 }
                 .icon {
                     flex: 0;

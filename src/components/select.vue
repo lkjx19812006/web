@@ -87,12 +87,14 @@ export default {
     data() {
         return {
             showList: false,
+            isClick: false,
             val: '',
             list: []
         }
     },
     methods: {
         searchChange(params) {
+            this.isClick = false;
             this.$emit('input', params);
             this.$emit('fetch-suggestions', params, this.callback);
         },
@@ -100,6 +102,7 @@ export default {
             this.list = params;
         },
         inputValue(val) {
+            this.isClick = true;
             console.log(val);
             this.$emit('input', val.value);
             this.$emit('select', val);
@@ -108,8 +111,11 @@ export default {
         hide() {
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
+                if (!this.isClick) {
+                    this.$emit('input', '');
+                }
                 this.showList = false;
-            }, 300);
+            }, 200);
         },
         show() {
             this.showList = true;

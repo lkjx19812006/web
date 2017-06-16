@@ -11,8 +11,8 @@
             width: 732px;
             padding-top: 60px;
             padding-bottom: 22px;
-            text-align: center;
-            img {               
+            text-align: center;            
+            img {
                 border: 0 none;
                 margin: 0 auto;
             }
@@ -140,7 +140,7 @@
                             <template scope="scope">
                                 <div class="content_item">
                                     <div class="icon_wrap" @click="linkToBreed(item.name)">
-                                        <img :src="item.icon">
+                                        <img style="cursor: pointer;" :src="item.icon">
                                         <div class="txt_wrap">
                                             <h2>{{item.name}}</h2>
                                             <p class="english_text">英文名&nbsp;{{item.eName}}</p>

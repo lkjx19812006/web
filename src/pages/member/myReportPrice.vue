@@ -122,14 +122,20 @@
                 <el-table :data="myList" border style="width: 100%">
                     <el-table-column label="报价时间" width="120">
                         <template scope="scope">
-                            <span>{{scope.row.pubdate | formatBirth}}</span>
+                            <span>{{scope.row.otime | formatBirth}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="breedName" label="品名" width="110">
+                    <el-table-column prop="breedName" label="品名" width="100">
                     </el-table-column>
-                    <el-table-column prop="spec" label="规格" width="90">
+                    <el-table-column prop="spec" label="规格" width="100">
+                        <template scope="scope">
+                            <span>{{scope.row.spec, 4 | filterTxt}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="location" label="产地" width="90">
+                        <template scope="scope">
+                            <span>{{scope.row.location, 4 | filterTxt}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="number" label="数量" width="100">
                         <template scope="scope">
@@ -154,22 +160,22 @@
                             <span class='orange' @click="jumpDetail(scope.row)">详情</span>
                             <!-- 待处理 -->
                             <span class="gray" v-if="scope.row.accept == 0">联系专属客服</span>
-                            <!-- 未采用 -->                           
-                            <span class='green again' v-if="scope.row.accept == 2" v-on:mouseenter="scope.row.showEWM = true" v-on:mouseleave="scope.row.showEWM = false">
+                            <!-- 未采用 -->
+                            <span class='green again' v-if="scope.row.accept == 2 ||scope.row.accept == 3" v-on:mouseenter="scope.row.showEWM = true" v-on:mouseleave="scope.row.showEWM = false">
                                 扫码再次报价
                                 <div class="erm_wrap_content" v-show="scope.row.showEWM">
                                     <qrcode type="image" level="H" :size="100" :value="getEWMUrl(scope.row)"></qrcode>
                                 </div>
-                            </span>                         
-                            <span class='green' v-on:mouseenter="scope.row.showtips = true" v-on:mouseleave="scope.row.showtips = false" @click="jumpDetail(scope.row)" v-if="scope.row.accept == 1 || scope.row.accept == 3">
+                            </span>
+                            <span class='green' v-on:mouseenter="scope.row.showtips = true" v-on:mouseleave="scope.row.showtips = false" @click="jumpDetail(scope.row)" v-if="scope.row.accept == 1">
                                 联系专属客服
                                 <div class="employ" v-show="scope.row.showtips && scope.row.employeeName && scope.row.employeeMobil">
                                     {{scope.row.employeeName + ' ' + scope.row.employeeMobil}}
                                     <span class="el-icon-caret-bottom"></span>
-                                </div>
-                            </span>
-                        </template>
-                     </el-table-column>
+        </div>
+        </span>
+        </template>
+        </el-table-column>
         </el-table>
         <div class="block">
             <el-pagination layout="prev, pager, next" :total="totalNum" :page-size="10" @current-change="handleCurrentChange">
@@ -263,7 +269,7 @@ export default {
         this.getHttp();
     },
     methods: {
-        showTips(index) {          
+        showTips(index) {
             this.myList[index].showtips = true;
         },
         getEWMUrl(row) {

@@ -113,7 +113,7 @@
             <div class="detail_left">
                 <div class="title_name">
                     <span class="hName">{{detailObj.breedName}}</span>
-                    <span class="number">(&nbsp;{{detailObj.number}}&nbsp;)</span>
+                    <span class="number">(&nbsp;{{detailObj.number + '  '+ detailObj.unit}}&nbsp;)</span>
                 </div>
                 <div class="spec_wrap">
                     <span class="detail_tit">规格：</span>

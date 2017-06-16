@@ -38,6 +38,7 @@ a {
                     img {
                         width: 100%;
                         min-height: 150px;
+                        cursor: pointer;
                     }
                 }
                 .name {

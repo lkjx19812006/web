@@ -169,7 +169,7 @@
                     </div>
                     <div class="location">
                         <span class="detail_tit">产地：</span>
-                        <span class="detail_info">{{item.spec}}</span>
+                        <span class="detail_info">{{item.location}}</span>
                     </div>
                     <div class="price">
                         <span class="detail_tit">价格：</span>
@@ -203,14 +203,14 @@
                 <div class="btn_wrap">
                     <div class="contact_info" v-show="showConcate === index">
                         <!-- {{item.employeeName}} -->
-                        <span class="name">测试姓名：</span>
+                        <span class="name">{{item.employeeName}}</span>
                         <!-- {{item.employeeMobil}} -->
-                        <span class="phone">18686868686</span>
+                        <span class="phone">{{item.employeeMobil}}</span>
                     </div>
-                    <div class="btn_cont" v-if="item.accept != 0 && item.accept != 2 " v-on:mouseenter="showConcate = index" v-on:mouseleave="showConcate = -1">
+                    <div class="btn_cont" v-if="item.accept != 0 && item.accept != 2 &&  item.accept != 3" v-on:mouseenter="showConcate = index" v-on:mouseleave="showConcate = -1">
                         联系专属交易员
                     </div>                
-                    <div class="erm_wrap_content" v-if="item.accept == 2">
+                    <div class="erm_wrap_content" v-if="item.accept == 2 || item.accept === 3 ">
                         <qrcode type="image"  level="H" :size="100" :value="getEWMUrl(item)"></qrcode>
                         <span>扫码再次报价</span>
                     </div>

@@ -104,7 +104,7 @@
                         <el-dropdown-item command="2">由多到少</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
-                <el-dropdown @command="timeCommand" class="left_select_detail" v-if="false">
+                <el-dropdown @command="timeCommand" class="left_select_detail">
                     <div class="command_wrap">
                         <p>{{time}}</p>
                         <img src="../../assets/images/sort_gray.png" v-show="time==='剩余时间'">

@@ -78,6 +78,12 @@ body {
                                 font-size: 16px;
                                 color: #666666;
                                 line-height: 36px;
+                                .htit {
+                                    flex: 0 0 auto;
+                                }
+                                .info {
+                                    flex: 1;
+                                }
                             }
                         }
                     }
