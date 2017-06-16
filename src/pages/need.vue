@@ -213,7 +213,7 @@ body {
                     <div class="need_detail_center">
                         <div class="date_icon_wrap">
                             <img src="../static/icon/dateIcon.png" height="22" width="22">
-                            <span>剩余{{item.duedate | timeDateNum}}天</span>
+                            <span>剩余{{item.duedate | timeDateNum}}天</span>                            
                         </div>
                         <div class="date_txt_wrap">
                             <span>上架时间：</span>

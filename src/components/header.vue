@@ -186,6 +186,7 @@
             display: inline-block;
             padding: 5px 10px;
             color: #F98435;
+
         }
     }
 }
@@ -226,7 +227,7 @@
             </div>
         </div>
         <div class="head_logo">
-            <img src="../assets/images/logo.png" class=" flext_item left_image">
+            <img style="cursor: pointer;" @click="linkIndex" src="../assets/images/logo.png" class=" flext_item left_image">
             <img src="../assets/images/head-Interval-line.png" class="flext_item center_image" v-if="title">
             <div class="flext_item right_font" v-if="title">
                 {{title}}
@@ -404,6 +405,9 @@ export default {
         mySearch
     },
     methods: {
+        linkIndex(){
+            this.$router.push('/');
+        },
         searchId(index) {
             let _self = this;
             let anchor = document.getElementById("a" + index)

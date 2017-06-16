@@ -613,9 +613,9 @@ export default {
                     });
                     return;
                 }
-                if (duedate > 180) {
+                if (duedate > 30) {
                     this.$message({
-                        message: '有效期限不能超过180天',
+                        message: '有效期限不能超过30天',
                         type: 'warning'
                     });
                     return;

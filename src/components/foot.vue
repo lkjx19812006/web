@@ -99,10 +99,10 @@ export default {
             // }
             //var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
             // document.body.scrollTop = 0;  
+            this.$router.push(path);
             if (document.documentElement.scrollTop) document.documentElement.scrollTop = 0;
             if (window.pageYOffset) window.pageYOffset = 0;
             if (document.body.scrollTop) document.body.scrollTop = 0;
-            this.$router.push(path);
         }
     }
 }

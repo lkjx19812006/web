@@ -31,7 +31,7 @@
                     flex: 1;
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
+                    justify-content: space-around;
                 }
                 .right_wrap {
                     width: 568px;
@@ -147,14 +147,14 @@
                             <span class="tit">邮箱：</span>
                             <span class="cont color">SERVICE@YAOCAIMAIMAI.COM</span>
                         </div>
-                        <div class="detail_wrap">
+                       <!--  <div class="detail_wrap">
                             <span class="tit">企业QQ：</span>
                             <span class="cont">123456789</span>
                         </div>
                         <div class="detail_wrap">
                             <span class="tit">企业微信：</span>
                             <span class="cont color">YAOCAIMAIMAI</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="right_wrap">
                         <img src="../../../static/icon/contact2.png" height="258" width="556">

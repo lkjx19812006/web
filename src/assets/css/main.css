@@ -3,7 +3,7 @@ body {
     background-color: #fff;
     color: #000;
     letter-spacing: 0.5px;
-    font-family: "微软雅黑", "Source Sans Pro", Arial, sans-serif;
+    font-family: "微软雅黑", 'Arial', "Source Sans Pro", 'sans-serif' !important;
     margin: 0;
     overflow: auto !important;
 }
@@ -29,10 +29,12 @@ pre {
     white-space: pre-wrap!important;
     margin: 1em 0px 1em;
 }
+
 pre span {
-    white-space : pre-wrap!important;
+    white-space: pre-wrap!important;
     width: 783px !important;
 }
+
 a,
 a:hover,
 a:focus,
