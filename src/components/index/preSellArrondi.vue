@@ -160,13 +160,14 @@
                         <div v-for="(subItem,index) in item" :key="index" :class="[index%3==1 ? 'marginClass' : '', 'good_detail']">
                             <div class="content">
                                 <div class="img_content">
-                                    <img class="big_img" :src="subItem.image[0]" v-on:click="offer(subItem.id)" v-if='subItem.restNumber > 0'>
+                                    <img class="big_img" style="cursor: pointer" :src="subItem.image[0]" v-on:click="offer(subItem.id)" v-if='subItem.restNumber > 0'>
                                     <img class="big_img" :src="subItem.image[0]" v-if='subItem.restNumber <= 0'>
                                     <img class="icon" :src="subItem.cFlagsPath" v-if="subItem.cFlagsPath">
                                     <div class='black' v-show='subItem.restNumber <= 0'></div>
                                     <img src="../../static/icon/sale.png" class="sale" v-show='subItem.restNumber <= 0'>
                                 </div>
-                                <div class="name">{{subItem.breedName}}</div>
+                                <div class="name" style="cursor: pointer" v-if='subItem.restNumber > 0' v-on:click="offer(subItem.id)">{{subItem.breedName}}</div>
+                                <div class="name" style="cursor: default" v-if='subItem.restNumber <= 0'>{{subItem.breedName}}</div>
                                 <div class="detail">
                                     <div class='left'>规格：{{subItem.spec}}</div>
                                     <div class='right'>剩余数量：<span style="color: #F98435; font-size: 18px;">{{subItem.restNumber}}{{subItem.unit}}</span></div>
@@ -197,7 +198,7 @@
                             <div class="detail_button">
                                 <div class="price">￥<span>{{subItem.price}}&nbsp;元</span>/{{subItem.unit}}</div>
                                 <el-button size="small" class="green_button" type="primary" v-on:click="offer(subItem.id)" v-if='subItem.restNumber > 0'>立即抢购</el-button>
-                                <el-button size="small" class="green_button" type="primary" v-if='subItem.restNumber <= 0'>立即抢购</el-button>
+                                <el-button size="small" class="green_button" style="cursor: default" type="primary" v-if='subItem.restNumber <= 0'>立即抢购</el-button>
                             </div>
                         </div>
                     </div>

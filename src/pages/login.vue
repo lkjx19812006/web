@@ -1,14 +1,14 @@
 <style scoped>
 .substance {
-    height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 .content {
-    background: url('../assets/images/login-bg.png') no-repeat center !important;
+    background: url('../../static/icon/login.png') no-repeat center !important;
     background-size: 100% 100%;
     flex: 1 0 auto;
+    height: 820px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,16 +21,24 @@
 }
 
 .content .center .left_image {
-    width: 40%;
+    flex: 0 0 auto;
+    width: 546px;
+    height: 460px;
     /* padding-left: 10%; */
     float: left;
 }
 
 .content .center .left_image img {
-    max-width: 90%;
-    margin-right: 10%;
+    width: 100%;
+    height: 100%;
 }
-
+.content .center .right_form {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 100px;
+}
 .content .center .right_form .form {
     background-color: #fff;
     border: 1px solid #eee;
@@ -48,21 +56,25 @@
     height: 60px;
     line-height: 45px;
 }
+
 .autos {
-    display:flex;
+    display: flex;
     flex-direction: row;
 }
+
 .autos .forget {
-    flex:1;
+    flex: 1;
     text-align: right;
     font-size: 14px;
     padding-right: 30px;
     color: #48576a;
     cursor: pointer;
 }
-.autos #left{
+
+.autos #left {
     text-align: left;
 }
+
 .autos .forget:hover {
     color: #FA8435;
 }
@@ -101,7 +113,7 @@
                                 <div class="autos">
                                     <!-- <div id="left" class="forget" @click="selectAuto">自动登陆</div> -->
                                     <div class="forget" @click="linkToForget">忘记密码？</div>
-                                </div>     
+                                </div>
                             </el-form-item>
                             <el-form-item>
                                 <div class="submit_button">
@@ -159,7 +171,7 @@ export default {
                 this.submitForm('ruleForm');
             }
         },
-        selectAuto(){
+        selectAuto() {
 
         },
         submitForm(formName) {
@@ -204,13 +216,13 @@ export default {
                                 });
                             }
                         );
-                        let srcUrl =_self.$store.state.user.srcUrl
-                        if(srcUrl){
+                        let srcUrl = _self.$store.state.user.srcUrl
+                        if (srcUrl) {
                             _self.$router.push(srcUrl);
-                        }else {
+                        } else {
                             _self.$router.push('/');
                         }
-                        
+
 
                     }, (err) => {
                         _self.fullscreenLoading = false;

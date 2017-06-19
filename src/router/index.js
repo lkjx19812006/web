@@ -193,9 +193,10 @@ var router = new vueRouter({
     linkActiveClass: "myactive",
     routes: routes
 });
-// router.afterEach(route => {
-//   // ...
-// })
+//百度统计pv
+router.afterEach(route => {
+    _hmt.push(['_trackPageview', route.path]);
+});
 // router.beforeEach((to, from, next) => {
 //   // ...
 //   console.log(to, from);

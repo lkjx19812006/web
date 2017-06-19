@@ -123,7 +123,8 @@ a {
                                     <div class='black' v-show='subItem.restNumber <= 0'></div>
                                     <img src="../../static/icon/sale.png" class="sale" v-show='subItem.restNumber <= 0'>
                                 </div>
-                                <div class="name">{{subItem.breedName}}</div>
+                                <div class="name" style="cursor: pointer" v-if='subItem.restNumber > 0'  @click="jump(subItem.id)">{{subItem.breedName}}</div>
+                                <div class="name" style="cursor: default" v-if='subItem.restNumber <= 0'>{{subItem.breedName}}</div>
                                 <div class="detail">
                                     <div>规格：{{subItem.spec, 8 | filterTxt}}</div>
                                     <div>产地：{{subItem.location, 8 | filterTxt}}</div>
@@ -132,7 +133,7 @@ a {
                             <div class="detail_button">
                                 <div class="price">￥<span>{{subItem.price + '元/' + subItem.unit , 10 | filterTxt}}</span></div>
                                 <el-button size="small" class="green_button" type="primary" @click="jump(subItem.id)" v-show='subItem.restNumber > 0'>立即抢购</el-button>
-                                <el-button size="small" class="green_button" type="primary" v-show='subItem.restNumber <= 0'>立即抢购</el-button>
+                                <el-button size="small" class="green_button" style="cursor: default;" type="primary" v-show='subItem.restNumber <= 0'>立即抢购</el-button>
                             </div>
                         </div>
                     </div>
