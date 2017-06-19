@@ -25,7 +25,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       colors: true,
       modules: false,
       children: false,
-      chunks: false,
+      chunks: true,
       chunkModules: false
     }) + '\n\n')
 

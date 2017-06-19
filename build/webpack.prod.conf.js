@@ -42,19 +42,23 @@ var webpackConfig = merge(baseWebpackConfig, {
         new ExtractTextPlugin({
             filename: utils.assetsPath('css/[name].[contenthash].css')
         }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require(config.build.assetsRoot + '/manifest.json')
+        }),
         // Compress extracted CSS. We are using this plugin so that possible
         // duplicated CSS from different components can be deduped.
-        new OptimizeCSSPlugin({
-            cssProcessorOptions: {
-                safe: true
-            }
-        }),
+        // new OptimizeCSSPlugin({
+        //     cssProcessorOptions: {
+        //         safe: true
+        //     }
+        // }),
         // generate dist index.html with correct asset hash for caching.
         // you can customize output by editing /index.html
         // see https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
             filename: config.build.index,
-            template: 'index.html',
+            template: 'index.prod.html',
             inject: true,
             minify: {
                 removeComments: true,
@@ -67,7 +71,7 @@ var webpackConfig = merge(baseWebpackConfig, {
             chunksSortMode: 'dependency'
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendors'], //将公共模块提出
+            name: ['app'], //将公共模块提出
             minChunks: Infinity //提取所有entry 共同依赖的模块
         }),
         // copy custom static assets
@@ -80,28 +84,27 @@ var webpackConfig = merge(baseWebpackConfig, {
 })
 
 // 这里是启用代码压缩的程序
-// if (config.build.productionGzip) {
-//     var CompressionWebpackPlugin = require('compression-webpack-plugin')
+if (config.build.productionGzip) {
+    var CompressionWebpackPlugin = require('compression-webpack-plugin')
 
-//     webpackConfig.plugins.push(
-//         new CompressionWebpackPlugin({
-//             asset: '[path].gz[query]',
-//             algorithm: 'gzip',
-//             test: new RegExp(
-//                 '\\.(' +
-//                 config.build.productionGzipExtensions.join('|') +
-//                 ')$'
-//             ),
-//             threshold: 10240,
-//             minRatio: 1000,
-//             maxRatio: 0.6
-//         })
-//     )
-// }
+    webpackConfig.plugins.push(
+        new CompressionWebpackPlugin({
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: new RegExp(
+                '\\.(' +
+                config.build.productionGzipExtensions.join('|') +
+                ')$'
+            ),
+            threshold: 10240,
+            minRatio: 0.8
+        })
+    )
+}
 
-// if (config.build.bundleAnalyzerReport) {
-//     var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-//     webpackConfig.plugins.push(new BundleAnalyzerPlugin())
-// }
+if (config.build.bundleAnalyzerReport) {
+    var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+    webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+}
 
 module.exports = webpackConfig

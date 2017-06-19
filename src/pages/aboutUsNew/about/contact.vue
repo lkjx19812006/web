@@ -81,7 +81,7 @@
                 }
             }
             .addres_wrap:hover {
-                cursor: pointer;
+                // cursor: pointer;
                 span {
                     box-shadow: 6px 6px 10px rgba(4, 0, 0, .6);
                 }
@@ -136,7 +136,7 @@
                             <span class="cont">021-55502736</span>
                         </div>
                         <div class="detail_wrap">
-                            <span class="tit">邮箱：</span>
+                            <span class="tit">邮编：</span>
                             <span class="cont">200437</span>
                         </div>
                         <div class="detail_wrap">

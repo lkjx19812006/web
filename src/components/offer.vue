@@ -178,12 +178,12 @@
                 <el-input type="textarea" :rows="4" placeholder="请根据实际情况填写药材卖点，如药典标准，药材品质等" v-model="ruleForm.quality">
                 </el-input>
             </el-form-item>
-            <el-form-item label="姓名" prop="offerName">
+           <!--  <el-form-item label="姓名" prop="offerName">
                 <el-input v-model="ruleForm.offerName" :placeholder="user.fullname"></el-input>
             </el-form-item>
             <el-form-item label="联系方式" prop="offerMobile">
                 <el-input v-model="ruleForm.offerMobile" :placeholder="user.phone"></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
                 <el-button type="primary" size="large" class="orange_button" @click="offer('ruleForm')">提交</el-button>
             </el-form-item>

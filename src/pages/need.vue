@@ -193,20 +193,20 @@ body {
                         <div class="detail">
                             <div class="detail_item">
                                 <span class="htit">付款方式：</span>
-                                <span class="info">{{item.paymentWay, 32 | filterTxt}}</span>
+                                <span class="info">{{item.paymentWay, 28 | filterTxt}}</span>
                             </div>
                             <div class="detail_item">
                                 <span class="htit">交货地点：</span>
-                                <span class="info">{{item.address, 32 | filterTxt}}</span>
+                                <span class="info">{{item.address, 28 | filterTxt}}</span>
                             </div>
                             <div class="detail_item">
                                 <span class="htit">质量要求：</span>
-                                <span class="info">{{item.quality,35 | filterTxt}}</span>
+                                <span class="info">{{item.quality,28 | filterTxt}}</span>
                             </div>
                             <div class="detail_item">
                                 <span class="htit" v-if="item.indentType === 0">药厂备注：</span>
                                 <span class="htit" v-if="item.indentType != 0">备注信息：</span>
-                                <span class="info">{{item.description, 32 | filterTxt}}</span>
+                                <span class="info">{{item.description, 28 | filterTxt}}</span>
                             </div>
                         </div>
                     </div>

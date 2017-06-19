@@ -119,6 +119,9 @@
                 border-radius: 0;
                 height: 40px;
             }
+            .normal {
+                cursor: default;
+            }
         }
     }
 }
@@ -135,7 +138,7 @@
                         <img src="../../static/icon/sale.png" class="sale" v-show='subItem.restNumber <= 0'>
                     </div>
                     <div class="name" v-if='subItem.restNumber > 0' @click="jump(subItem.id)"> {{subItem.breedName}}</div>
-                    <div class="name" v-if='subItem.restNumber <= 0'>{{subItem.breedName}}</div>
+                    <div class="name" style="cursor: default;" v-if='subItem.restNumber <= 0'>{{subItem.breedName}}</div>
                     <div class="detail">
                         <div>规格：{{subItem.spec, 12 | filterTxt}}</div>
                         <div>剩余数量：<span class="orange_span">{{subItem.restNumber+subItem.unit, 8 | filterTxt}}</span></div>
@@ -166,7 +169,7 @@
                 <div class="detail_button">
                     <div class="price orange_span">￥<span>{{subItem.price}}&nbsp;元/{{subItem.unit}}</span></div>
                     <el-button size="small" class="orange_button" type="primary" @click="jump(subItem.id)" v-show='subItem.restNumber > 0'>立即抢购</el-button>
-                    <el-button size="small" class="orange_button" type="primary" v-show='subItem.restNumber <= 0'>立即抢购</el-button>
+                    <el-button size="small" class="orange_button normal" type="primary" v-show='subItem.restNumber <= 0'>立即抢购</el-button>
                 </div>
                 <!-- <div class='black' v-show='subItem.restNumber <= 0'></div> -->
             </div>

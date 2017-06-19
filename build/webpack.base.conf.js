@@ -9,9 +9,8 @@ function resolve(dir) {
 }
 
 module.exports = {
-    entry: {        
-        app: './src/main.js',
-        vendors: ['vue', 'vuex', 'vue-router', 'axios'],
+    entry: {
+        app: './src/main.js'
     },
     output: {
         path: config.build.assetsRoot,
@@ -20,11 +19,15 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
+        modules: [
+            resolve('src'),
+            resolve('node_modules')
+        ],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js',
-            '@': resolve('src'),
-            //这里主要是相当于 requirejs中的 给模块取别名 组件中就直接 require(qrious) 就可以正常使用 CMD 或者 AMD 规范的文件
-            // 'qrious': resolve('static/js/qrious.min.js')
+            'vue$': 'vue/dist/vue.common.js',
+            'src': resolve('src'),
+            'assets': resolve('src/assets'),
+            'components': resolve('src/components')
         }
     },
     // 此项配置可以将某些库设置为外部引用，内部不会打包合并进去。
@@ -58,6 +61,7 @@ module.exports = {
     },
     // 挂载全局插件
     plugins: [
+
         // new webpack.ProvidePlugin({
         //     Qrious: 'qrious'
         // }),

@@ -637,3 +637,8 @@ textarea:focus {
 .my_report_price .el-table {
     overflow: visible;
 }
+
+.price_radio .el-textarea.is-disabled .el-textarea__inner {
+    background-color: rgb(235, 235, 228);
+    border-color: #DBDBDB;
+}

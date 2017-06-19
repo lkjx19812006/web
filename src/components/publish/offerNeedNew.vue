@@ -97,11 +97,11 @@
         }
     }
     .price_radio {
-        height: 220px;
+        height: 260px;
         margin-bottom: 20px;
         overflow: hidden;
         .radio_inupt_wrap {
-            padding-left: 23px;
+            // padding-left: 23px;
         }
     }
 }
@@ -181,13 +181,12 @@
                                     </template>
                                 </el-radio>
                                 <div class="radio_inupt_wrap">
-                                    <el-input :disabled="payment != 3" style="width: 355px;" :placeholder="placeholderOtherStr" v-model="otherStr"></el-input>
+                                    <el-input type="textarea" :rows="3" :disabled="payment != 3" style="width: 380px;" :placeholder="placeholderOtherStr" v-model="otherStr"></el-input>
                                 </div>
                             </div>
                         </template>
                     </el-radio-group>
                 </el-form-item>
-
             </div>
             <el-form-item label="截止时间">
                 <el-radio-group @change="radioDate" v-model="ruleForm.duedate">
@@ -623,7 +622,13 @@ export default {
                 //处理质量要求
                 quality = this.ruleForm.quality.join(',');
                 //处理描述
-                description = this.otherdes.substring(this.otherdes.length - 1, -1);
+                let Reg = /,$/;
+                if(Reg.test(this.otherdes)){
+                    description = this.otherdes.substring(this.otherdes.length - 1, -1);
+                }else {
+                    description = this.otherdes;
+                }
+                
                 //处理地址
                 address = this.constructor.filter('countAddress')(this.ruleForm.address);
                 //处理付款方式

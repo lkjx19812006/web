@@ -193,6 +193,9 @@ var router = new vueRouter({
     linkActiveClass: "myactive",
     routes: routes
 });
+// router.afterEach(route => {
+//   // ...
+// })
 // router.beforeEach((to, from, next) => {
 //   // ...
 //   console.log(to, from);
