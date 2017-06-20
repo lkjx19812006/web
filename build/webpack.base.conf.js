@@ -10,7 +10,8 @@ function resolve(dir) {
 
 module.exports = {
     entry: {
-        app: './src/main.js'
+        app: './src/main.js',
+        vendors: ['element-ui']
     },
     output: {
         path: config.build.assetsRoot,
@@ -24,7 +25,7 @@ module.exports = {
             resolve('node_modules')
         ],
         alias: {
-            'vue$': 'vue/dist/vue.common.js',
+            'vue$': 'vue/dist/vue.esm.js',
             'src': resolve('src'),
             'assets': resolve('src/assets'),
             'components': resolve('src/components')

@@ -116,8 +116,8 @@ export default {
             let initSize = img.src.length;
             let width = img.width;
             let height = img.height;
-            let w = width / 3;
-            let h = w / 3;
+            let w = '';
+            let h = '';
             let canvas = document.createElement("canvas");
             let ctx = canvas.getContext('2d');
             let ratio;
@@ -128,6 +128,19 @@ export default {
             } else {
                 ratio = 1;
             }
+            if (width * height > 2000000 && (width > 2000 || height > 1000)) { //2000*1000
+                w = imgl.width * ratio;
+                h = imgl.height * ratio;
+            } else if ((width * height > 80000) && (width > 400 || height > 200)) { //400*200
+                w = imgl.width / 2;
+                h = imgl.height / 2;
+            } else if ((width * height > 1500) && (width > 100 || height > 50)) { //100*50
+                w = imgl.width / 4;
+                h = imgl.height / 4;
+            } else {
+                w = imgl.width;
+                h = imgl.height;
+            }
             canvas.width = width;
             canvas.height = height;
             let ww = (width - w) / 2;
@@ -135,7 +148,7 @@ export default {
             ctx.fillStyle = "#fff";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0, width, height);
-            ctx.globalAlpha =0.5;
+            ctx.globalAlpha = 0.5;
             ctx.beginPath();
             ctx.drawImage(imgl, ww, wh, w, h);
             ctx.closePath();

@@ -23,7 +23,7 @@ var httpService = new _vue2.default({
         KEY: '',
         SID: '',
         difTime: 0,
-        h5needUrl: 'http://192.168.1.141/htm5/#/needDetails/', //http://apps.yaocaimaimai.com/htm5/#/needDetail/ http://192.168.1.141/htm5/#/needDetail/
+        h5needUrl: 'http://192.168.1.141/htm5/#/needDetails/', //http://apps.yaocaimaimai.com/htm5/#/needDetails/
         apiUrl: {
             login: '/account/login.do',
             code_login: '/account/verifiLogin.do',

@@ -3,11 +3,10 @@ var path = require("path"),
     webpack = require("webpack");
 
 var vendors = [
-    'vue/dist/vue.common.js',
+    'vue/dist/vue.esm.js',
     'vuex',
     'vue-router',
-    'axios',
-    'element-ui',
+    'axios',    
     'echarts'
     // ...其它库
 ];

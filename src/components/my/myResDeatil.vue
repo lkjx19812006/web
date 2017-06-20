@@ -5,8 +5,17 @@
         flex-direction: row;
         .swiper {
             width: 355px;
-            img {
+            .img_wrap {
                 width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                img {
+                    flex: 1;
+                    width: 100%;
+                }
             }
         }
         .info {
@@ -30,10 +39,24 @@
                 line-height: 17px;
                 color: #5D5D5D;
                 .left {
-                    flex: 31;
+                    display: flex;
+                    flex: 1;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: flex-start;
                 }
                 .right {
-                    flex: 25;
+                    display: flex;
+                    flex: 1;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                }
+                .tit {
+                    flex: 0 1 auto;
+                }
+                .cnt {
+                    flex: 1;
                 }
                 margin-bottom:30px;
                 .content {
@@ -78,8 +101,10 @@
         <div class='detail'>
             <div class="swiper" v-show='!need'>
                 <el-carousel height="280px" indicator-position='none'>
-                    <el-carousel-item v-for="(todo, index) in detailObj.image" :key="index"> 
-                        <img :src="todo">
+                    <el-carousel-item v-for="(todo, index) in detailObj.image" :key="index">
+                        <div class="img_wrap">
+                            <img :src="todo">
+                        </div>
                     </el-carousel-item>
                 </el-carousel>
             </div>
@@ -91,16 +116,34 @@
                     <span v-show="detailObj.onSell == 4">（已下架）</span>
                 </div>
                 <div class='row'>
-                    <div class='left'>发布日期：{{detailObj.pubdate | formatBirth}}</div>
-                    <div class='right'>产品规格：{{detailObj.spec}}</div>
+                    <div class='left'>
+                        <span class="tit">发布日期：</span>
+                        <span class="cnt">{{detailObj.pubdate | formatBirth}}</span>
+                    </div>
+                    <div class='right'>
+                        <span class="tit">产品规格：</span>
+                        <span class="cnt">{{detailObj.spec}}</span>
+                    </div>
                 </div>
                 <div class='row'>
-                    <div class='left'>产品产地：{{detailObj.location}}</div>
-                    <div class='right'>需求数量：{{detailObj.number}}{{detailObj.unit}}</div>
+                    <div class='left'>
+                        <span class="tit">产品产地：</span>
+                        <span class="cnt">{{detailObj.location}}</span>
+                    </div>
+                    <div class='right'>
+                        <span class="tit">需求数量：</span>
+                        <span class="cnt">{{detailObj.number}}{{detailObj.unit}}</span>
+                    </div>
                 </div>
                 <div class='row'>
-                    <div class='left'>报价次数：{{detailObj.offer}}次</div>
-                    <div class='right'>剩余时间：{{detailObj.duedate | timeDays}}</div>
+                    <div class='left'>
+                        <span class="tit">报价次数：</span>
+                        <span class="cnt">{{detailObj.offer}}次</span>
+                    </div>
+                    <div class='right'>
+                        <span class="tit">剩余时间：</span>
+                        <span class="cnt">{{detailObj.duedate | timeDays}}</span>
+                    </div>
                 </div>
                 <div class='row trow'>
                     <div class='name' v-if="type === 0">产品卖点：</div>

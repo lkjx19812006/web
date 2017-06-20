@@ -210,7 +210,7 @@ th {
                     </el-table-column>
                     <el-table-column prop="overTime" label="剩余时间" width="100">duedate
                         <template scope="scope">
-                            <span>{{scope.row.duedate | timeDays}}</span>
+                            <span>{{scope.row.duedate | timeDateNum}}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="求购类型" width="120">
@@ -235,9 +235,9 @@ th {
                                 <qrcode type="image" level="H" :size="100" :value="scope.row.ewmUrl"></qrcode>
                                 <div class="ewm_title">扫码报价</div>
                             </el-popover>
-                            <div class="ewm_wrap">
+                            <div class="ewm_wrap" v-popover:EWMpopover>
                                 <!--   <div class="orange_btn" @click="offer(scope.row.id)">立即报价</div> -->
-                                <div class="img_erw_wrap" v-popover:EWMpopover>
+                                <div class="img_erw_wrap">
                                 </div>
                             </div>
                         </template>

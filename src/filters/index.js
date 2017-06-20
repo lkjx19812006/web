@@ -120,6 +120,9 @@ export function timeDateNum(due) {
     } else {
         days = 0;
     }
+    if (days > 30) {
+        days = 30;
+    }
     return days;
 }
 // 新增 过滤用户生日

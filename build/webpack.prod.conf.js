@@ -48,11 +48,11 @@ var webpackConfig = merge(baseWebpackConfig, {
         }),
         // Compress extracted CSS. We are using this plugin so that possible
         // duplicated CSS from different components can be deduped.
-        // new OptimizeCSSPlugin({
-        //     cssProcessorOptions: {
-        //         safe: true
-        //     }
-        // }),
+        new OptimizeCSSPlugin({
+            cssProcessorOptions: {
+                safe: true
+            }
+        }),
         // generate dist index.html with correct asset hash for caching.
         // you can customize output by editing /index.html
         // see https://github.com/ampedandwired/html-webpack-plugin
@@ -71,7 +71,7 @@ var webpackConfig = merge(baseWebpackConfig, {
             chunksSortMode: 'dependency'
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app'], //将公共模块提出
+            name: ['app', 'vendors'], //将公共模块提出
             minChunks: Infinity //提取所有entry 共同依赖的模块
         }),
         // copy custom static assets
