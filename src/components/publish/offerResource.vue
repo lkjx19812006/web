@@ -183,7 +183,7 @@
                 <el-input type="textarea" :rows="4" placeholder="请根据实际情况填写药材卖点，如药典标准，药材品质等" v-model="ruleForm.quality">
                 </el-input>
             </el-form-item>
-          <!--   <el-form-item label="姓名" prop="customerName">
+            <!--   <el-form-item label="姓名" prop="customerName">
                 <el-input v-model="ruleForm.customerName" :placeholder="user.fullname"></el-input>
             </el-form-item>
             <el-form-item label="联系方式" prop="customerPhone">
@@ -393,8 +393,15 @@ export default {
                 }
             },
             showImgDialog() {
+                if (this.ruleForm.editImage.length >= 5) {
+                    this.$message({
+                        showClose: false,
+                        type: 'warning',
+                        message: '最多可上传5张图片！！！'
+                    });
+                    return;
+                }  
                 this.imgUploadeDialog = true;
-
             },
             closeImgUploade() {
                 this.imgUploadeDialog = false;
