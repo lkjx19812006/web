@@ -193,11 +193,13 @@ body {
                         <div class="detail">
                             <div class="detail_item">
                                 <span class="htit">付款方式：</span>
-                                <span class="info">{{item.paymentWay, 28 | filterTxt}}</span>
+                                <span class="info" v-if="item.paymentWay != ''">{{item.paymentWay, 28 | filterTxt}}</span>
+                                <span class="info" v-else>详情电话联系</span>
                             </div>
                             <div class="detail_item">
                                 <span class="htit">交货地点：</span>
-                                <span class="info">{{item.address, 28 | filterTxt}}</span>
+                                <span class="info" v-if="item.address != ''">{{item.address, 28 | filterTxt}}</span>
+                                <span class="info" v-else>详情电话联系</span>
                             </div>
                             <div class="detail_item">
                                 <span class="htit">质量要求：</span>
@@ -206,7 +208,8 @@ body {
                             <div class="detail_item">
                                 <span class="htit" v-if="item.indentType === 0">药厂备注：</span>
                                 <span class="htit" v-if="item.indentType != 0">备注信息：</span>
-                                <span class="info">{{item.description, 28 | filterTxt}}</span>
+                                <span class="info" v-if="item.description != ''" >{{item.description, 28 | filterTxt}}</span>
+                                <span class="info" v-else>符合药典</span>
                             </div>
                         </div>
                     </div>
