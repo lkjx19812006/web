@@ -110,7 +110,7 @@ const actions = {
 
 // mutations
 const mutations = {
-    getNeedListMutations(state, res) {
+    getNeedListMutations(state, res) {     
         state.needList = res.biz_result;
     },
     getResourceListMutations(state, res) {

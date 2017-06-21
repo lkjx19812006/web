@@ -210,8 +210,8 @@
                     <div class="btn_cont" v-if="item.accept != 0 && item.accept != 2 &&  item.accept != 3" v-on:mouseenter="showConcate = index" v-on:mouseleave="showConcate = -1">
                         联系专属交易员
                     </div>                
-                    <div class="erm_wrap_content" v-if="item.accept == 2 || item.accept === 3 ">
-                        <qrcode type="image"  level="H" :size="100" :value="getEWMUrl(item)"></qrcode>
+                    <div class="erm_wrap_content" v-if="item.accept == 2 || item.accept === 3">
+                        <qrcode type="image"  level="H" :size="106" :value="getEWMUrl(item)"></qrcode>
                         <span>扫码再次报价</span>
                     </div>
                 </div>

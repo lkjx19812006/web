@@ -37,7 +37,7 @@
     ul {
         padding: 5px 0;
         box-shadow: 0 0 5px #ddd;
-        z-index: 99999;
+        z-index: 99;
         position: absolute;
         left: 0;
         top: 40px;

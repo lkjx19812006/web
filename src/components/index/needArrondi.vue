@@ -232,7 +232,7 @@ th {
                     <el-table-column label="操作" width="100">
                         <template scope="scope">
                             <el-popover popper-class="popper_wrap" ref="EWMpopover" placement="right" trigger="hover">
-                                <qrcode type="image" level="H" :size="100" :value="scope.row.ewmUrl"></qrcode>
+                                <qrcode type="image" level="H" :size="106" :value="scope.row.ewmUrl"></qrcode>
                                 <div class="ewm_title">扫码报价</div>
                             </el-popover>
                             <div class="ewm_wrap" v-popover:EWMpopover>

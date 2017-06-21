@@ -142,8 +142,8 @@
                     </template>
                 </el-checkbox-group>
             </el-form-item>
-            <el-form-item label="交货地" prop="address">
-                <el-cascader style="width: 380px;" v-model="ruleForm.address" placeholder="请输入城市" :options="citys" filterable></el-cascader>
+            <el-form-item label="交货地" prop="PCD">
+                <el-cascader style="width: 380px;" v-model="ruleForm.PCD" placeholder="请输入城市" :options="citys"></el-cascader>
             </el-form-item>
             <div class="price_radio">
                 <el-form-item label="付款方式">
@@ -336,7 +336,7 @@ export default {
                         message: '请选择产地',
                         trigger: 'blur, change'
                     }],
-                    address: [{
+                    PCD: [{
                         required: true,
                         validator: validateAddress,
                         trigger: 'blur, change'
@@ -378,7 +378,10 @@ export default {
                     paymentWay: '',
                     quality: [],
                     customerName: '',
-                    address: [],
+                    PCD: [],
+                    province: -1,
+                    city: -1,
+                    district: -1,
                     description: [],
                     customerPhone: '',
                     customerId: '',
@@ -399,9 +402,10 @@ export default {
             if (this.$route.params.id) {
                 this.getNeedDetail(this.$route.params.id);
             }
-            // if (this.$store.state.search.cityList.length === 0) {
-            //     this.getCity();
-            // }
+
+        },
+        watch:{
+
         },
         computed: {
             user() {
@@ -410,7 +414,6 @@ export default {
             citys() {
                 return this.$store.state.search.cityList;
             }
-
         },
         methods: {
             //文本域发生变化 修改值
@@ -623,14 +626,29 @@ export default {
                 quality = this.ruleForm.quality.join(',');
                 //处理描述
                 let Reg = /,$/;
-                if(Reg.test(this.otherdes)){
+                if (Reg.test(this.otherdes)) {
                     description = this.otherdes.substring(this.otherdes.length - 1, -1);
-                }else {
+                } else {
                     description = this.otherdes;
                 }
-                
-                //处理地址
-                address = this.constructor.filter('countAddress')(this.ruleForm.address);
+                //处理地址 文本型的地址
+                // address = this.constructor.filter('countAddress')(this.ruleForm.address);
+
+                //处理地址Id
+                switch (this.ruleForm.PCD.length) {
+                    case 1:
+                        this.ruleForm.province = this.ruleForm.PCD[0];
+                        break;
+                    case 2:
+                        this.ruleForm.province = this.ruleForm.PCD[0];
+                        this.ruleForm.city = this.ruleForm.PCD[1];
+                        break;
+                    case 3:
+                        this.ruleForm.province = this.ruleForm.PCD[0];
+                        this.ruleForm.city = this.ruleForm.PCD[1];
+                        this.ruleForm.district = this.ruleForm.PCD[2];
+                        break;
+                };
                 //处理付款方式
                 paymentWay = this.paymentWay;
                 let module = 'intentionService';
@@ -653,8 +671,11 @@ export default {
                         duedate: duedate,
                         quality: quality,
                         description: description,
-                        address: address,
-                        paymentWay: paymentWay
+                        // address: address,
+                        paymentWay: paymentWay,
+                        province: _self.ruleForm.province,
+                        city: _self.ruleForm.city,
+                        district: _self.ruleForm.district
                             // customerName: _self.ruleForm.customerName,
                             // customerPhone: _self.ruleForm.customerPhone,
                             // customerId: _self.ruleForm.customerId,
@@ -815,10 +836,19 @@ export default {
                             } else {
                                 _self.ruleForm.description = [];
                             }
-                            _self.ruleForm.address = _self.constructor.filter('countAddressStr')(data.address);
+
+                            // _self.ruleForm.address = _self.constructor.filter('countAddressStr')(data.address);
+
                             _self.getEditPayment(data.paymentWay);
                             _self.paymentWay = '';
                             _self.otherdes = data.description;
+                            //地址Id                            
+                            _self.ruleForm.province = data.provinceId;
+                            _self.ruleForm.city = data.cityId;
+                            _self.ruleForm.district = data.districtId;
+                            if (_self.ruleForm.province != '') _self.ruleForm.PCD.push(_self.ruleForm.province);
+                            if (_self.ruleForm.city != '') _self.ruleForm.PCD.push(_self.ruleForm.city);
+                            if (_self.ruleForm.district != '') _self.ruleForm.PCD.push(_self.ruleForm.district);
 
                             _self.ruleForm.customerName = data.customerName;
                             _self.ruleForm.customerPhone = data.customerPhone;
@@ -856,8 +886,10 @@ export default {
             },
             getCity() {
                 function sortArr(item) {
+                    console.log(item)
                     item.label = item.cname;
-                    item.value = item.cname;
+                    // item.value = item.cname; //取文本情况
+                    item.value = item.id;
                     if (item.childList.length > 0) item.children = item.childList;
                     if (item.childList.length > 0) item.children.forEach(function(childItem) {
                         sortArr(childItem);

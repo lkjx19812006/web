@@ -140,7 +140,7 @@ export default {
                 this.needParam.keyWord = item.breedName;
                 this.searchResource();
             },
-            resourcePub(item){
+            resourcePub(item) {
                 this.$router.push('/resourcePub/' + item.id);
             },
             searchResource() {
@@ -186,6 +186,12 @@ export default {
                         pSize: 5
                     }
                 }).then(function(suc) {
+                    for (var i = 0; i < suc.biz_result.list.length; i++) {
+                        var obj = suc.biz_result.list[i];
+                        if (parseFloat(obj.overTime) > 30) {
+                            obj.overTime = 30 + '天'
+                        }
+                    }
                     _self.list[0].list = suc.biz_result.list;
                     _self.$store.dispatch('needList', _self.list[0].list);
                 }).catch(function(err) {})

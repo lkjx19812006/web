@@ -28,7 +28,7 @@
         <div class="condition_detail">
             <p class="condition_detail_label">商品</p>
             <!--  <breedSearch v-on:getBreedId="getBreed" :value="value" class="condition_detail_input"></breedSearch> -->
-            <search v-model="httpParam.keyWord" placeholder="请输入查询的药材名称" v-on:fetch-suggestions="querySearchAsync" v-on:select="handleSelect"></search>
+            <mySearch v-model="httpParam.keyWord" placeholder="请输入查询的药材名称" v-on:fetch-suggestions="querySearchAsync" v-on:select="handleSelect"></mySearch>
             <!-- <el-input v-model="httpParam.keyWord" placeholder="请输入商品名称" class="condition_detail_input"></el-input> -->
         </div>
         <div class="condition_detail">
@@ -54,7 +54,7 @@
 <script>
 import breedSearch from '../common/breed.vue';
 import common from '../../common/httpService.js';
-import search from '../../components/search.vue'
+import mySearch from '../../components/search.vue'
 export default {
 
     data() {
@@ -82,7 +82,7 @@ export default {
         },
         components: {
             breedSearch,
-            search
+            mySearch
         },
         mounted() {
             this.getLocation();
@@ -110,7 +110,7 @@ export default {
             search() {
                 let obj = {
                     type: 'need',
-                    pn: 0
+                    pn: 1
                 };
                 this.$emit('getData', obj);
             },

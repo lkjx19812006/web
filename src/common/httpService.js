@@ -23,7 +23,7 @@ var httpService = new _vue2.default({
         KEY: '',
         SID: '',
         difTime: 0,
-        h5needUrl: 'http://apps.yaocaimaimai.com/htm5/#/needDetails/', //http://apps.yaocaimaimai.com/htm5/#/needDetails/ http://192.168.1.141/htm5/#/needDetails/
+        h5needUrl: 'http://192.168.1.141/htm5/#/needDetails/', //http://apps.yaocaimaimai.com/htm5/#/needDetails/ http://192.168.1.141/htm5/#/needDetails/
         apiUrl: {
             login: '/account/login.do',
             code_login: '/account/verifiLogin.do',
@@ -162,7 +162,13 @@ var httpService = new _vue2.default({
                 }
             };
             breeName = GB2312UnicodeConverter.ToUnicode(breeName);
-            return this.h5needUrl + id + '?value=web'
+            if (id.length <= 24) {
+                var num = Math.floor(Math.random() * 10000000000);
+                return this.h5needUrl + id + '?value=web&num=' + num;
+            }else{
+                return this.h5needUrl + id + '?value=web';
+            }
+
         }
     }
 });

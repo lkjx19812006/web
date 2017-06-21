@@ -194,12 +194,12 @@ body {
                             <div class="detail_item">
                                 <span class="htit">付款方式：</span>
                                 <span class="info" v-if="item.paymentWay != ''">{{item.paymentWay, 28 | filterTxt}}</span>
-                                <span class="info" v-else>详情电话联系</span>
+                                <span class="info" v-else>面议</span>
                             </div>
                             <div class="detail_item">
                                 <span class="htit">交货地点：</span>
                                 <span class="info" v-if="item.address != ''">{{item.address, 28 | filterTxt}}</span>
-                                <span class="info" v-else>详情电话联系</span>
+                                <span class="info" v-else>面议</span>
                             </div>
                             <div class="detail_item">
                                 <span class="htit">质量要求：</span>
@@ -226,7 +226,8 @@ body {
                     </div>
                     <div class="need_detail_right">
                         <div class="erm_wrap_content">
-                            <qrcode type="image" level="H" :size="100" :value="item.ewmUrl"></qrcode>
+                        <!-- value="item.ewmUrl" -->
+                            <qrcode type="image" level="H" :size="106" :value="item.ewmUrl"></qrcode>
                             <span>扫码报价</span>
                         </div>
                         <div class="offer_info_num">

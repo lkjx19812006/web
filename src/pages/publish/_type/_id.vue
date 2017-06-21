@@ -101,8 +101,8 @@ export default {
             return this.$store.state.user.user
         }
     },
-    created() {
-        if (this.$route.params.type === 'need' || this.$store.state.search.cityList.length === 0) {
+    mounted() {
+        if (this.$route.params.type === 'need' && this.$store.state.search.cityList.length === 0) {
             this.getCity();
         }
     },
@@ -116,7 +116,8 @@ export default {
         getCity() {
             function sortArr(item) {
                 item.label = item.cname;
-                item.value = item.cname;
+                // item.value = item.cname;
+                item.value = item.id;
                 if (item.childList.length > 0) item.children = item.childList;
                 if (item.childList.length > 0) item.children.forEach(function(childItem) {
                     sortArr(childItem);
