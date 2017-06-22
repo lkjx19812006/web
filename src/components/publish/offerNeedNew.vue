@@ -143,7 +143,7 @@
                 </el-checkbox-group>
             </el-form-item>
             <el-form-item label="交货地" prop="PCD">
-                <el-cascader style="width: 380px;" v-model="ruleForm.PCD" placeholder="请输入城市" :options="citys"></el-cascader>
+                <el-cascader @change="selectChange" style="width: 380px;" v-model="ruleForm.PCD" placeholder="请输入城市" :options="citys"></el-cascader>
             </el-form-item>
             <div class="price_radio">
                 <el-form-item label="付款方式">
@@ -404,7 +404,7 @@ export default {
             }
 
         },
-        watch:{
+        watch: {
 
         },
         computed: {
@@ -413,9 +413,12 @@ export default {
             },
             citys() {
                 return this.$store.state.search.cityList;
-            }
+            },
         },
         methods: {
+            selectChange(item) {
+                console.log(item);
+            },
             //文本域发生变化 修改值
             changeText(val) {
                 let arr = val.split(',');
@@ -590,7 +593,7 @@ export default {
                 let duedate = '';
                 let quality;
                 let description;
-                let address;
+                let address = [];
                 let paymentWay;
                 //处理时间
                 if (this.duedate == '' && this.ruleForm.duedate == -1) {
@@ -631,24 +634,46 @@ export default {
                 } else {
                     description = this.otherdes;
                 }
-                //处理地址 文本型的地址
-                // address = this.constructor.filter('countAddress')(this.ruleForm.address);
+                //处理地址 地址Id 文本型的地址
+                var pp = [];
+                var cc = [];
+                debugger;
+                this.ruleForm.PCD.forEach(function(PCDid, index) {
+                    switch (index) {
+                        case 0:
+                            //确定省级ID对应的name名称
+                            _self.citys.forEach(function(p, i) {
+                                if (PCDid === p.id) {
+                                    address.push(p.cname);
+                                    pp = p.childList;
+                                    _self.ruleForm.province = PCDid;
+                                    _self.ruleForm.city = '';
+                                    _self.ruleForm.district = '';
+                                }
+                            })
+                            break;
+                        case 1:
+                            pp.forEach(function(c, i) {
+                                if (PCDid === c.id) {
+                                    address.push(c.cname);
+                                    cc = c.childList;
+                                    _self.ruleForm.city = PCDid;
+                                    _self.ruleForm.district = '';
+                                }
+                            })
+                            break;
+                        case 2:
+                            cc.forEach(function(d, i) {
+                                if (PCDid === d.id) {
+                                    address.push(d.cname);
+                                    _self.ruleForm.district = PCDid;
+                                }
+                            })
+                            break;
+                    }
+                })
+                address = address.join(',');
 
-                //处理地址Id
-                switch (this.ruleForm.PCD.length) {
-                    case 1:
-                        this.ruleForm.province = this.ruleForm.PCD[0];
-                        break;
-                    case 2:
-                        this.ruleForm.province = this.ruleForm.PCD[0];
-                        this.ruleForm.city = this.ruleForm.PCD[1];
-                        break;
-                    case 3:
-                        this.ruleForm.province = this.ruleForm.PCD[0];
-                        this.ruleForm.city = this.ruleForm.PCD[1];
-                        this.ruleForm.district = this.ruleForm.PCD[2];
-                        break;
-                };
                 //处理付款方式
                 paymentWay = this.paymentWay;
                 let module = 'intentionService';
@@ -671,7 +696,7 @@ export default {
                         duedate: duedate,
                         quality: quality,
                         description: description,
-                        // address: address,
+                        address: address,
                         paymentWay: paymentWay,
                         province: _self.ruleForm.province,
                         city: _self.ruleForm.city,

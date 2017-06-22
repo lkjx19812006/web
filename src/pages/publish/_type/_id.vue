@@ -114,9 +114,8 @@ export default {
             console.log(params);
         },
         getCity() {
-            function sortArr(item) {
+            function sortArr(item, type) {
                 item.label = item.cname;
-                // item.value = item.cname;
                 item.value = item.id;
                 if (item.childList.length > 0) item.children = item.childList;
                 if (item.childList.length > 0) item.children.forEach(function(childItem) {
@@ -132,7 +131,8 @@ export default {
                 suc.biz_result.list.forEach(function(item) {
                     sortArr(item);
                 });
-                _self.$store.dispatch('sch_getCityList', suc.biz_result.list);
+                console.log(suc.biz_result.list)
+                _self.$store.dispatch('sch_getCityList', suc.biz_result.list);               
             }).catch(function(err) {
                 _self.$store.dispatch('sch_getCityList', []);
             })

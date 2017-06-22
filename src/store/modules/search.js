@@ -24,6 +24,7 @@ const state = {
     preSellList: [],
     drugsEnyc: {},
     cityList: [],
+    cityNameList: [],
     countryList: []
 }
 
@@ -71,7 +72,7 @@ const actions = {
             resolve()
         })
     },
-    //获取城市列表
+    //获取城市列表 ID型
     sch_getCityList({ commit, state }, param) {
         return new Promise((resolve, reject) => {
             commit('sch_getCityList', param);
