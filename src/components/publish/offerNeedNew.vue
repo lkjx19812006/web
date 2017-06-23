@@ -404,9 +404,6 @@ export default {
             }
 
         },
-        watch: {
-
-        },
         computed: {
             user() {
                 return this.$store.state.user.user
@@ -637,7 +634,6 @@ export default {
                 //处理地址 地址Id 文本型的地址
                 var pp = [];
                 var cc = [];
-                debugger;
                 this.ruleForm.PCD.forEach(function(PCDid, index) {
                     switch (index) {
                         case 0:

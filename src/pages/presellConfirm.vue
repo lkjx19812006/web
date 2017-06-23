@@ -237,9 +237,9 @@
         <el-dialog v-model="addStatus" size="small">
             <addAddress v-on:getAddress="getAddress"></addAddress>
         </el-dialog>
-        <el-dialog v-model="reviseStatus" size="small">
-            <reviseAddress v-on:getHttp="getAddress" :params="addressParam"></reviseAddress>
-        </el-dialog>      
+        <el-dialog v-model="reviseStatus" size="tiny">
+            <reviseAddress v-on:getHttp="getAddress" :formData="params"></reviseAddress>
+        </el-dialog>
         <el-dialog v-on:close="closeMsg" class="my_msg" v-model="dialogMsg">
             <msg title="信息发送成功，请耐心等待" phone="021-55502736"></msg>
         </el-dialog>
@@ -268,9 +268,15 @@ export default {
                 delAddressStatus: false,
                 delAddressId: 0,
                 reviseStatus: false,
-                addressParam: {
-                    editObj: {},
-                    address: []
+                params: {
+                    contactName: '',
+                    contactPhone: '',
+                    address: '',
+                    PCD: [],
+                    province: '',
+                    city: '',
+                    district: '',
+                    detailAddr: ''
                 },
                 addressList: []
 
@@ -318,14 +324,12 @@ export default {
                     _self.findLoading = false;
                 })
             },
-            edit(item) {
-                console.log(1, item)
-                let arr = [];
-                arr.push(item.province);
-                arr.push(item.city);
-                arr.push(item.district);
-                this.addressParam.editObj = item;
-                this.addressParam.address = pcdTrans(arr);
+            edit(row) {
+                this.params = row;
+                this.params.PCD = [];
+                if (row.provinceId) this.params.PCD.push(row.provinceId);
+                if (row.cityId) this.params.PCD.push(row.cityId);
+                if (row.districtId) this.params.PCD.push(row.districtId);
                 this.reviseStatus = true;
             },
             del(item) {
@@ -439,7 +443,7 @@ export default {
             else {
                 return this.$router.push("/presell");
             }
-            console.log(1,this.cart);
+            console.log(1, this.cart);
             if (!this.cart[0].preBuyNumber) {
                 return this.$router.push("/presell");
             }

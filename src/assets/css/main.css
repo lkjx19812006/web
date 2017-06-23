@@ -642,3 +642,16 @@ textarea:focus {
     background-color: rgb(235, 235, 228);
     border-color: #DBDBDB;
 }
+
+.el-cascader-menu__item.is-active:hover {
+    background-color: #FAA972;
+}
+
+.el-cascader-menu__item.is-active {
+    color: #fff;
+    background-color: #FA8435;
+}
+
+.el-cascader-menu__item:hover {
+    background-color: #ebebeb;
+}

@@ -95,7 +95,7 @@
 <template>
     <div class="address_mana">
         <titleHead :param="myhead"></titleHead>
-        <addAddress></addAddress>
+        <addAddress v-on:getAddress="getAddress"></addAddress>
         <div class="add">
             <div class="add_title">已保存的地址</div>
             <div>
@@ -141,7 +141,7 @@
             </div>
         </div>
         <el-dialog v-model="edit" size="tiny">
-            <reviseAddress :params='params' v-on:getHttp='getHttp'></reviseAddress>
+            <reviseAddress v-if="edit" :formData='params' v-on:getHttp='getHttp'></reviseAddress>
         </el-dialog>
     </div>
 </template>
@@ -151,12 +151,6 @@ import addAddress from '../../components/common/addAddress'
 import reviseAddress from '../../components/common/reviseAddress'
 import titleHead from '../../components/common/headTitle'
 import validation from '../../validation/validation.js'
-import {
-    addressLinkage,
-    getPCD,
-    pcdTrans
-} from '../../filters/index.js'
-let padArr = addressLinkage();
 export default {
     name: 'address-list-view',
     data() {
@@ -165,17 +159,20 @@ export default {
                 pn: 1,
                 pSize: 5
             },
-            pcdSelect: padArr,
             myhead: {
                 name: '地址管理'
             },
             edit: false,
             loading: false,
             params: {
-                editObj: {
-
-                },
-                address: []
+                contactName: '',
+                contactPhone: '',
+                address: '',
+                PCD: [],
+                province: '',
+                city: '',
+                district: '',
+                detailAddr: ''
             }
 
         }
@@ -203,6 +200,10 @@ export default {
         handleCurrentChange(val) {
             console.log(val)
             this.httpParam.pn = val;
+            this.getHttp();
+        },
+        getAddress() {
+            this.httpParam.pn = 1;
             this.getHttp();
         },
         getHttp() {
@@ -234,12 +235,12 @@ export default {
         },
         handleEdit(index, row) {
             this.edit = true;
-            let arr = [];
-            arr.push(row.province);
-            arr.push(row.city);
-            arr.push(row.district);
-            this.params.editObj = row;
-            this.params.address = pcdTrans(arr);
+            //构建三级联动数据
+            this.params = row;
+            this.params.PCD = [];
+            if (row.provinceId) this.params.PCD.push(row.provinceId);
+            if (row.cityId) this.params.PCD.push(row.cityId);
+            if (row.districtId) this.params.PCD.push(row.districtId);
         },
         handleDelete(index, row) {
             this.$confirm('确定删除此地址?', '提示', {
@@ -254,79 +255,6 @@ export default {
                     message: '已取消'
                 });
             });
-        },
-        saveRevise() {
-            let _self = this;
-            var checkArr = [];
-            var address = '';
-            if (_self.params.address) address = getPCD(_self.params.address[0], _self.params.address[1], _self.params.address[2]); //转换地址
-            console.log(_self.params.address)
-            _self.params.editObj.province = address.split('/')[0]; //省
-            _self.params.editObj.city = address.split('/')[1]; //市
-            _self.params.editObj.district = address.split('/')[2]; //区
-            let checkName = validation.checkNull(_self.params.editObj.contactName, '请输入姓名！');
-            checkArr.push(checkName);
-            let checkLookName = validation.checkLook(_self.params.editObj.contactName);
-            checkArr.push(checkLookName);
-            let checkPhone = validation.checkPhone(_self.params.editObj.contactPhone);
-            checkArr.push(checkPhone);
-            let checkAddress = validation.checkNull(address, '请选择地址！');
-            checkArr.push(checkAddress);
-            let checkdetailAddr = validation.checkNull(_self.params.editObj.detailAddr, '请输入详细信息！');
-            checkArr.push(checkdetailAddr);
-            let checkLookDes = validation.checkLook(_self.params.editObj.detailAddr);
-            checkArr.push(checkLookDes);
-            for (var i = 0; i < checkArr.length; i++) {
-                if (checkArr[i]) {
-                    this.$message({
-                        showClose: false,
-                        message: checkArr[i]
-                    });
-                    return;
-                }
-            }
-            _self.reviseAddress();
-        },
-        reviseAddress() {
-            let _self = this;
-            _self.edit = false;
-            _self.loading = true;
-            let url = common.urlCommon + common.apiUrl.most;
-            let body = {
-                biz_module: 'userAddressService',
-                biz_method: 'updateUserAddressInfo',
-                biz_param: {
-                    contactName: _self.params.editObj.contactName,
-                    contactPhone: _self.params.editObj.contactPhone,
-                    province: _self.params.editObj.province,
-                    city: _self.params.editObj.city,
-                    district: _self.params.editObj.district,
-                    detailAddr: _self.params.editObj.detailAddr,
-                    id: _self.params.editObj.id,
-                    address: _self.params.editObj.province + _self.params.editObj.city + _self.params.editObj.district + _self.params.editObj.detailAddr
-                }
-            };
-            url = common.addSID(url);
-            console.log(url)
-            body.version = 1;
-            let localTime = new Date().getTime();
-            body.time = localTime + common.difTime;
-            body.sign = common.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
-            common.commonPost(url, body)
-                .then(function(res) {
-                    if (res.code == '1c01') {
-                        _self.getHttp();
-                        _self.edit = false;
-                        _self.$message({
-                            type: 'success',
-                            message: '已修改地址'
-                        });
-                    }
-                    _self.loading = false;
-                })
-                .catch(function(err) {
-                    _self.loading = false;
-                })
         },
         deleteAddress(id) {
             let _self = this;
