@@ -136,7 +136,7 @@ th {
                     heigth: 50px;
                     margin-right: 25px;
                     border-radius: 3px;
-                    background-color: #A3D5BA;
+                    background-color: #78C59B;
                     cursor: pointer;
                     position: relative;
                     padding-left: 16px;
@@ -151,7 +151,7 @@ th {
                     flex: 1;
                     heigth: 50px;
                     border-radius: 3px;
-                    background-color: #FEAE79;
+                    background-color: #FA8435;
                     cursor: pointer;
                     position: relative;
                     padding-left: 16px;

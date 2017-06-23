@@ -193,7 +193,7 @@ body {
                         <div class="detail">
                             <div class="detail_item">
                                 <span class="htit">付款方式：</span>
-                                <span class="info" v-if="item.paymentWay != ''">{{item.paymentWay, 28 | filterTxt}}</span>
+                                <span class="info" v-if="item.paymentWay != '' && item.paymentWay != '其他：'">{{item.paymentWay, 28 | filterTxt}}</span>
                                 <span class="info" v-else>面议</span>
                             </div>
                             <div class="detail_item">
@@ -208,7 +208,7 @@ body {
                             <div class="detail_item">
                                 <span class="htit" v-if="item.indentType === 0">药厂备注：</span>
                                 <span class="htit" v-if="item.indentType != 0">备注信息：</span>
-                                <span class="info" v-if="item.description != ''" >{{item.description, 28 | filterTxt}}</span>
+                                <span class="info" v-if="item.description != ''">{{item.description, 28 | filterTxt}}</span>
                                 <span class="info" v-else>符合药典</span>
                             </div>
                         </div>
@@ -216,7 +216,7 @@ body {
                     <div class="need_detail_center">
                         <div class="date_icon_wrap">
                             <img src="../static/icon/dateIcon.png" height="22" width="22">
-                            <span>剩余{{item.duedate | timeDateNum}}天</span>                            
+                            <span>剩余{{item.duedate | timeDateNum}}天</span>
                         </div>
                         <div class="date_txt_wrap">
                             <span>上架时间：</span>
@@ -226,7 +226,7 @@ body {
                     </div>
                     <div class="need_detail_right">
                         <div class="erm_wrap_content">
-                        <!-- value="item.ewmUrl" -->
+                            <!-- value="item.ewmUrl" -->
                             <qrcode type="image" level="H" :size="106" :value="item.ewmUrl"></qrcode>
                             <span>扫码报价</span>
                         </div>
