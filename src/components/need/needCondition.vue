@@ -172,7 +172,7 @@ export default {
                 return pageSize;
             },
             showGeneral() {
-                if (this.httpParam["sort"].offer === "0" && this.httpParam["sort"].shelve_time === "0" && this.httpParam["sort"].duedate === "0" && this.httpParam.indentType === '-1') {
+                if (this.httpParam["sort"].offer === "0" && this.httpParam["sort"].shelve_time === "0" && this.httpParam["sort"].duedate === "0" && this.httpParam.indentType === -1) {
                     return true
                 } else {
                     return false
