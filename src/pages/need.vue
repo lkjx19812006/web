@@ -186,7 +186,7 @@ body {
                     <div class="need_detail_left">
                         <div class="title">
                             <span class="hName">{{item.breedName}}</span>
-                            <span class="number">({{item.number + item.unit}})</span>
+                            <span class="number">{{item.number}}({{item.unit}})</span>
                             <span class="location">{{item.location, 10 | filterTxt}}</span>
                             <span class="spec" v-if="item.spec != ''">{{item.spec, 10 | filterTxt}}</span>
                         </div>

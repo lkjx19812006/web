@@ -23,6 +23,15 @@ export function yearAndMonth(time) {
     year = year + '-' + month;
     return year;
 }
+export function getYear(time) {
+    return time.split('-')[0];
+}
+export function getMd(time) {
+    let date = time.split(' ')[0];
+    let m = date.split('-')[1];
+    let d = date.split('-')[2];
+    return m + '-' + d;
+}
 
 export function day(time) {
     let day = time.split('-')[2];

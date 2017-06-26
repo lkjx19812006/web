@@ -82,8 +82,8 @@
             <div class="items">
                 <div class="item" v-for="item in newsList" @click="linkTo(item.linkUrl)">
                     <div class="time_wrap">
-                        <span class="year">{{item.year}}</span>
-                        <span class="md">{{item.md}}</span>
+                        <span class="year">{{item.ctime | getYear}}</span>
+                        <span class="md">{{item.ctime | getMd}}</span>
                     </div>
                     <div class="info_wrap">
                         <div class="title">
@@ -132,7 +132,7 @@ export default {
                 this.httpParam.pn = val;
                 this.getHttp();
             },
-            linkTo(url){
+            linkTo(url) {
                 let newWin = window.open();
                 newWin.location.href = url;
             },
@@ -145,27 +145,12 @@ export default {
                     biz_param: _self.httpParam
                 };
                 common.commonPost(url, body).then(function(res) {
-                    let arr = res.biz_result.list;
-                    arr.forEach(function(item) {
-                        item.year = _self.getYear(item.ctime);
-                        item.md = _self.getMD(item.ctime);
-                    })                    
+                    let arr = res.biz_result.list;                 
                     _self.total = res.biz_result.total;
                     _self.newsList = arr;
                 }, function(err) {})
             },
-            getYear(time) {
-                let date = new Date(time);
-                return date.getFullYear();
-            },
-            getMD(time) {
-                let date = new Date(time);
-                let M = date.getMonth() + 1;
-                let d = date.getDate();
-                M = M < 10 ? '0' + M : M;
-                d = d < 10 ? '0' + d : d;
-                return M + '-' + d
-            },
+          
 
         }
 }
