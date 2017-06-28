@@ -223,7 +223,6 @@ export default {
                             _self.$router.push('/');
                         }
 
-
                     }, (err) => {
                         _self.fullscreenLoading = false;
                         this.$refs['ruleForm'].resetFields();

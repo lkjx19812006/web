@@ -10,10 +10,12 @@
         justify-content: space-between;
         width: 100%;
         .left_select {
+            flex: 1;
             display: flex;
             flex-direction: row;
             align-items: center;
             .left_select_detail {
+                width: 125px;
                 display: flex;
                 flex-direction: row;
                 align-items: center;

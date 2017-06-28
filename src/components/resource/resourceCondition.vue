@@ -14,6 +14,7 @@
             flex-direction: row;
             align-items: center;
             .left_select_detail {
+                width: 125px;
                 display: flex;
                 flex-direction: row;
                 align-items: center;

@@ -3,49 +3,41 @@
     width: 1200px;
     margin: auto;
     .content {
-        display: flex;
-        flex-direction: column;
-        justifu-content: flex-start;
-        margin-top: 32px;
+        margin-top: 20px;
         .top_wrap {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 50px;
             .title {
-                font-size: 25px;
-                color: #033333;
-                margin-bottom: 26px;
+                height: 40px;
+                line-height: 32px;
+                font-size: 26px;
             }
             .info {
-                flex: 1;
-                display: flex;
-                padding-right: 20px;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: strecth;
-                color: #666666;
-                .color {
-                    color: #FE7E28;
-                }
                 .left_wrap {
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-around;
+                    height: 271px;
+                    overflow: hidden;
+                    .detail_wrap {
+                        color: #666;
+                        padding-top: 20px;
+                        padding-bottom: 30px;
+                        .color {
+                            color: #fe7e28
+                        }
+                    }
                 }
                 .right_wrap {
+                    float: right;
                     width: 568px;
                     height: 271px;
                     background: url('../../../static/icon/contact.png') no-repeat center;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 16px;
+                    img {
+                        display: block;
+                        margin: auto;
+                        transform: translate(0, 6px);
+                    }
                 }
             }
         }
         .title_wrap {
+            margin-top: 30px;
             font-size: 24px;
             color: #252525;
             line-height: 58px;
@@ -53,35 +45,32 @@
             text-align: center;
         }
         .map_wrap {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px 0;
+            width: 100%;
             position: relative;
+            text-align: center;
+            padding: 30px 0;
             .addres_wrap {
+                position: absolute;
                 display: flex;
+                flex-direction: row;
                 justify-content: flex-start;
                 align-items: center;
-                flex-direction: row;
-                position: absolute;
                 span {
-                    flex: 0 1 auto;
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: nowrap;
-                    padding: 3px 12px;
-                    border: 1px solid #EF4949;
+                    flex: 0 0 auto;
+                    padding: 0 12px;
+                    border: 1px solid #ef4949;
                     color: #ef4949;
-                    font-size: 15px;
-                    margin: 0 5px;
+                    font-size: 16px;
+                    height: 26px;
+                    line-height: 26px;
                     background-color: #fff;
+                    margin: 0 5px;
                     border-radius: 14px;
                     box-shadow: 3px 3px 5px rgba(4, 0, 0, .34);
+                    float: right;
                 }
             }
             .addres_wrap:hover {
-                // cursor: pointer;
                 span {
                     box-shadow: 6px 6px 10px rgba(4, 0, 0, .6);
                 }
@@ -92,29 +81,28 @@
         }
         .list_wrap {
             margin-top: 20px;
+            border-top: 1px solid #ebebeb;
+            font-size: 16px;
+            color: #666;
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
             justify-content: space-between;
-            border-top: 1px solid #ebebeb;
+            flex-wrap: wrap;
             .item {
+                flex: 0 0 530px;
                 padding-top: 42px;
                 padding-bottom: 64px;
                 border-bottom: 1px solid #ebebeb;
-                flex: 0 0 530px;
                 .title {
                     font-size: 20px;
-                    color: #666666;
                     margin-bottom: 46px;
                 }
                 .detail {
                     margin-bottom: 15px;
-                    font-size: 16px;
-                    color: #666666;
                 }
             }
             .last {
-                border: 0 none;
+                border-bottom: none;
             }
         }
     }
@@ -130,6 +118,9 @@
                     <span>上海冕冠电子商务有限公司</span>
                 </div>
                 <div class="info">
+                    <div class="right_wrap">
+                        <img src="../../../static/icon/contact2.png" height="258" width="556">
+                    </div>
                     <div class="left_wrap">
                         <div class="detail_wrap">
                             <span class="tit">电话：</span>
@@ -147,7 +138,7 @@
                             <span class="tit">邮箱：</span>
                             <span class="cont color">SERVICE@YAOCAIMAIMAI.COM</span>
                         </div>
-                       <!--  <div class="detail_wrap">
+                        <!--  <div class="detail_wrap">
                             <span class="tit">企业QQ：</span>
                             <span class="cont">123456789</span>
                         </div>
@@ -155,9 +146,6 @@
                             <span class="tit">企业微信：</span>
                             <span class="cont color">YAOCAIMAIMAI</span>
                         </div> -->
-                    </div>
-                    <div class="right_wrap">
-                        <img src="../../../static/icon/contact2.png" height="258" width="556">
                     </div>
                 </div>
             </div>
