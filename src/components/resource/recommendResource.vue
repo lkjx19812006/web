@@ -127,59 +127,53 @@ export default {
         computed: {
             presellList() {
                 let goodsArr = [];
-                let i = Math.ceil(this.presellArr.length / 5);
-                for (let m = 0; m < i; m++) {
-                    let arr = [];
-                    let n = m * 5 + 0;
-                    arr.push(this.presellArr[n])
-                    if (this.presellArr[n + 1]) {
-                        arr.push(this.presellArr[n + 1])
-                    } else {
-                        if (this.presellArr.length % 5 === 1) {
-                            arr.push(this.presellArr[0])
-                        }
-                    }
-                    if (this.presellArr[n + 2]) {
-                        arr.push(this.presellArr[n + 2])
-                    } else {
-                        if (this.presellArr.length % 5 === 1) {
-                            arr.push(this.presellArr[1])
-                        } else if (this.presellArr.length % 5 === 2) {
-                            arr.push(this.presellArr[0])
-                        }
-                    }
-
-                    if (this.presellArr[n + 3]) {
-                        arr.push(this.presellArr[n + 3])
-                    } else {
-                        if (this.presellArr.length % 5 === 1) {
-                            arr.push(this.presellArr[2])
-                        } else if (this.presellArr.length % 5 === 2) {
-                            arr.push(this.presellArr[1])
-                        } else if (this.presellArr.length % 5 === 3) {
-                            arr.push(this.presellArr[0])
-                        }
-                    }
-                    if (this.presellArr[n + 4]) {
-                        arr.push(this.presellArr[n + 4])
-                    } else {
-                        if (this.presellArr.length % 5 === 1) {
-                            arr.push(this.presellArr[3])
-                        } else if (this.presellArr.length % 5 === 2) {
-                            arr.push(this.presellArr[2])
-                        } else if (this.presellArr.length % 5 === 3) {
-                            arr.push(this.presellArr[1])
-                        } else if (this.presellArr.length % 5 === 4) {
-                            arr.push(this.presellArr[0])
-                        }
-                    }
-                    goodsArr.push(arr);
+                if (this.presellArr.length === 0) {
+                    return goodsArr;
                 }
-                //console.log(11,goodsArr)
+                let i = this.presellArr.length;
+                let n = i % 5;
+                var arr = this.getSwperList(n, this.presellArr);
+                let _self = this;
+                arr.forEach(function(item) {
+                    _self.presellArr.push(item);
+                })
+                goodsArr.push(this.presellArr.slice(0, 5));
+                if (this.presellArr.length > 5) {
+                    goodsArr.push(this.presellArr.slice(5, 10))
+                }
                 return goodsArr
             }
         },
         methods: {
+            getSwperList(n, arr) {
+                //如果是 6个 剪去前面5个直接push 如果是1个 后面重复添加这一个
+                let goodsArr = [];
+                for (var i = 0; i < 5 - n; i++) {
+                    switch (n) {
+                        case 1:
+                            if (arr.length > 5) {
+                                goodsArr.push(arr[i]);
+                            } else {
+                                goodsArr.push(arr[n - 1]);
+                            }
+                            break;
+                        case 2:
+                            if (arr[i]) {
+                                goodsArr.push(arr[i]);
+                            } else {
+                                goodsArr.push(arr[0]);
+                            }
+                            break;
+                        case 3:
+                            goodsArr.push(arr[i]);
+                            break;
+                        case 4:
+                            goodsArr.push(arr[i]);
+                            break;
+                    }
+                }
+                return goodsArr
+            },
             getHttp() {
                 let _self = this;
                 common.commonPost(common.urlCommon + common.apiUrl.most, {
@@ -190,6 +184,11 @@ export default {
                         pSize: 10
                     }
                 }).then(function(suc) {
+                    // var arr = []
+                    // for (var i = 0; i < 6; i++) {
+                    //     arr.push(suc.biz_result.list[i]);
+                    // }
+                    //  _self.presellArr = arr;
                     _self.presellArr = suc.biz_result.list;
                 }).catch(function(err) {
 
