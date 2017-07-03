@@ -394,14 +394,14 @@ export default {
                             this.$router.push('/member/personalInformation');
                         }
                     });
-                    return;                 
+                    return;
                 }
                 if (this.user.phone) {
                     this.$router.push('/publish/resource');
                 } else {
                     this.$store.dispatch('setUrl', '/publish/resource').then(() => {
                         this.$router.push('/login');
-                    });                       
+                    });
                 };
             },
             confirm() {
@@ -465,7 +465,7 @@ export default {
             },
             linkToNeed() {
                 let _self = this;
-                if (this.user.phone && !this.user.fullname) {
+                if (!common.validateUserInfo(this.user, () => {})) {
                     this.$alert('您还未完善个人信息,立即去完善', '提示', {
                         confirmButtonText: '确定',
                         callback: action => {
@@ -479,12 +479,7 @@ export default {
                 } else {
                     this.$store.dispatch('setUrl', '/publish/need').then(() => {
                         this.$router.push('/login');
-                    });
-                    // _self.$message({
-                    //     showClose: true,
-                    //     message: '请先登录',
-                    //     type: 'warning'
-                    // });
+                    });                 
                     return;
                 };
             },
