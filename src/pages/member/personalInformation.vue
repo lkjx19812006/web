@@ -249,8 +249,8 @@ export default {
             formDate: {
                 fullname: '',
                 birthday: '',
-                userType: 1,
-                manageType: 0,
+                userType: '',
+                manageType: '',
                 gender: 1,
                 email: '',
                 tel: '',
@@ -320,6 +320,8 @@ export default {
             _self.formDate.phone = user.phone;
             _self.formDate.birthday = user.birthday * 1000;
             _self.formDate.userType = user.userType;
+            this.getInfoList()
+            
             _self.formDate.manageType = user.manageType;
             //console.log(11,_self.formDate.birthday);
             _self.formDate.company = user.company;
@@ -328,6 +330,7 @@ export default {
             _self.formDate.email = user.email;
             _self.formDate.address = user.address;
             _self.show = true;
+
             console.log(_self.formDate.gender)
         },
         getHttp() {
@@ -473,12 +476,18 @@ export default {
         },
         getInfoList() {
             let _self = this;
+            let userType = '';
+            if (this.formDate.userType === '') {
+                userType = 0;
+            } else {
+                userType = this.formDate.userType;
+            };
             let url = common.urlCommon + common.apiUrl.most
             let body = {
                 biz_module: 'userService',
                 biz_method: 'queryCustomerTypeMap',
                 biz_param: {
-                    userType: this.formDate.userType
+                    userType: userType
                 }
             }
             url = common.addSID(url);

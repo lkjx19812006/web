@@ -12,7 +12,6 @@
     -moz-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    height: 100vh;
     .presellConfirm_content {
         display: flex;
         align-items: center;
