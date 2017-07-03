@@ -1,22 +1,9 @@
 'use strict';
+import axios from 'axios'
+import Vue from 'vue'
+import CryptoJS from "crypto-js"
 
-var _axios = require('axios');
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _vue = require('vue');
-
-var _vue2 = _interopRequireDefault(_vue);
-
-var _cryptoJs = require('crypto-js');
-
-var _cryptoJs2 = _interopRequireDefault(_cryptoJs);
-
-function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : { default: obj };
-}
-
-var httpService = new _vue2.default({
+var httpService = new Vue({
     data: {
         customerId: '',
         urlCommon: '/front',
@@ -101,13 +88,13 @@ var httpService = new _vue2.default({
             if (!str) {
                 str = 'test';
             }
-            var signStr = _cryptoJs2.default.HmacSHA1(str, _self.KEY).toString(_cryptoJs2.default.enc.Base64);
+            var signStr = CryptoJS.HmacSHA1(str, _self.KEY).toString(CryptoJS.enc.Base64);
             return signStr;
         },
         commonPost: function commonPost(url, data) {
             var _self = this;
             return new Promise(function(resolve, reject) {
-                (0, _axios2.default)({ method: 'post', url: url, data: data }).then(function(response) {
+                axios({ method: 'post', url: url, data: data }).then(function(response) {
                     if (response.status === 200) {
                         if (response.data.code === '1c01') {
                             resolve(response.data);
@@ -144,7 +131,7 @@ var httpService = new _vue2.default({
         },
         commonGet: function commonGet(url) {
             return new Promise(function(resolve, reject) {
-                _axios2.default.get(url).then(function(response) {
+                axios.get(url).then(function(response) {
                     resolve(response.data);
                 }).catch(function(error) {
                     reject(error);
