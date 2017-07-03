@@ -121,7 +121,6 @@ var httpService = new _vue2.default({
                         }
                     }
                 }).catch(function(error) {
-                    debugger;
                     // if (!process.BROWSER_BUILD) 浏览器环境 暂时用不到
                     if (error.response !== undefined && error.response !== '') {
                         if (error.response.status === 403) {
@@ -165,11 +164,20 @@ var httpService = new _vue2.default({
             if (id.length <= 24) {
                 var num = Math.floor(Math.random() * 10000000000);
                 return this.h5needUrl + id + '?value=web&num=' + num;
-            }else{
+            } else {
                 return this.h5needUrl + id + '?value=web';
             }
-
+        },
+        validateUserInfo: function validateUserInfo(userInfo, callback) {
+            //登录过了 有phone 才校验 没有登录不校验 没有名字要去 没有用户类型 要去 没有用户身份 要去
+            if (userInfo.phone && (!userInfo.fullname || userInfo.userType === 0 || userInfo.manageType === -1)) {
+                callback();
+                return false;
+            } else {
+                return true;
+            }
         }
+
     }
 });
 export default httpService;

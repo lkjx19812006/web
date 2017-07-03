@@ -313,7 +313,7 @@ export default {
                     });
                     return;
                 }
-                if (this.user.phone && !this.user.fullname) {
+                if (!common.validateUserInfo(this.user, () => {})) {
                     this.$alert('您还未完善个人信息,立即去完善', '提示', {
                         confirmButtonText: '确定',
                         callback: action => {
@@ -321,8 +321,8 @@ export default {
                         }
                     });
                     return;
-                };  
-                this.$router.push('/resourcePub/' + this.intention.id);           
+                }
+                this.$router.push('/resourcePub/' + this.intention.id);
             },
             minus() {
                 if (this.number > this.intention.moq) {

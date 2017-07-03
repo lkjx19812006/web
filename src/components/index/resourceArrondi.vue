@@ -143,11 +143,6 @@
                     </el-table-column>
                     <el-table-column label="操作" width="100">
                         <template scope="scope">
-                            <!--  <el-popover popper-class="popper_wrap" ref="EWMpopover" placement="right" trigger="hover">
-                                <img style="display: black; margin: auto" width="120px" height="120px" :ref="'qr' + scope.$index">
-                            </el-popover> -->
-                            <!-- v-on:mouseenter="showEWM(scope.$index, scope.row.id)" -->
-                            <!-- v-popover:EWMpopover -->
                             <div class="orange_btn" @click="offer(scope.row.id)">立即采购</div>
                         </template>
                     </el-table-column>
@@ -196,9 +191,6 @@ export default {
             }
         },
         mounted() {
-            this.$nextTick(function() {
-                this.QRious = require('../../assets/js/qrious.min.js')
-            })
             let _self = this;
             if (this.$store.state.resource.resourceList.list.length == 0) {
                 _self.getHttp();
@@ -218,11 +210,6 @@ export default {
 
         },
         methods: {
-            // showEWM(index, id) {
-            //     let ele = this.$refs['qr' + index];
-            //     let src = 'http://www.yaocaimaimai.com/resourceDetail/' + id
-            //     this.qrcode(ele, src);
-            // },
             qrcode(ele, src) {
                 const qr = new this.QRious({
                     element: ele,
@@ -253,7 +240,7 @@ export default {
             },
             offer(paramsId) {
                 let _self = this;
-                if (this.user.phone && !this.user.fullname) {
+                if (!common.validateUserInfo(this.user, () => {})) {
                     this.$alert('您还未完善个人信息,立即去完善', '提示', {
                         confirmButtonText: '确定',
                         callback: action => {
@@ -261,7 +248,7 @@ export default {
                         }
                     });
                     return;
-                };
+                }
                 if (this.user.phone) {
                     // let newWin = window.open();
                     // newWin.location.href = "/resourceDetail/" + paramsId;

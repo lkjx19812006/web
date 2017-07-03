@@ -1,5 +1,6 @@
 <style lang="less" scoped>
 .orange_button {
+    width: 360px;
     background-color: #FA8435;
     border: none;
 }
@@ -7,7 +8,6 @@
 .content {
     flex: 0 0 auto !important;
     .dis_span {
-        margin-left: 15px;
         font-size: 14px;
         color: #48576a;
     }
@@ -64,31 +64,65 @@
             cursor: pointer;
         }
     }
+    .input_wrap {
+        width: 360px;
+        .input_message_wrap {
+            display: inline-block;
+            width: 245px;
+        }
+        .btn_wrap {
+            display: inline-block;
+            text-align: center;
+            width: 102px;
+            height: 34px;
+            line-height: 34px;
+            background-color: #FFD200;
+            color: #fff;
+            border: 1px solid #FFD200;
+            border-radius: 4px;
+            float: right;
+            cursor: pointer;
+        }
+        .gay_wrap {
+            color: #A7A7A7;
+            background-color: #F8F8F8;
+            border-color: #F0EFEF;
+            cursor: not-allowed;
+        }
+    }
 }
 </style>
 <template>
     <div class="content" v-loading.body="showLoading">
         <el-form label-position="left" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-            <el-form-item label="手机号" prop="phone">
-                <el-input v-model="ruleForm.phone" placeholder="请输入11位手机号"></el-input>
+            <el-form-item class="" label="用户名称" prop="fullname">
+                <div class="input_wrap">
+                    <el-input v-model="ruleForm.fullname" placeholder="请输入用户名称"></el-input>
+                </div>
             </el-form-item>
-            <el-form-item label="验证码" prop="identiCode">
-                <el-input v-model="ruleForm.identiCode" placeholder="请输入验证码" style="width:200px"></el-input>
-                <span class="center_span">{{imageCode}}</span>
-                <span class="orange_span" @click="changeCode()">看不清楚,换一张</span>
+            <el-form-item label="手机号" prop="phone">
+                <div class="input_wrap">
+                    <el-input v-model="ruleForm.phone" placeholder="请输入11位手机号"></el-input>
+                </div>
             </el-form-item>
             <el-form-item label="短信验证码" prop="messageCode">
-                <div style="border:1px solid #bfcbd9;border-radius: 3px;">
-                    <input v-model="ruleForm.messageCode" placeholder="请输入短信验证码" style="border:none;width:300px;text-indent: 10px;height:35px;" />
-                    <span v-show="!countShow" class="orange_span" style="border-left:1px solid #ddd;padding-left:15px" @click="getCode()">获取验证码</span>
-                    <span v-show="countShow" style="border-left:1px solid #ddd;padding-left:15px;color: #48576a">{{time}}秒后重试</span>
+                <div class="input_wrap">
+                    <div class="input_message_wrap">
+                        <el-input v-model="ruleForm.messageCode" placeholder="请输入短信验证码"></el-input>
+                    </div>
+                    <span v-show="!countShow" class="btn_wrap" @click="getCode()">获取验证码</span>
+                    <span v-show="countShow" class="btn_wrap gay_wrap">{{time}}秒后重试</span>
                 </div>
             </el-form-item>
             <el-form-item label="设置密码" prop="password">
-                <el-input type="password" v-model="ruleForm.password" placeholder="6-12位字母、数字或符号"></el-input>
+                <div class="input_wrap">
+                    <el-input type="password" v-model="ruleForm.password" placeholder="6-12位字母、数字或符号"></el-input>
+                </div>
             </el-form-item>
             <el-form-item label="确认密码" prop="rePassword">
-                <el-input type="password" v-model="ruleForm.rePassword" placeholder="6-12位字母、数字或符号"></el-input>
+                <div class="input_wrap">
+                    <el-input type="password" v-model="ruleForm.rePassword" placeholder="6-12位字母、数字或符号"></el-input>
+                </div>
             </el-form-item>
             <el-form-item prop="name">
                 <el-checkbox name="type" v-model="ruleForm.name"></el-checkbox>
@@ -162,11 +196,17 @@ export default {
                 messageCode: '',
                 password: '',
                 rePassword: '',
-                name: ''
+                name: '',
+                fullname: ''
             },
             rules: {
                 name: [{
                     validator: validateBox,
+                    trigger: 'blur'
+                }],
+                fullname: [{
+                    required: true,
+                    message: '请输入用户名称',
                     trigger: 'blur'
                 }],
                 phone: [{
@@ -207,7 +247,7 @@ export default {
         }
     },
     mounted() {
-        this.changeCode();
+        // this.changeCode();
     },
     components: {
         protol
@@ -233,7 +273,8 @@ export default {
                             phone: this.ruleForm.phone,
                             code: this.ruleForm.messageCode,
                             password: this.ruleForm.password,
-                            rePassword: this.ruleForm.rePassword
+                            rePassword: this.ruleForm.rePassword,
+                            fullname: this.ruleForm.fullname
                         }
                     }
                     common.commonPost(url, body)
@@ -307,17 +348,17 @@ export default {
                     type: 'warning'
                 });
             }
-            if (!this.ruleForm.identiCode) {
-                return this.$message({
-                    message: '请填写验证码！',
-                    type: 'warning'
-                });
-            } else if (this.ruleForm.identiCode.toLowerCase() != this.imageCode.toLowerCase()) {
-                return this.$message({
-                    message: '验证码填写有误！',
-                    type: 'warning'
-                });
-            }
+            // if (!this.ruleForm.identiCode) {
+            //     return this.$message({
+            //         message: '请填写验证码！',
+            //         type: 'warning'
+            //     });
+            // } else if (this.ruleForm.identiCode.toLowerCase() != this.imageCode.toLowerCase()) {
+            //     return this.$message({
+            //         message: '验证码填写有误！',
+            //         type: 'warning'
+            //     });
+            // }
             let _self = this;
             let sec = 60;
             let url = common.urlCommon + common.apiUrl.most;
@@ -348,19 +389,19 @@ export default {
                     console.log(err);
                 })
         },
-        changeCode() {
-            let chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        // changeCode() {
+        //     let chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-            function generateMixed(n) {
-                var res = "";
-                for (var i = 0; i < n; i++) {
-                    var id = Math.ceil(Math.random() * 61);
-                    res += chars[id];
-                }
-                return res;
-            }
-            this.imageCode = generateMixed(4);
-        }
+        //     function generateMixed(n) {
+        //         var res = "";
+        //         for (var i = 0; i < n; i++) {
+        //             var id = Math.ceil(Math.random() * 61);
+        //             res += chars[id];
+        //         }
+        //         return res;
+        //     }
+        //     this.imageCode = generateMixed(4);
+        // }
     }
 }
 </script>

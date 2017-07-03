@@ -25,30 +25,31 @@
 
 .personal_infor .main .box {
     float: left;
-    width: 405px;
+    width: 500px;
     margin-bottom: 20px;
 }
 
 .personal_infor .main .box .name {
-    width: 20%;
+    width: 140px;
     float: left;
+    text-align: right;
     color: #6B6B6B;
     line-height: 36px;
 }
 
 .personal_infor .main .box .content {
-    width: 80%;
+    width: 360px;
     float: left;
 }
 
 .personal_infor .main .box .special {
-    width: 80%;
+    width: 360px;
     float: left;
     padding-top: 7px;
 }
 
 .personal_infor .main .box .tcontent {
-    width: 80%;
+    width: 360px;
     box-sizing: border-box;
     float: left;
     border: 1px solid #ccc;
@@ -80,7 +81,7 @@
     <div class="personal_infor">
         <titleHead :param="myhead"></titleHead>
         <!-- 展示页面 -->
-        <div class="main" v-show="!show">
+        <div class="main" v-if="!show">
             <div class="box">
                 <div class="name">姓名：</div>
                 <div class="tcontent">
@@ -124,6 +125,18 @@
                 </div>
             </div>
             <div class="box">
+                <div class="name">身份信息：</div>
+                <div class="tcontent">
+                    {{getUserType(user.userType)}}
+                </div>
+            </div>
+            <div class="box">
+                <div class="name">具体信息：</div>
+                <div class="tcontent">
+                    {{getManageType(user.manageType)}}
+                </div>
+            </div>
+            <div class="box">
                 <div class="name">主营品类：</div>
                 <div class="tcontent">
                     {{user.bizMain}}
@@ -138,9 +151,9 @@
             <div class="editor" @click="modify(user)">编辑修改</div>
         </div>
         <!--  编辑页面 -->
-        <div class="main" v-show="show">
+        <div class="main" v-if="show">
             <div class="box">
-                <div class="name">姓名：</div>
+                <div class="name">姓名：<span style="color: red">（必填）</span></div>
                 <div class="content">
                     <el-input v-model="formDate.fullname" placeholder="请输入"></el-input>
                 </div>
@@ -160,7 +173,7 @@
                 </div>
             </div>
             <div class="box">
-                <div class="name">手机：</div>
+                <div class="name">手机：<span style="color: red">（必填）</span></div>
                 <div class="content">
                     <el-input v-model="formDate.phone" placeholder="请输入" :disabled="true"></el-input>
                 </div>
@@ -184,9 +197,27 @@
                 </div>
             </div>
             <div class="box">
-                <div class="name">主营品类：</div>
+                <div class="name">身份信息：<span style="color: red">（必选）</span></div>
+                <div class="content" style="line-height: 36px">
+                    <el-radio-group @change="changeRadio" v-model="formDate.userType">
+                        <el-radio :label="1">我是买方</el-radio>
+                        <el-radio :label="2">我是卖方</el-radio>
+                        <el-radio :label="3">我是买卖方</el-radio>
+                    </el-radio-group>
+                </div>
+            </div>
+            <div class="box" style="width: 960px;">
+                <div class="name">具体信息：<span style="color: red">（必选）</span></div>
+                <div class="content" style="line-height: 36px; height: auto; min-height: 36px; width: 760px;">
+                    <el-radio-group v-model="formDate.manageType">
+                        <el-radio :label="item.id" v-for="item in userTypeMap" :key="item.id">{{item.name}}</el-radio>
+                    </el-radio-group>
+                </div>
+            </div>
+            <div class="box">
+                <div class="name">主营品类：<span style="color: red">（必填）</span></div>
                 <div class="content">
-                    <el-select v-model="formDate.bizMain" multiple filterable remote placeholder="请输入关键词" :remote-method="querySearchAsync" :loading="loading">
+                    <el-select v-model="formDate.bizMain" :multiple-limit="10" multiple filterable remote placeholder="请输入关键词" :remote-method="querySearchAsync" :loading="loading">
                         <el-option v-for="item in optionsList" :key="item.value" :label="item.breedName" :value="item.breedName">
                         </el-option>
                     </el-select>
@@ -218,6 +249,8 @@ export default {
             formDate: {
                 fullname: '',
                 birthday: '',
+                userType: 1,
+                manageType: 0,
                 gender: 1,
                 email: '',
                 tel: '',
@@ -235,6 +268,9 @@ export default {
     computed: {
         user() {
             return this.$store.state.user.user;
+        },
+        userTypeMap() {
+            return this.$store.state.user.userTypeMap;
         }
 
     },
@@ -243,8 +279,35 @@ export default {
     },
     mounted() {
         this.getHttp();
+        this.getInfoList();
     },
     methods: {
+        getUserType(params) {
+            let str = '';
+            switch (params) {
+                case 1:
+                    str = '我是买方';
+                    break;
+                case 2:
+                    str = '我是卖方';
+                    break;
+                case 3:
+                    str = '我是买卖方';
+                    break;
+                default:
+                    str = '暂未选择';
+                    break;
+            }
+            return str;
+        },
+        getManageType(params) {
+            for (var i = 0; i < this.userTypeMap.length; i++) {
+                if (params === this.userTypeMap[i].id) {
+                    return this.userTypeMap[i].name;
+                }
+            }
+            return '暂未选择';
+        },
         modify: function(user) {
             let _self = this;
             if (user.gender == '男') {
@@ -256,9 +319,11 @@ export default {
             _self.formDate.fullname = user.fullname;
             _self.formDate.phone = user.phone;
             _self.formDate.birthday = user.birthday * 1000;
+            _self.formDate.userType = user.userType;
+            _self.formDate.manageType = user.manageType;
             //console.log(11,_self.formDate.birthday);
             _self.formDate.company = user.company;
-            _self.formDate.bizMain = user.bizMain === '' ? [] :user.bizMain.split(',');
+            _self.formDate.bizMain = user.bizMain === '' ? [] : user.bizMain.split(',');
             _self.formDate.tel = user.tel;
             _self.formDate.email = user.email;
             _self.formDate.address = user.address;
@@ -286,29 +351,7 @@ export default {
             });
         },
         confirm() {
-            let _self = this;
-            let checkArr = [];
-            let checkPhone = validation.checkPhoneTrue(_self.formDate.phone);
-            checkArr.push(checkPhone);
-            let checkName = validation.checkNameTrue(_self.formDate.fullname);
-            checkArr.push(checkName);
-            let checkBizMain = validation.checkNull(_self.formDate.bizMain, '主营品类不能为空！');
-            checkArr.push(checkBizMain);
-            let checkLookcompany = validation.checkLook(_self.formDate.company);
-            checkArr.push(checkLookcompany);
-            let checkLookbizMain = validation.checkLook(_self.formDate.bizMain);
-            checkArr.push(checkLookbizMain);
-            for (let i = 0; i < checkArr.length; i++) {
-                if (checkArr[i]) {
-                    this.$message({
-                        showClose: false,
-                        message: checkArr[i]
-                    });
-                    return;
-                }
-            }
-            _self.submit();
-
+            this.submit();
         },
         getTimeStamp(str) {
             var date = new Date(str / 1000);
@@ -326,7 +369,31 @@ export default {
                 gender = "女";
             }
             this.loading = true;
+            //校验身份信息
+            if (_self.formDate.userType === 0) {
+                _self.$message({
+                    type: 'warning',
+                    message: '请选择身份信息！！！'
+                });
+                return
+            }
+
             let bizMain = this.formDate.bizMain.join(',');
+            //校验身份具体信息
+            let flag = true;
+            for (var i = 0; i < this.userTypeMap.length; i++) {
+                if (this.formDate.manageType === this.userTypeMap[i].id) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                _self.$message({
+                    type: 'warning',
+                    message: '请选择具体身份信息！！！'
+                });
+                return
+            };
             if (bizMain == '') {
                 _self.$message({
                     type: 'info',
@@ -334,6 +401,7 @@ export default {
                 });
                 return;
             };
+
             let url = common.urlCommon + common.apiUrl.most;
             let body = {
                 biz_module: 'userService',
@@ -344,6 +412,8 @@ export default {
                     phone: _self.formDate.phone,
                     birthday: birthday,
                     company: _self.formDate.company,
+                    userType: _self.formDate.userType,
+                    manageType: _self.formDate.manageType,
                     bizMain: bizMain,
                     tel: _self.formDate.tel,
                     email: _self.formDate.email,
@@ -366,11 +436,12 @@ export default {
                         });
                     }
                     _self.loading = false;
+                    _self.show = false;
                 })
                 .catch(function(err) {
                     _self.loading = false;
                 })
-            _self.show = false;
+
         },
         querySearchAsync(queryString) {
             if (queryString !== '') {
@@ -396,8 +467,31 @@ export default {
             } else {
                 this.optionsList = [];
             }
-
         },
+        changeRadio(val) {
+            this.getInfoList();
+        },
+        getInfoList() {
+            let _self = this;
+            let url = common.urlCommon + common.apiUrl.most
+            let body = {
+                biz_module: 'userService',
+                biz_method: 'queryCustomerTypeMap',
+                biz_param: {
+                    userType: this.formDate.userType
+                }
+            }
+            url = common.addSID(url);
+            body.version = 1;
+            body.time = Date.parse(new Date()) + parseInt(common.difTime);
+            body.sign = common.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
+            this.$store.dispatch('getUserTypeMap', {
+                path: url,
+                body: body
+            }).then(() => {
+
+            }, () => {})
+        }
 
     }
 }
