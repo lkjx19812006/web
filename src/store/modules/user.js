@@ -3,6 +3,7 @@ import httpService from '../../common/httpService'
 
 const state = {
     user: { name: "", idnumber: "" },
+    userTypeMap: [],
     srcUrl: '',
     targetUrl: '',
     userFlag: false,
@@ -18,6 +19,7 @@ const state = {
 // getters
 const getters = {
     user: state => state.user,
+    userTypeMap: state => state.userTypeMap,
     srcUrl: state => state.srcUrl,
     targetUrl: state => state.targetUrl,
     userList: state => state.userList,
@@ -44,6 +46,18 @@ const actions = {
                     commit('initUser', res);
                     resolve(res);
                     //console.log(res);
+                })
+                .catch(function(err) {
+                    reject(err);
+                });
+        })
+    },
+    getUserTypeMap({ commit, state }, param) {
+        return new Promise((resolve, reject) => {
+            httpService.commonPost(param.path, param.body)
+                .then(function(res) {
+                    commit('initUserTypeMap', res);
+                    resolve(res);
                 })
                 .catch(function(err) {
                     reject(err);
@@ -92,7 +106,7 @@ const actions = {
     login({ commit, state }, param) {
         return new Promise((resolve, reject) => {
             httpService.commonPost(param.path, param.body)
-                .then(function(response) {                  
+                .then(function(response) {
                     resolve(response);
                 })
                 .catch(function(error) {
@@ -137,11 +151,14 @@ const actions = {
 
 // mutations
 const mutations = {
-    setUrl(state, res) {       
+    setUrl(state, res) {
         state.srcUrl = res;
     },
     initUser(state, res) {
         state.user = res.biz_result;
+    },
+    initUserTypeMap(state, res) {
+        state.userTypeMap = res.biz_result.list;
     },
     initUserList(state, res) {
         state.userList = res.biz_result;

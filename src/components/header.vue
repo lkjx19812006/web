@@ -5,7 +5,7 @@
     flex-direction: column;
     border-bottom: 2px solid #FA8435;
     align-items: center;
-    min-height: 196px;
+    // min-height: 196px;
     .head_welcome {
         display: flex;
         width: 100%;
@@ -186,7 +186,6 @@
             display: inline-block;
             padding: 5px 10px;
             color: #F98435;
-
         }
     }
 }
@@ -372,19 +371,21 @@ export default {
                         path: url
                     }).then(() => {
                         let path = _self.$route.matched[0].path;
-                        if (_self.$store.state.user.user.phone && !_self.$store.state.user.user.fullname && path != '/member' && !_self.flag) {
-                            _self.$confirm('您还未完善个人信息,是否现在去完善？', '提示', {
-                                confirmButtonText: '确定',
-                                cancelButtonText: '取消',
-                                type: 'info'
-                            }).then(() => {
-                                _self.$router.push('/member/personalInformation')
-                            }).catch(() => {
-                                _self.$store.dispatch('changeFlag', true);
-                            });
-                        };
+                        if (httpService.validateUserInfo(_self.$store.state.user.user, () => {
+                                if (path != '/member' && !_self.flag) {
+                                    _self.$confirm('您还未完善个人信息,是否现在去完善？', '提示', {
+                                        confirmButtonText: '确定',
+                                        cancelButtonText: '取消',
+                                        type: 'info'
+                                    }).then(() => {
+                                        _self.$router.push('/member/personalInformation')
+                                    }).catch(() => {
+                                        _self.$store.dispatch('changeFlag', true);
+                                    });
+                                }
+                            }));
                     }, () => {
-                       
+
                     });
                 }
             );
@@ -405,7 +406,7 @@ export default {
         mySearch
     },
     methods: {
-        linkIndex(){
+        linkIndex() {
             this.$router.push('/');
         },
         searchId(index) {
@@ -510,25 +511,6 @@ export default {
 
             }
         },
-        // getAddress() {
-        //     let url = httpService.urlCommon + httpService.apiUrl.most
-        //     let body = {
-        //         biz_module: 'userAddressService',
-        //         biz_method: 'queryUserAddressList'
-        //     }
-        //     url = httpService.addSID(url);
-        //     body.version = 1;
-        //     body.time = Date.parse(new Date()) + parseInt(httpService.difTime);
-        //     body.sign = httpService.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
-        //     this.$store.dispatch('getUserAddressList', {
-        //         body: body,
-        //         path: url
-        //     }).then(() => {
-
-        //     }, () => {
-
-        //     });
-        // },
         jumpCenter(path) {
             let _self = this;
             if (httpService.KEY) {

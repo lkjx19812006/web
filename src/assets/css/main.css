@@ -322,14 +322,16 @@ a:visited {
     border-top: 1px solid #eee;
 }
 
-.drugsEncy .search_wrap .el-input__inner {
+.drugsEncy .search_wrap .el-input__inner,
+.selectBreed .search_wrap .el-input__inner {
     border-radius: 0;
     border: 2px solid #FA8435;
     height: 46px;
     text-indent: 30px;
 }
 
-.drugsEncy .search_wrap .el-input-group__append {
+.drugsEncy .search_wrap .el-input-group__append, 
+.selectBreed .search_wrap .el-input-group__append{
     border-radius: 0;
     width: 100px;
     border: 2px solid #FA8435;
@@ -340,11 +342,13 @@ a:visited {
     cursor: pointer;
 }
 
-.drugsEncy .drugsEncy_body .el-carousel__item {
+.drugsEncy .drugsEncy_body .el-carousel__item,
+.selectBreed .drugsEncy_body .el-carousel__item  {
     height: 380px;
 }
 
-.drugsEncy .drugsEncy_body .el-carousel {
+.drugsEncy .drugsEncy_body .el-carousel,
+.selectBreed .drugsEncy_body .el-carousel {
     height: 380px;
 }
 

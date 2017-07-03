@@ -141,7 +141,7 @@
                         </div>
                         <div class="detail_wrap">
                             <span class="tit">地址：</span>
-                            <span class="cont">上海市虹口区逸仙路158号宝龙一方大厦9F</span>
+                            <span class="cont">上海市虹口区逸仙路158号宝隆一方大厦9F</span>
                         </div>
                         <div class="detail_wrap">
                             <span class="tit">邮箱：</span>
