@@ -31,12 +31,15 @@
                 margin-left: 30px;
             }
             .center_span {
-                margin: 0 10px;
+                margin: 0 5px;
             }
             .welcome_right {
                 flex: 0 0 auto;
                 .point_span {
                     cursor: pointer;
+                }
+                .point_span:hover {
+                    color: #FA8435;
                 }
             }
             .welcome_left {
@@ -221,7 +224,17 @@
                     <span v-show="user.phone" @click="quit()" class="orange_span"> | &nbsp;&nbsp;退出</span>
                 </div>
                 <div class="welcome_right">
-                    <span class="point_span" @click="jump('/')">药材买卖网首页</span><span class="center_span">|</span><span class="point_span" @click="jumpCenter('/member/saleOrder')">会员中心</span><span class="center_span">|</span><span>客服电话：021-55502736</span>
+                    <span class="point_span" @click="jump('/')">药材买卖网首页</span>
+                    <span class="center_span">|</span>
+                    <span class="point_span" @click="jumpCenter('/member/saleOrder')">会员中心</span>
+                    <span class="center_span">|</span>
+                    <span class="point_span" @click="jumpCenter('/message/intention')">
+                        <span class="el-icon-message orange_span"></span>
+                    <span class="messgee_txt">我的消息</span>
+                    <span class="message_num orange_span">{{messageTotal}}</span>
+                    </span>
+                    <span class="center_span">|</span>
+                    <span>客服电话：021-55502736</span>
                 </div>
             </div>
         </div>
@@ -341,6 +354,9 @@ export default {
         flag() {
             return this.$store.state.user.userFlag
         },
+        messageTotal() {
+            return this.$store.state.message.messageTotal
+        }
     },
     beforeMount() {
         this.verInfo = device();
@@ -390,6 +406,9 @@ export default {
                 }
             );
         };
+        if (window.localStorage.KEY && window.localStorage.KEY !== '') {
+            this.getMessageTotals();
+        }
         this.pathName = this.$route.path;
         if (this.pathName === '/need' || this.pathName === '/resource' || this.pathName === '/presell') {
             this.showNav = true;
@@ -626,6 +645,21 @@ export default {
                 });
             }, 300);
         },
+        getMessageTotals() {
+            let url = httpService.urlCommon + httpService.apiUrl.most
+            let body = {
+                biz_module: 'pushService',
+                biz_method: 'showIsRead'
+            }
+            url = httpService.addSID(url);
+            body.version = 1;
+            body.time = Date.parse(new Date()) + parseInt(httpService.difTime);
+            body.sign = httpService.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
+            this.$store.dispatch('getMessageTotal', {
+                body: body,
+                path: url
+            }).then(() => {}, () => {})
+        }
     }
 }
 </script>

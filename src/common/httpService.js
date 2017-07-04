@@ -7,8 +7,8 @@ var httpService = new Vue({
     data: {
         customerId: '',
         urlCommon: '/front',
-        KEY: '',
-        SID: '',
+        KEY: window.localStorage.KEY,
+        SID: window.localStorage.SID,
         difTime: 0,
         h5needUrl: 'http://192.168.1.141/htm5/#/needDetails/', //http://apps.yaocaimaimai.com/htm5/#/needDetails/ http://192.168.1.141/htm5/#/needDetails/
         apiUrl: {
@@ -110,7 +110,7 @@ var httpService = new Vue({
                 }).catch(function(error) {
                     // if (!process.BROWSER_BUILD) 浏览器环境 暂时用不到
                     if (error.response !== undefined && error.response !== '') {
-                        if (error.response.status === 403) {
+                        if (error.response.status === 403 || error.response.status === 408) {
                             window.localStorage.KEY = '';
                             window.localStorage.SID = '';
                             _self.KEY = '';

@@ -183,6 +183,22 @@ let routes = [{
 }, {
     path: '/resourcePub/:id',
     component: resolve => require(['../pages/resourcePub/_id.vue'], resolve)
+}, {
+    path: '/message',
+    component: resolve => require(['../pages/message.vue'], resolve),
+    children: [{
+        path: '/message/activity',
+        component: resolve => require(['../pages/message/activity.vue'], resolve)
+    }, {
+        path: '/message/intention',
+        component: resolve => require(['../pages/message/intention.vue'], resolve)
+    }, {
+        path: '/message/offer',
+        component: resolve => require(['../pages/message/offer.vue'], resolve)
+    }, {
+        path: '/message/order',
+        component: resolve => require(['../pages/message/order.vue'], resolve)
+    }]
 }]
 var router = new vueRouter({
     mode: 'history',
