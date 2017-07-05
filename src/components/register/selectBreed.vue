@@ -189,10 +189,10 @@
             </div>
         </div>
         <div class="btn_wrap">
-            <span class="back_btn" @click="backStep">
+            <span class="back_btn" @click.self.stop="backStep">
                 返回上一步
             </span>
-            <span class="next_btn" @click="nextStep">
+            <span class="next_btn" @click.self.stop="nextStep">
                 完成
             </span>
         </div>

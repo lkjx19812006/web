@@ -115,6 +115,38 @@ export default {
             step: 1
         }
     },
+    //监听user变化实时计算当前步骤
+    watch: {
+        user(newVal, oldVal) {
+            if (newVal.phone) {
+                this.countStep();
+            }
+        },
+        step(newVal, oldVal) {
+            switch (newVal) {
+                case 1:
+                    this.title = '欢迎注册';
+                    break;
+                case 2:
+                    this.title = '完善身份信息';
+                    break;
+                case 3:
+                    this.title = '完善具体身份信息';
+                    break;
+                case 4:
+                    this.title = '完善主营品种';
+                    break;
+                case 5:
+                    this.title = '信息完善成功';
+                    break;
+            }
+        }
+    },
+    computed: {
+        user() {
+            return this.$store.state.user.user;
+        }
+    },
     components: {
         headerView,
         footerView,
@@ -124,33 +156,49 @@ export default {
         selectBreed,
         successView
     },
+    created() {
+        this.countStep();
+    },
     methods: {
+        //计算当前步骤
+        countStep() {
+            let nowStep = 1;
+            //登录过后
+            if (this.user.phone) {
+                if (this.user.userType === 0) {
+                    nowStep = 2;
+                } else {
+                    if (this.user.manageType === -1) {
+                        nowStep = 3;
+                    } else {
+                        if (this.user.bizMain === '') {
+                            nowStep = 4;
+                        } else {
+                            nowStep = 5;
+                        }
+                    }
+                }
+            }
+            this.step = nowStep;
+        },
         stepChange(step, params) {
             let obj = {};
             switch (step) {
-                case 1:
-                    this.title = '欢迎注册';
-                    break;
                 case 2:
-                    this.title = '完善身份信息';
                     this.step = 2;
                     break;
                 case 3:
-                    this.title = '完善具体身份信息';
                     obj.userType = params;
                     this.upDateUserInfo(obj, step);
                     break;
                 case 4:
-                    this.title = '完善主营品种';
                     obj.manageType = params;
                     this.upDateUserInfo(obj, step);
                     break;
                 case 5:
-                    this.title = '信息完善成功';
                     obj.bizMain = params;
                     this.upDateUserInfo(obj, step);
                     break;
-
             }
             if (document.documentElement.scrollTop) document.documentElement.scrollTop = 0;
             if (window.pageYOffset) window.pageYOffset = 0;

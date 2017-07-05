@@ -8,6 +8,8 @@
         justify-conten: flex-start;
         align-items: center;
         .big_tit {
+            height: 24px;
+            line-height: 24px;
             font-size: 18px;
             color: #3A3A3A;
             margin-bottom: 20px;
@@ -72,14 +74,8 @@
 <template>
     <div class="userInfo">
         <div class="title">
-            <span class="big_tit" v-if="user.userType===1">
-                我是买方
-            </span>
-            <span class="big_tit" v-if="user.userType===2">
-                我是卖方
-            </span>
-            <span class="big_tit" v-if="user.userType===3">
-                我是买卖方
+            <span class="big_tit">
+                {{userTit(user.userType)}}
             </span>
             <span class="small_tit">
                 根据您的信息，我们为您做了精准的分类，请完善您的具体身份信息
@@ -91,10 +87,10 @@
            </span>
         </div>
         <div class="btn_wrap">
-            <span class="back_btn" @click="backStep">
+            <span class="back_btn" @click.self.stop="backStep">
                 返回选择身份
             </span>
-            <span class="next_btn" @click="nextStep">
+            <span class="next_btn" @click.self.stop="nextStep">
                 下一步
             </span>
         </div>
@@ -118,6 +114,21 @@ export default {
             }
         },
         methods: {
+            userTit(type) {
+                let str = '';
+                switch (type) {
+                    case 1:
+                        str = '我是买方';
+                        break;
+                    case 2:
+                        str = '我是卖方';
+                        break;
+                    case 3:
+                        str = '我是买卖方';
+                        break;
+                }
+                return str;
+            },
             backStep() {
                 this.$emit('step', 2)
             },

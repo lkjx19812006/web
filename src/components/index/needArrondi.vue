@@ -391,7 +391,7 @@ export default {
                     this.$alert('您还未完善个人信息,立即去完善', '提示', {
                         confirmButtonText: '确定',
                         callback: action => {
-                            this.$router.push('/member/personalInformation');
+                            this.$router.push('/register');
                         }
                     });
                     return;
@@ -469,7 +469,7 @@ export default {
                     this.$alert('您还未完善个人信息,立即去完善', '提示', {
                         confirmButtonText: '确定',
                         callback: action => {
-                            this.$router.push('/member/personalInformation');
+                            this.$router.push('/register');
                         }
                     });
                     return;

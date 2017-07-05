@@ -33,7 +33,7 @@
         <img src="../../../static/icon/registerSuccess.png" height="70" width="100">
         <div class="big_orange_span">恭喜您注册完成</div>
         <div class="center">尊敬的用户，您已成功注册药材买卖网，请<span class="orange_span" @click="login()">点击登录</span>！</div>
-        <el-button size="large" class="orange_button" type="primary" @click="login()">立即登录</el-button>
+        <el-button size="large" class="orange_button" type="primary" @click.self.stop="login()">立即登录</el-button>
     </div>
 </template>
 <script>

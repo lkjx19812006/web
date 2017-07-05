@@ -87,8 +87,8 @@
                 <img v-show="index + 1 === selected" class="select_icon" src="../../../static/icon/selectedUseruserIdentity.png">
             </div>
         </div>
-        <div class="next_btn" @click="nextStep">
-            <span>
+        <div class="next_btn">
+            <span @click.self.stop="nextStep">
                 选好了，下一步
             </span>
         </div>
@@ -113,16 +113,13 @@ export default {
                 selected: 0
             }
         },
-        watch: {
-            userType(newVal, oldVal) {
-                this.selected = newVal;
-            }
-        },
         computed: {
             userType() {
-                this.selected = this.$store.state.user.user.userType;
                 return this.$store.state.user.user.userType;
             }
+        },
+        created(){
+            this.selected = this.userType;
         },
         methods: {
             nextStep() {

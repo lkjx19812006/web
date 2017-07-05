@@ -1,8 +1,6 @@
 <style lang="less" scoped>
 @width : 1200px;
 .drugsEncy {
-    overflow-y: scroll;
-    height: 100%;
     .drugsEncy_body {
         height: 710px;
         width: 732px;
@@ -36,6 +34,7 @@
             width: 702px;
             border: 1px solid #ebebeb;
             padding: 15px;
+            overflow: hidden;
             .items_wrap {
                 float: left;
                 height: 380px;

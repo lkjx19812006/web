@@ -20,12 +20,12 @@
 .personal_infor .main {
     float: left;
     margin: 20px 0 0 90px;
-    width: 405px;
+    width: 500px;
 }
 
 .personal_infor .main .box {
-    float: left;
     width: 500px;
+    height: 42px;
     margin-bottom: 20px;
 }
 
@@ -62,9 +62,8 @@
 }
 
 .personal_infor .main .editor {
-    float: left;
     box-sizing: border-box;
-    width: 120px;
+    width: 360px;
     height: 40px;
     background-color: #FA8435;
     text-align: center;
@@ -72,8 +71,8 @@
     border-radius: 4px;
     font-size: 16px;
     color: white;
-    margin-top: 15px;
-    margin-left: 20%;
+    margin-top: 30px;
+    margin-left: 140px;
     cursor: pointer;
 }
 </style>
@@ -321,7 +320,7 @@ export default {
             _self.formDate.birthday = user.birthday * 1000;
             _self.formDate.userType = user.userType;
             this.getInfoList()
-            
+
             _self.formDate.manageType = user.manageType;
             //console.log(11,_self.formDate.birthday);
             _self.formDate.company = user.company;
@@ -478,9 +477,14 @@ export default {
             let _self = this;
             let userType = '';
             if (this.formDate.userType === '') {
-                userType = 0;
+                userType = 1;
             } else {
-                userType = this.formDate.userType;
+                if (this.formDate.userType === 0) {
+                    userType = 1;
+                } else {
+                    userType = this.formDate.userType;
+                }
+
             };
             let url = common.urlCommon + common.apiUrl.most
             let body = {

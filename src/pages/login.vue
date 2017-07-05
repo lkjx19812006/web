@@ -161,6 +161,11 @@ export default {
         headerView,
         footerView
     },
+    created(){
+        if(this.$store.state.user.user.phone){
+            this.$router.push('/');
+        }
+    },
     methods: {
         linkToForget() {
             this.$router.push('/forget');
