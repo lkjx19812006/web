@@ -33,6 +33,102 @@ export function getMd(time) {
     return m + '-' + d;
 }
 
+//消息的时间过滤
+export function getYMD(time, type) {
+    if (!time || time === '' || time == 0) {
+        return '';
+    } else {
+        let date = new Date(time);
+        let y = date.getFullYear();
+        let M = date.getMonth() + 1;
+        let d = date.getDate();
+        let h = date.getHours();
+        let m = date.getMinutes();
+        let s = date.getSeconds();
+        M = M < 10 ? '0' + M : M;
+        d = d < 10 ? '0' + d : d;
+        h = h < 10 ? '0' + h : h;
+        m = m < 10 ? '0' + m : m;
+        s = s < 10 ? '0' + s : s;
+        switch (type) {
+            case 0: //返回 2016-06-07
+                return y + '-' + M + '-' + d;
+                break;
+            case 1: //返回 05:48
+                return h + ':' + m;
+                break;
+        }
+
+
+    }
+}
+
+//订单消息的时间过滤
+export function getYMDOlder(time, type) {
+    if (!time || time === '' || time == 0) {
+        return '';
+    } else {
+        // 2017-07-03 13:05:01.0
+        let YMD = time.split(' ')[0];
+        let hm = time.split(' ')[1].split(':');
+        hm = hm[0] + ':' + hm[1];
+        switch (type) {
+            case 0: //返回 2016-06-07
+                return YMD;
+                break;
+            case 1: //返回 05:48
+                return hm;
+                break;
+        }
+    }
+}
+//订单状态转换
+// 10:待审核 
+
+// 20：待支付尾款 
+
+// 66：待支付定金 
+
+// 0：查询全部订单 
+
+// 30，40：待发货（支付确定）
+
+// 50：待收货（已发货）
+
+//  60，70：确认收货（已完成）
+export function filterOrder(typeNum) {
+    let str = '';
+    switch (typeNum) {
+        case 10:
+            str = '待审核';
+            break;
+        case 20:
+            str = '待支付尾款';
+            break;
+        case 30:
+            str = '待发货';
+            break;
+        case 40:
+            str = '待发货';
+            break;
+        case 50:
+            str = '已发货';
+            break;
+        case 60:
+            str = '已完成';
+            break;
+        case 66:
+            str = '待支付定金';
+            break;
+        case 70:
+            str = '已完成';
+            break;
+        default:
+            str = '未知状态';
+            break;
+    }
+    return str;
+}
 export function day(time) {
     let day = time.split('-')[2];
     day = day.split(' ')[0]

@@ -12,6 +12,7 @@ import news from './modules/news'
 import marketlist from './modules/marketlist'
 import preSale from './modules/preSale'
 import publish from './modules/publish.js'
+import message from './modules/message.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -27,6 +28,7 @@ export default new Vuex.Store({
         news,
         marketlist,
         preSale,
-        publish
+        publish,
+        message
     }
 })
