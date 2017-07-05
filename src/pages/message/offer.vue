@@ -152,13 +152,13 @@
                                 <span>{{item.message, 60 | filterTxt}}</span>
                             </div>
                             <div class="linkTo">
-                                <span @click="linkToInfo(item.intentionId, item.id)">点击查看详情</span>
+                                <span @click="linkTo(item)">点击查看详情</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-             <div v-if="offerList.length ===  0" class="normal">
+            <div v-if="offerList.length ===  0" class="normal">
                 <img src="../../../static/icon/normalMessage.png">
                 <span>亲，暂时没有消息哦！</span>
             </div>
@@ -272,13 +272,13 @@ export default {
                     }
                 })
             },
-            linkToInfo(intentionId, id) {
+            linkTo(item) {
                 //点击后更新完成后 
                 //先获取总数
                 //再获取标题数量
-                //再获取列表
-                this.updateMessageRead(id);
-                this.$router.push('/member/myReportPrice');
+                //再获取列表 item.intentionId, item.id
+                this.updateMessageRead(item.id);
+                this.$router.push('/member/myReportPrice?intentionId=' + item.intentionId);
             },
             //获取列表
             getOfferList() {

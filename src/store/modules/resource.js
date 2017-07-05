@@ -123,6 +123,9 @@ const mutations = {
         state.userResourceList = res.biz_result;
     },
     getNeedAllListMutations(state, res) {
+        if(!res.biz_result.total){
+            res.biz_result.total = 1;
+        }
         state.needAllList = res.biz_result;
     },
     getResourceAllListMutations(state, res) {

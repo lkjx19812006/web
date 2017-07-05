@@ -322,15 +322,16 @@ export default {
                 //再获取标题数量
                 //再获取列表
                 this.updateMessageRead(item.id);
+                console.log(item)
                 switch (item.intentionType) {
                     case 1: //预售
-                        this.$router.push('/member/preSaleOrder');
+                        this.$router.push('/member/preSaleOrder?status=' + item.orderStatus + '&id=' + item.orderId + '&no=' + item.no);
                         break;
                     case 2: //采购
-                        this.$router.push('/member/purchaseOrder');
+                        this.$router.push('/member/purchaseOrder?status=' + item.orderStatus);
                         break;
                     case 3: //销售
-                        this.$router.push('/member/saleOrder');
+                        this.$router.push('/member/saleOrder?status=' + item.orderStatus);
                         break;
                 }
 

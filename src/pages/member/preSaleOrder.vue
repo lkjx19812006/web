@@ -130,7 +130,7 @@ ul li {
 }
 
 .detail_infor .detail_content .other {
-    width:110px;
+    width: 110px;
     margin-left: 10px;
 }
 
@@ -376,6 +376,7 @@ export default {
             myhead: {
                 name: '预售订单'
             },
+            status: '',
             sellStatus: [{
                 name: '全部订单',
                 back_id: 0,
@@ -453,6 +454,33 @@ export default {
     components: {
         logistics,
         titleHead
+    },
+    created() {
+        //确定消息中心带过来的数据   
+        if (this.$route.query && this.$route.query.status && this.$route.query.status != undefined) {
+            this.status = parseInt(this.$route.query.status);
+            this.httpParam.orderStatus = this.status;
+            var flag = true;
+            for (var i = 0; i < this.sellStatus.length; i++) {
+                let obj = this.sellStatus[i];
+                obj.show = false;
+                if (obj.back_id === this.status) {
+                    obj.show = true;
+                    flag = false;
+                }
+            }
+            if (flag) {
+                this.sellStatus[0].show = true;
+            } else {
+                let id = this.$route.query.id;
+                let no = this.$route.query.no;
+                if (id && id != undefined && no && no != undefined) {
+                    this.getDetail(id, no);
+                    this.edit = true;
+                }
+            }
+
+        };
     },
     mounted() {
         this.getHttp();

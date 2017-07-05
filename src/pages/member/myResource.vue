@@ -89,6 +89,7 @@ export default {
                 pn: 1,
                 pSize: 10
             },
+            intentionId: '',
             myhead: {
                 name: '我的资源',
                 title: ''
@@ -101,6 +102,14 @@ export default {
     computed: {
         myResource() {
             return this.$store.state.user.myResource;
+        }
+    },
+    created() {
+        //确定消息中心带过来的数据    
+        if (this.$route.query && this.$route.query.intentionId && this.$route.query.intentionId != undefined) {
+            this.intentionId = this.$route.query.intentionId;
+            this.detailObj = true;
+            this.getDetail(this.intentionId);
         }
     },
     components: {

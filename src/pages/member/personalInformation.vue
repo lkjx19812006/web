@@ -477,7 +477,7 @@ export default {
             let _self = this;
             let userType = '';
             if (this.formDate.userType === '') {
-                userType = 1;
+                userType = 0;
             } else {
                 if (this.formDate.userType === 0) {
                     userType = 1;

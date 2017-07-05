@@ -182,7 +182,7 @@ body {
             <div class="body_content">
                 <needTextCondition :httpParam="httpParam" v-on:getData="getHttp"></needTextCondition>
                 <needCondition :httpParam="httpParam" v-on:getData="getHttp"></needCondition>
-                <div class="need_detail" :class="{'need_top':item.indentType === 0}" v-for="(item,index) in needList" v-show="item.isMy == '0'">
+                <div class="need_detail" :class="{'need_top':item.indentType === 0}" v-for="(item,index) in needList">
                     <div class="need_detail_left">
                         <div class="title">
                             <span class="hName">{{item.breedName}}</span>
@@ -273,6 +273,7 @@ export default {
     name: 'need_view',
     data() {
         return {
+            intentionId: '',
             showEWMIndex: -1,
             httpParam: httpParam,
             fullscreenLoading: false
@@ -291,6 +292,14 @@ export default {
             this.httpParam.keyWord = this.$store.state.search.searchValue.needValue;
         }
     },
+    created() {
+        //确定消息中心带过来的数据    
+        if (this.$route.query && this.$route.query.intentionId && this.$route.query.intentionId != undefined) {
+            this.httpParam.keyWord = '';
+            this.intentionId = this.$route.query.intentionId;
+            this.getHttpById(this.intentionId);
+        }
+    },
     computed: {
         needList() {
             //处理二维码
@@ -298,9 +307,7 @@ export default {
             for (var i = 0; i < arr.length; i++) {
                 let obj = arr[i];
                 obj.ewmUrl = common.commonGetEWMURL(obj.breedName, obj.id);
-                console.log(obj.ewmUrl)
             }
-            console.log(arr)
             return arr;
         },
         total() {
@@ -314,14 +321,16 @@ export default {
         }
     },
     mounted() {
-        if (this.$store.state.search.searchValue.needValue) {
-            this.httpParam.keyWord = this.$store.state.search.searchValue.needValue;
-        } else {
-            this.httpParam.keyWord = '';
-        }
-        this.httpParam.pn = 1;
-        if (this.$store.state.resource.needAllList.list.length === 0) {
-            this.getHttp();
+        if (this.intentionId === '') {
+            if (this.$store.state.search.searchValue.needValue) {
+                this.httpParam.keyWord = this.$store.state.search.searchValue.needValue;
+            } else {
+                this.httpParam.keyWord = '';
+            }
+            this.httpParam.pn = 1;
+            if (this.$store.state.resource.needAllList.list.length === 0) {
+                this.getHttp();
+            }
         }
     },
     methods: {
@@ -363,6 +372,27 @@ export default {
                     biz_module: 'intentionService',
                     biz_method: 'queryBegBuyList',
                     biz_param: _self.httpParam
+                },
+                path: url
+            }).then(() => {
+                _self.fullscreenLoading = false;
+            }, () => {
+                _self.fullscreenLoading = false;
+            });
+        },
+        getHttpById(intentionId) {
+            let _self = this;
+            this.fullscreenLoading = true;
+            let url = common.urlCommon + common.apiUrl.most;
+            if (common.SID) url = common.addSID(url);
+            this.$store.dispatch('getNeedAllList', {
+                body: {
+                    biz_module: 'intentionService',
+                    biz_method: 'queryIntentionInList',
+                    biz_param: {
+                        id: intentionId,
+                        type: 0
+                    }
                 },
                 path: url
             }).then(() => {

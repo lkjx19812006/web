@@ -148,9 +148,8 @@
                                 <span class="pre_read" style="color: #B3B3B3" v-if="item.isRead === 1">[已读]</span>
                                 <span>{{item.message, 60 | filterTxt}}</span>
                             </div>
-                            <div class="linkTo">                            
-                                <span v-if="item.intentionType === 0" @click="linkTo(item.intentionId, item.id)">点击立即报价</span>
-                                <span v-if="item.intentionType === 1" @click="linkTo(item.intentionId, item.id)">点击进入我的资源</span>
+                            <div class="linkTo">
+                                <span @click="linkTo(item)">查看详情</span>
                             </div>
                         </div>
                     </div>
@@ -270,13 +269,19 @@ export default {
                     }
                 })
             },
-            linkTo(intentionId, id) {
+            linkTo(item) {
                 //点击后更新完成后 
                 //先获取总数
                 //再获取标题数量
-                //再获取列表
-                this.updateMessageRead(id);
-                this.$router.push('/resourceDetail/' + intentionId);
+                //再获取列表 item.intentionId, item.id
+                this.updateMessageRead(item.id);
+                if (item.intentionType === 0) {
+                    //求购列表
+                    this.$router.push('/need?intentionId=' + item.intentionId);
+                } else if (item.intentionType === 1) {
+                    //我的资源列表
+                    this.$router.push('/member/myResource?intentionId=' + item.intentionId);
+                }
             },
             //获取列表
             getIntentionList() {

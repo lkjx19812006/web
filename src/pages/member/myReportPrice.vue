@@ -245,6 +245,7 @@ export default {
                 pn: 1,
                 pSize: 10
             },
+            intentionId: '',
             id: '',
             edit: false,
             images: []
@@ -264,6 +265,14 @@ export default {
         myOfferResDetail,
         myOfferPrice,
         qrcode
+    },
+    created() {
+        //确定消息中心带过来的数据    
+        if (this.$route.query && this.$route.query.intentionId && this.$route.query.intentionId != undefined) {
+            this.intentionId = this.$route.query.intentionId;
+            this.getDetail(this.intentionId);
+            this.getTopDetail(this.intentionId);
+        }
     },
     mounted() {
         this.getHttp();

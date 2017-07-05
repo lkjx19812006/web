@@ -14,7 +14,7 @@
 .content .main {
     width: 1200px;
     margin: 40px auto;
-    min-height: 850px;
+    min-height: 550px;
 }
 
 .content .side_left {

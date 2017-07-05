@@ -184,6 +184,7 @@ export default {
     name: 'orderlist-view',
     data() {
         return {
+            status: '',
             logistics: {
                 arr: [],
                 show: false
@@ -243,6 +244,25 @@ export default {
         totalNum() {
             return Number(this.$store.state.orderlist.userTotalNum);
         }
+    },
+    created() {
+        //确定消息中心带过来的数据   
+        if (this.$route.query && this.$route.query.status && this.$route.query.status != undefined) {
+            this.status = parseInt(this.$route.query.status);
+            this.httpParam.orderStatus = this.status;
+            var flag = true;
+            for (var i = 0; i < this.supplyStatus.length; i++) {
+                let obj = this.supplyStatus[i];
+                obj.show = false;
+                if (obj.back_id === this.status) {
+                    obj.show = true;
+                    flag = false;
+                }
+            }
+            if (flag) {
+                this.supplyStatus[0].show = true;
+            }
+        };
     },
     mounted() {
         this.getHttp();
