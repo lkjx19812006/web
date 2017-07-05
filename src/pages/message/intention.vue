@@ -148,8 +148,9 @@
                                 <span class="pre_read" style="color: #B3B3B3" v-if="item.isRead === 1">[已读]</span>
                                 <span>{{item.message, 60 | filterTxt}}</span>
                             </div>
-                            <div class="linkTo">
-                                <span @click="linkTo(item.intentionId, item.id)">点击进入我的资源</span>
+                            <div class="linkTo">                            
+                                <span v-if="item.intentionType === 0" @click="linkTo(item.intentionId, item.id)">点击立即报价</span>
+                                <span v-if="item.intentionType === 1" @click="linkTo(item.intentionId, item.id)">点击进入我的资源</span>
                             </div>
                         </div>
                     </div>

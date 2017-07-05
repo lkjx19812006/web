@@ -154,7 +154,7 @@
                 <div class="btn_read" @click="isRead">
                     标为已读
                 </div>
-                <div class="btn_del" @click="del">
+                <div class="btn_del" @click="del" v-if="false">
                     删除
                 </div>
             </div>
