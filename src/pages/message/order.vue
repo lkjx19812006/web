@@ -125,6 +125,18 @@
                 }
             }
         }
+        .normal {
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            span {
+                font-size: 18px;
+                color: #CACACA;
+                margin-top: 30px;
+            }
+        }
     }
     .page {
         text-align: center;
@@ -148,7 +160,7 @@
             </div>
         </div>
         <div class="items">
-            <div class="item" v-for="item in olderList">
+            <div v-if="olderList.length > 0" class="item" v-for="item in olderList">
                 <div class="checkBox_wrap">
                     <el-checkbox @change="itemChecked" v-model="item.checked">
                     </el-checkbox>
@@ -166,14 +178,14 @@
                         <div class="cont_wrap">
                             <div class="state">
                                 <span class="pre_read" v-if="item.isRead === 0">[未读]</span>
-                                <span class="pre_read" style="color: #666" v-if="item.isRead === 1">[已读]</span>
+                                <span class="pre_read" style="color: #B3B3B3" v-if="item.isRead === 1">[已读]</span>
                             </div>
                             <div class="info_cont">
                                 <div class="send_good">
                                     {{ item.orderStatus | filterOrder}}
                                 </div>
                                 <div class="info">
-                                    <span>{{item.message}}</span>
+                                    <span>{{item.message, 60 | filterTxt}}</span>
                                     <span class="linkTo" @click="linkTo(item)">点击查看详情</span>
                                 </div>
                                 <div class="order_num">
@@ -190,8 +202,12 @@
                     </div>
                 </div>
             </div>
+            <div v-if="olderList.length ===  0" class="normal">
+                <img src="../../../static/icon/normalMessage.png">
+                <span>亲，暂时没有消息哦！</span>
+            </div>
         </div>
-        <div class="page">
+        <div class="page" v-if="olderList.length > 0">
             <el-pagination @current-change="handleCurrentChange" :current-page="httpParam.pn" :page-size="httpParam.pSize" layout="total, prev, pager, next, jumper" :total="total">
             </el-pagination>
         </div>
@@ -221,6 +237,7 @@ export default {
         },
         created() {
             this.getOlderList();
+            this.getMessageType();
         },
         methods: {
             isRead() {

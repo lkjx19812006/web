@@ -157,7 +157,7 @@ var httpService = new Vue({
         },
         validateUserInfo: function validateUserInfo(userInfo, callback) {
             //登录过了 有phone 才校验 没有登录不校验 没有名字要去 没有用户类型 要去 没有用户身份 要去
-            if (userInfo.phone && (!userInfo.fullname || userInfo.userType === 0 || userInfo.manageType === -1)) {
+            if (userInfo.phone && (!userInfo.fullname || userInfo.userType === 0 || userInfo.manageType === -1 || userInfo.bizMain == '')) {
                 callback();
                 return false;
             } else {

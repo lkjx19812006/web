@@ -597,6 +597,7 @@ export default {
                 _self.clearCookie('SID');
                 _self.$store.dispatch('quitWeb')
                     .then(() => {
+                        _self.$store.dispatch('clearMessageTotal');
                         _self.$router.push('/');
                     }, () => {
 

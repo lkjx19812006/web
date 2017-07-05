@@ -1,7 +1,7 @@
 import httpService from '../../common/httpService'
 
 const state = {
-    messageTotal: 0,
+    messageTotal: '',
     messageType: [],
     messageIntention: { list: [], total: 0 },
     messageOfferList: { list: [], total: 0 },
@@ -29,6 +29,12 @@ const actions = {
                 .catch(function(err) {
                     reject(err);
                 });
+        })
+    },
+    clearMessageTotal({ commit, state }) {
+        return new Promise((resolve, reject) => {
+            commit('clearMessageTotal');
+            resolve();
         })
     },
     getMessageType({ commit, state }, param) {
@@ -123,6 +129,9 @@ const actions = {
 const mutations = {
     setMessageTotal(state, res) {
         state.messageTotal = res.biz_result.total;
+    },
+    clearMessageTotal(state, res) {
+        state.messageTotal = '';
     },
     setMessageType(state, res) {
         state.messageType = res.biz_result.list;

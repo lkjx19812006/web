@@ -95,6 +95,18 @@
                 }
             }
         }
+        .normal {
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            span {
+                font-size: 18px;
+                color: #CACACA;
+                margin-top: 30px;
+            }
+        }
     }
     .page {
         text-align: center;
@@ -118,7 +130,7 @@
             </div>
         </div>
         <div class="items">
-            <div class="item" v-for="item in offerList">
+            <div v-if="offerList.length > 0" class="item" v-for="item in offerList">
                 <div class="checkBox_wrap">
                     <el-checkbox @change="itemChecked" v-model="item.checked">
                     </el-checkbox>
@@ -136,8 +148,8 @@
                         <div class="cont_wrap">
                             <div class="info">
                                 <span class="pre_read" v-if="item.isRead === 0">[未读]</span>
-                                <span class="pre_read" style="color: #666" v-if="item.isRead === 1">[已读]</span>
-                                <span>{{item.message}}</span>
+                                <span class="pre_read" style="color: #B3B3B3" v-if="item.isRead === 1">[已读]</span>
+                                <span>{{item.message, 60 | filterTxt}}</span>
                             </div>
                             <div class="linkTo">
                                 <span @click="linkToInfo(item.intentionId, item.id)">点击查看详情</span>
@@ -146,8 +158,12 @@
                     </div>
                 </div>
             </div>
+             <div v-if="offerList.length ===  0" class="normal">
+                <img src="../../../static/icon/normalMessage.png">
+                <span>亲，暂时没有消息哦！</span>
+            </div>
         </div>
-        <div class="page">
+        <div class="page" v-if="offerList.length > 0">
             <el-pagination @current-change="handleCurrentChange" :current-page="httpParam.pn" :page-size="httpParam.pSize" layout="total, prev, pager, next, jumper" :total="total">
             </el-pagination>
         </div>
@@ -177,6 +193,7 @@ export default {
         },
         created() {
             this.getOfferList();
+            this.getMessageType()
         },
         methods: {
             isRead() {
