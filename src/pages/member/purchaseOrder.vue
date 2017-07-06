@@ -156,7 +156,7 @@
             <el-table-column label="操作">
                 <template scope="scope">
                     <!-- <div class="seelogis" v-if="'cancel' ==judgeOrderStatus(orderList[scope.$index].orderStatus) " @click="cancelOrder(orderList[scope.$index].id,orderList[scope.$index].no)">取消订单</div> -->
-                    <div class="seelogis" v-if="'send' ==judgeOrderStatus(orderList[scope.$index].orderStatus)&&httpParam.type==0" @click="ConfirmReceipt(orderList[scope.$index].id,orderList[scope.$index].no)">确认收货</div>
+                    <div class="seelogis" v-if="'send' ==judgeOrderStatus(orderList[scope.$index].orderStatus)&&httpParam.type==0" @click="btnConfirmReceipt(orderList[scope.$index].id,orderList[scope.$index].no)">确认收货</div>
                     <div class="seelogis" v-if="'send' ==judgeOrderStatus(orderList[scope.$index].orderStatus)" @click="seeLogistics(orderList[scope.$index].id)">查看物流</div>
                     <div class="seelogis" v-if="'waitsend' ==judgeOrderStatus(orderList[scope.$index].orderStatus)&&httpParam.type==0" @click="urge()">催促发货</div>
                     <div class="seelogis" v-if="'pay' ==judgeOrderStatus(orderList[scope.$index].orderStatus)&&httpParam.type==0" @click="payMoney()">立即支付</div>
@@ -375,6 +375,17 @@ export default {
                     _self.statusShow = false;
                 })
 
+        },
+        btnConfirmReceipt(id, no) {
+            this.$confirm('是否确认收货?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.ConfirmReceipt(id, no);
+            }).catch(() => {
+
+            });
         },
         ConfirmReceipt(id, no) {
             let _self = this;

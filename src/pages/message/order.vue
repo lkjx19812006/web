@@ -182,7 +182,7 @@
                             </div>
                             <div class="info_cont">
                                 <div class="send_good">
-                                    {{ item.orderStatus | filterOrder}}
+                                    {{ item.orderStatus, item.intentionType | filterOrder}}
                                 </div>
                                 <div class="info">
                                     <span>{{item.message, 60 | filterTxt}}</span>

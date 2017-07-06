@@ -167,42 +167,41 @@
                                     <qrcode type="image" level="H" :size="106" :value="getEWMUrl(scope.row)"></qrcode>                                  
                                 </div>
                             </span>
-                            <span class='green' v-on:mouseenter="scope.row.showtips = true" v-on:mouseleave="scope.row.showtips = false" @click="jumpDetail(scope.row)" v-if="scope.row.accept == 1">
-                                联系专属客服
+                            <span class='green' v-on:mouseenter="scope.row.showtips = true" v-on:mouseleave="scope.row.showtips = false" @click="jumpDetail(scope.row)" v-if="scope.row.accept == 1"> 联系专属客服                               
                                 <div class="employ" v-show="scope.row.showtips && scope.row.employeeName && scope.row.employeeMobil">
                                     {{scope.row.employeeName + ' ' + scope.row.employeeMobil}}
                                     <span class="el-icon-caret-bottom"></span>
+                                </div>
+                            </span>
+                        </template>
+                     </el-table-column>
+                </el-table>
+                <div class="block">
+                    <el-pagination layout="prev, pager, next" :total="totalNum" :page-size="10" @current-change="handleCurrentChange">
+                    </el-pagination>
+                </div>
+            </template>
         </div>
-        </span>
-        </template>
-        </el-table-column>
-        </el-table>
-        <div class="block">
-            <el-pagination layout="prev, pager, next" :total="totalNum" :page-size="10" @current-change="handleCurrentChange">
-            </el-pagination>
-        </div>
-        </template>
-    </div>
-    <div class='detail' v-if='detail && top_detail'>
-        <div class='title'>
-            <div class='name'>
-                <img src="../../static/icon/myOffer1.png" height="23" width="23">
-                <span>求购信息</span>
+        <div class='detail' v-if='detail && top_detail'>
+            <div class='title'>
+                <div class='name'>
+                    <img src="../../static/icon/myOffer1.png" height="23" width="23">
+                    <span>求购信息</span>
+                </div>
+                <div class="offer_info_wrap">
+                    <myOfferResDetail :detailObj="top_detail"></myOfferResDetail>
+                </div>
             </div>
-            <div class="offer_info_wrap">
-                <myOfferResDetail :detailObj="top_detail"></myOfferResDetail>
-            </div>
-        </div>
-        <div class='title'>
-            <div class='name'>
-                <img src="../../static/icon/myoffer2.png" height="24" width="23">
-                <span>我的报价</span>
-            </div>
-            <div class="offer_price_wrap">
-                <myOfferPrice :detailObj="detail"></myOfferPrice>
+            <div class='title'>
+                <div class='name'>
+                    <img src="../../static/icon/myoffer2.png" height="24" width="23">
+                    <span>我的报价</span>
+                </div>
+                <div class="offer_price_wrap">
+                    <myOfferPrice :detailObj="detail"></myOfferPrice>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </template>
 <script>

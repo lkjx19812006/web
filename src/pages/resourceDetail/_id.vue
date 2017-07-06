@@ -121,8 +121,7 @@
                             flex-direction: row;
                             font-size: 24px;
                             img {
-                                width: 15px;
-                                height: 18px;
+                                height: 30px;
                                 margin-left: 5px;
                             }
                         }

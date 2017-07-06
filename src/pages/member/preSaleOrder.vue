@@ -246,7 +246,7 @@ ul li {
                         <!-- <div v-if="'payMoney' == judgeOrderStatus(orderList[scope.$index].orderStatus)" class="check_detail" @click="payMoney(scope.$index, scope.row)">付定金</div> -->
                         <!-- <div v-if="'retainage' == judgeOrderStatus(orderList[scope.$index].orderStatus)" class="check_detail" @click="payRetainage(scope.$index, scope.row)">付尾款</div> -->
                         <div v-if="'send' == judgeOrderStatus(orderList[scope.$index].orderStatus)" class="check_detail" @click="seeLogistics(scope.$index, scope.row)">查看物流</div>
-                        <div v-if="'send' == judgeOrderStatus(orderList[scope.$index].orderStatus)" class="check_detail" @click="ConfirmReceipt(scope.$index, scope.row)">确认收货</div>
+                        <div v-if="'send' == judgeOrderStatus(orderList[scope.$index].orderStatus)" class="check_detail" @click="btnConfirmReceipt(scope.$index, scope.row)">确认收货</div>
                     </template>
                 </el-table-column>
             </el-table>
@@ -610,6 +610,17 @@ export default {
                     _self.loading = false;
                 })
 
+        },
+        btnConfirmReceipt(index, row) {
+            this.$confirm('是否确认收货?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.ConfirmReceipt(index, row);
+            }).catch(() => {
+
+            });
         },
         ConfirmReceipt(index, row) {
             let _self = this;

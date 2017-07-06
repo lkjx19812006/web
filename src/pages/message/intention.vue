@@ -276,8 +276,8 @@ export default {
                 //再获取列表 item.intentionId, item.id
                 this.updateMessageRead(item.id);
                 if (item.intentionType === 0) {
-                    //求购列表
-                    this.$router.push('/need?intentionId=' + item.intentionId);
+                    //我的求购
+                    this.$router.push('/member/myNeed?intentionId=' + item.intentionId);
                 } else if (item.intentionType === 1) {
                     //我的资源列表
                     this.$router.push('/member/myResource?intentionId=' + item.intentionId);

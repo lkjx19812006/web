@@ -136,12 +136,20 @@ export default {
                 need: true,
                 textarea: '',
                 loading: false,
-                detailObj: ''
+                detailObj: '',
+                intentionId: ''
             }
         },
         computed: {
             myNeed() {
                 return this.$store.state.user.myNeed;
+            }
+        },
+        created() {
+            //确定消息中心带过来的数据    
+            if (this.$route.query && this.$route.query.intentionId && this.$route.query.intentionId != undefined) {
+                this.intentionId = this.$route.query.intentionId;
+                this.getDetail(this.intentionId);
             }
         },
         mounted() {
@@ -223,7 +231,7 @@ export default {
                             if (res.code == '1c01') {
                                 console.log(res.biz_result)
                                 _self.detailObj = res.biz_result;
-                                _self.myhead.title = '返回求购列表'                             
+                                _self.myhead.title = '返回求购列表'
                                 resolve();
                             }
 

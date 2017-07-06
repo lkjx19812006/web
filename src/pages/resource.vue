@@ -68,8 +68,7 @@ body {
                                     cursor: pointer;
                                 }
                                 img {
-                                    width: 15px;
-                                    height: 18px;
+                                    height: 25px;
                                     margin-left: 5px;
                                 }
                             }

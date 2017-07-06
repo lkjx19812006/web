@@ -96,14 +96,18 @@ export function getYMDOlder(time, type) {
 // 50：待收货（已发货）
 
 //  60，70：确认收货（已完成）
-export function filterOrder(typeNum) {
+export function filterOrder(typeNum, intentionType) {
     let str = '';
     switch (typeNum) {
         case 10:
             str = '待审核';
             break;
         case 20:
-            str = '待支付尾款';
+            if (intentionType === 1) {
+                str = '待支付尾款';
+            } else {
+                str = '待支付';
+            };
             break;
         case 30:
             str = '待发货';
