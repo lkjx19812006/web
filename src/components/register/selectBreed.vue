@@ -47,7 +47,7 @@
                 flex-direction: row;
                 justify-content: flex-start;
                 margin-bottom: 20px;
-                margin-right: 35px;
+                margin-right: 30px;
                 position: relative;
                 .name {
                     height: 28px;
@@ -86,14 +86,14 @@
                 }
             }
             .hot_items {
-                padding: 18px;
+                padding: 20px 15px;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
                 .item {
                     color: #666666;
                     font-size: 16px;
-                    padding: 6px 18px;
+                    padding: 6px 15px;
                     border: 1px solid #E6E6E6;
                     cursor: pointer;
                     margin: 0 10px;
@@ -231,9 +231,12 @@ export default {
                 }
             },
             handleSelect(val) {
+                if (!val.keyWord || val.keyWord === '') {
+                    return;
+                };
                 if (!this.validateBreedLists()) {
                     return;
-                }
+                };
                 //下拉列表选中时，先查找已选中是否有选中了的 如果有则不添加
                 var flag = true;
                 for (var i = 0; i < this.breedLists.length; i++) {
@@ -337,11 +340,11 @@ export default {
             getHot() {
                 let _self = this;
                 common.commonPost(common.urlCommon + common.apiUrl.most, {
-                    biz_module: 'breedService',
-                    biz_method: 'hotDrugPropertiesInfo',
+                    biz_module: 'searchKeywordService',
+                    biz_method: 'queryHotKeyword',
                     biz_param: {
                         pn: 1,
-                        pSize: 30
+                        pSize: 20
                     }
                 }).then(function(suc) {
                     //处理已选择过的经营品种
@@ -358,7 +361,7 @@ export default {
                     //遍历所有热搜 高亮显示
                     arr.forEach(function(item) {
                         item.selected = false;
-                        item.breedName = item.name;
+                        item.breedName = item.keyWord;
                         for (var i = 0; i < _self.breedLists.length; i++) {
                             var breed = _self.breedLists[i];
                             if (breed.breedName === item.breedName) {

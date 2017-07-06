@@ -108,7 +108,6 @@ export default {
         //确定消息中心带过来的数据    
         if (this.$route.query && this.$route.query.intentionId && this.$route.query.intentionId != undefined) {
             this.intentionId = this.$route.query.intentionId;
-            debugger;
             if (!this.$store.state.message.resourceIntentionInfo.id) {
                 this.getDetail(this.intentionId);
             } else {

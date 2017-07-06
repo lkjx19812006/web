@@ -234,7 +234,7 @@ export default {
                 })
             },
         },
-        mounted() {
+        created() {
             if (this.$store.state.search.drugsEnyc.id == undefined) {
                 this.getHotInfo(this.$route.params.id);
             } else {

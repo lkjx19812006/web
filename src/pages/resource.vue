@@ -40,7 +40,14 @@ body {
                         height: 170px;
                         position: relative;
                         overflow: hidden;
-                        img {
+                        .small_img {
+                            position: absolute;
+                            left: -1px;
+                            top: -1px;
+                            width: 38px;
+                            height: 36px;
+                        }
+                        .big_img {
                             position: absolute;
                             margin: auto;
                             left: 0;
@@ -66,10 +73,6 @@ body {
                                 flex-direction: row;
                                 .breed_name {
                                     cursor: pointer;
-                                }
-                                img {
-                                    height: 25px;
-                                    margin-left: 5px;
                                 }
                             }
                             display: flex;
@@ -148,13 +151,13 @@ body {
                 <resourceCondition :httpParam="httpParam" v-on:getData="getHttp"></resourceCondition>
                 <div class="resource_detail" v-for="item in resourceList" v-show="item.isMy == '0'">
                     <div class="resource_image">
-                        <img :src="item.image[0]" v-on:click="buy(item)">
+                        <img class="big_img" :src="item.image[0]" v-on:click="buy(item)">
+                        <img src="../static/icon/burst.png" v-if="item.especial == 1 && item.type == 1" class="small_img">
                     </div>
                     <div class="need_detail_left">
                         <div class="title">
                             <div class='names'>
                                 <div class='breed_name' v-on:click="buy(item)">{{item.breedName}}</div>
-                                <img src="../static/icon/burst.png" v-if="item.especial == 1 && item.type == 1" class="small_img">
                             </div>
                             <div>
                                 <span class="orange_span">{{item.price+'元/'+item.unit}}</span>

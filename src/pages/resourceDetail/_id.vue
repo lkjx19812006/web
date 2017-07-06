@@ -121,8 +121,12 @@
                             flex-direction: row;
                             font-size: 24px;
                             img {
-                                height: 30px;
-                                margin-left: 5px;
+                                height: 40px;
+                                margin-top: 5px;
+                                margin-right: 10px;
+                            }
+                            div {
+                                margin-top: 4px;
                             }
                         }
                         .shelve_time {
@@ -200,8 +204,8 @@
                     <div class="intention_row">
                         <div class='head_title'>
                             <div class="title_font">
+                                <img src="../../static/icon/burst2.png" v-if="intention.especial == 1 && intention.type == 1" class="small_img">
                                 <div>{{intention.breedName}}</div>
-                                <img src="../../static/icon/burst.png" v-if="intention.especial == 1 && intention.type == 1" class="small_img">
                             </div>
                             <div class='shelve_time' v-if="intention.shelveTime">上架日期{{intention.shelveTime | formatBirth}}</div>
                             <div class='shelve_time' v-if="!intention.shelveTime">上架日期：近期上架</div>

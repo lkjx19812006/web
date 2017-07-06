@@ -9,7 +9,7 @@
             width: 732px;
             padding-top: 60px;
             padding-bottom: 22px;
-            text-align: center;            
+            text-align: center;
             img {
                 border: 0 none;
                 margin: 0 auto;
@@ -92,8 +92,16 @@
                     border-bottom: 1px solid #d1d1d1;
                 }
                 .hot_txt {
+                    position: relative;
                     .items {
+                        width: 360px;
+                        position: absolute;
+                        left: -15px;
                         padding: 0;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-start;
+                        flex-wrap: wrap;
                         list-style-type: none;
                         overflow: hidden;
                     }
@@ -102,8 +110,8 @@
                         font: 15px #666666;
                         border: 1px solid #ebebeb;
                         padding: 5px 10px;
-                        margin-right: 22px;
-                        margin-bottom: 24px;
+                        margin-left: 15px;
+                        margin-bottom: 20px;
                         color: #666666;
                         cursor: pointer;
                     }
@@ -155,8 +163,8 @@
                     <h3>热搜药材</h3>
                     <div class="hot_txt">
                         <ul class="items">
-                            <li class="item" v-for="item in hotList" :key="item.name" @click="linkToBreed(item.name)">
-                                {{item.name}}
+                            <li class="item" v-for="item in hotKeyList" :key="item.keyWord" @click="linkToBreed(item.keyWord)">
+                                {{item.keyWord}}
                             </li>
                         </ul>
                     </div>
@@ -179,10 +187,12 @@ export default {
             timeout: '',
             breedName: '',
             hotList: [],
+            hotKeyList: []
         }
     },
     created() {
-
+        this.getHot();
+        this.getHotKeyList();
     },
     computed: {
 
@@ -203,6 +213,21 @@ export default {
                 }
             }).then(function(suc) {
                 _self.hotList = suc.biz_result.list;
+            }).catch(function(err) {
+
+            })
+        },
+        getHotKeyList() {
+            let _self = this;
+            common.commonPost(common.urlCommon + common.apiUrl.most, {
+                biz_module: 'searchKeywordService',
+                biz_method: 'queryHotKeyword',
+                biz_param: {
+                    pn: 1,
+                    pSize: 20
+                }
+            }).then(function(suc) {
+                _self.hotKeyList = suc.biz_result.list;
             }).catch(function(err) {
 
             })
@@ -275,9 +300,6 @@ export default {
             }, 300);
         },
     },
-    beforeMount() {
-        this.getHot();
-    }
 
 }
 </script>
