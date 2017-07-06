@@ -270,14 +270,35 @@ export default {
                 })
             },
             linkTo(item) {
+                let target = (isMy) => {
+                    //1 跳自己
+                    if (isMy === 1) {
+                        this.$router.push('/member/myNeed?intentionId=' + item.intentionId);
+                    } else if (isMy === 0) {
+                        //0 跳列表
+                        this.$router.push('/need?intentionId=' + item.intentionId);
+                    } else {
+                        this.$router.push('/need?intentionId=' + item.intentionId);
+                    }
+                };
                 //点击后更新完成后 
                 //先获取总数
                 //再获取标题数量
                 //再获取列表 item.intentionId, item.id
                 this.updateMessageRead(item.id);
                 if (item.intentionType === 0) {
-                    //我的求购
-                    this.$router.push('/member/myNeed?intentionId=' + item.intentionId);
+                    //返回isMy
+                    if (item.isMy) {
+                        target(item.isMy)
+                    } else {
+                        //不返回isMy
+                        //我的求购 判断是我的资源 还是 别人的资源
+                        this.getDetail(item.intentionId).then((sur) => {
+                            target(sur.biz_result.isMy)
+                        }, (error) => {
+
+                        });
+                    }
                 } else if (item.intentionType === 1) {
                     //我的资源列表
                     this.$router.push('/member/myResource?intentionId=' + item.intentionId);
@@ -412,7 +433,34 @@ export default {
                 }, () => {
 
                 })
-            }
+            },
+            getDetail(id) {
+                let _self = this;
+                return new Promise((resolve, reject) => {
+                    let url = httpService.addSID(httpService.urlCommon + httpService.apiUrl.most);
+                    let body = {
+                        biz_module: 'intentionService',
+                        biz_method: 'queryIntentionInfo',
+                        biz_param: {
+                            id: id
+                        }
+                    };
+                    //url = httpService.addSID(url);
+                    body.version = 1;
+                    let localTime = new Date().getTime();
+                    body.time = localTime + httpService.difTime;
+                    body.sign = httpService.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
+                    httpService.commonPost(url, body)
+                        .then(function(res) {
+                            resolve(res);
+                        })
+                        .catch(function(err) {
+                            reject(err);
+                        })
+                })
+
+            },
+
 
         }
 }

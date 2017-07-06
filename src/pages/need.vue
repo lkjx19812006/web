@@ -273,6 +273,7 @@ export default {
     name: 'need_view',
     data() {
         return {
+            intentionId: '',
             showEWMIndex: -1,
             httpParam: httpParam,
             fullscreenLoading: false
@@ -289,6 +290,14 @@ export default {
         needValue() {
             this.httpParam.pn = 1;
             this.httpParam.keyWord = this.$store.state.search.searchValue.needValue;
+        }
+    },
+    created() {
+        //确定消息中心带过来的数据    
+        if (this.$route.query && this.$route.query.intentionId && this.$route.query.intentionId != undefined) {
+            this.httpParam.keyWord = '';
+            this.intentionId = this.$route.query.intentionId;
+            this.getHttpById(this.intentionId);
         }
     },
     computed: {
@@ -312,16 +321,17 @@ export default {
         }
     },
     mounted() {
-        if (this.$store.state.search.searchValue.needValue) {
-            this.httpParam.keyWord = this.$store.state.search.searchValue.needValue;
-        } else {
-            this.httpParam.keyWord = '';
+        if (this.intentionId === '') {
+            if (this.$store.state.search.searchValue.needValue) {
+                this.httpParam.keyWord = this.$store.state.search.searchValue.needValue;
+            } else {
+                this.httpParam.keyWord = '';
+            }
+            this.httpParam.pn = 1;
+            if (this.$store.state.resource.needAllList.list.length === 0) {
+                this.getHttp();
+            }
         }
-        this.httpParam.pn = 1;
-        if (this.$store.state.resource.needAllList.list.length === 0) {
-            this.getHttp();
-        }
-
     },
     methods: {
         goDetail(item, user) {
@@ -370,27 +380,27 @@ export default {
                 _self.fullscreenLoading = false;
             });
         },
-        // getHttpById(intentionId) {
-        //     let _self = this;
-        //     this.fullscreenLoading = true;
-        //     let url = common.urlCommon + common.apiUrl.most;
-        //     if (common.SID) url = common.addSID(url);
-        //     this.$store.dispatch('getNeedAllList', {
-        //         body: {
-        //             biz_module: 'intentionService',
-        //             biz_method: 'queryIntentionInList',
-        //             biz_param: {
-        //                 id: intentionId,
-        //                 type: 0
-        //             }
-        //         },
-        //         path: url
-        //     }).then(() => {
-        //         _self.fullscreenLoading = false;
-        //     }, () => {
-        //         _self.fullscreenLoading = false;
-        //     });
-        // },
+        getHttpById(intentionId) {
+            let _self = this;
+            this.fullscreenLoading = true;
+            let url = common.urlCommon + common.apiUrl.most;
+            if (common.SID) url = common.addSID(url);
+            this.$store.dispatch('getNeedAllList', {
+                body: {
+                    biz_module: 'intentionService',
+                    biz_method: 'queryIntentionInList',
+                    biz_param: {
+                        id: intentionId,
+                        type: 0
+                    }
+                },
+                path: url
+            }).then(() => {
+                _self.fullscreenLoading = false;
+            }, () => {
+                _self.fullscreenLoading = false;
+            });
+        },
         handleCurrentChange(val) {
             this.httpParam.pn = val;
             this.getHttp();
