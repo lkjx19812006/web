@@ -108,8 +108,13 @@ export default {
         //确定消息中心带过来的数据    
         if (this.$route.query && this.$route.query.intentionId && this.$route.query.intentionId != undefined) {
             this.intentionId = this.$route.query.intentionId;
-            this.detailObj = true;
-            this.getDetail(this.intentionId);
+            debugger;
+            if (!this.$store.state.message.resourceIntentionInfo.id) {
+                this.getDetail(this.intentionId);
+            } else {
+                this.detailObj = this.$store.state.message.resourceIntentionInfo;
+                this.myhead.title = '返回求购列表'
+            }
         }
     },
     components: {

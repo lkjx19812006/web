@@ -270,15 +270,35 @@ export default {
                 })
             },
             linkTo(item) {
-                let target = (isMy) => {
+                let target = (isMy, type) => {
                     //1 跳自己
                     if (isMy === 1) {
-                        this.$router.push('/member/myNeed?intentionId=' + item.intentionId);
+                        //我的求购
+                        if (type === 0) {
+                            this.$router.push('/member/myNeed?intentionId=' + item.intentionId);
+                        } else if (type === 1) {
+                            //我的资源
+                            this.$router.push('/member/myResource?intentionId=' + item.intentionId);
+                        }
                     } else if (isMy === 0) {
                         //0 跳列表
-                        this.$router.push('/need?intentionId=' + item.intentionId);
+                        if (type === 0) {
+                            //求购专区列表
+                            this.$router.push('/need?intentionId=' + item.intentionId);
+                        } else if (type === 1) {
+                            //资源专区详情
+                            this.$router.push('/resourceDetail/' + item.intentionId);
+                        }
+
                     } else {
-                        this.$router.push('/need?intentionId=' + item.intentionId);
+                        //0 跳列表
+                        if (type === 0) {
+                            //求购专区列表
+                            this.$router.push('/need?intentionId=' + item.intentionId);
+                        } else if (type === 1) {
+                            //资源专区详情
+                            this.$router.push('/resourceDetail/' + item.intentionId);
+                        }
                     }
                 };
                 //点击后更新完成后 
@@ -286,23 +306,20 @@ export default {
                 //再获取标题数量
                 //再获取列表 item.intentionId, item.id
                 this.updateMessageRead(item.id);
-                if (item.intentionType === 0) {
-                    //返回isMy
+                //清除意向详情
+                this.$store.dispatch('clearIntentionInfo').then(() => {
                     if (item.isMy) {
-                        target(item.isMy)
+                        target(item.isMy, item.intentionType)
                     } else {
                         //不返回isMy
-                        //我的求购 判断是我的资源 还是 别人的资源
-                        this.getDetail(item.intentionId).then((sur) => {
-                            target(sur.biz_result.isMy)
-                        }, (error) => {
-
-                        });
+                        this.getDetail(item.intentionId, item.intentionType).then((sur) => {
+                            target(sur.biz_result.isMy, item.intentionType)
+                        }, (error) => {});
                     }
-                } else if (item.intentionType === 1) {
-                    //我的资源列表
-                    this.$router.push('/member/myResource?intentionId=' + item.intentionId);
-                }
+                }, () => {
+
+                })
+
             },
             //获取列表
             getIntentionList() {
@@ -434,7 +451,7 @@ export default {
 
                 })
             },
-            getDetail(id) {
+            getDetail(id, type) {
                 let _self = this;
                 return new Promise((resolve, reject) => {
                     let url = httpService.addSID(httpService.urlCommon + httpService.apiUrl.most);
@@ -450,18 +467,25 @@ export default {
                     let localTime = new Date().getTime();
                     body.time = localTime + httpService.difTime;
                     body.sign = httpService.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
-                    httpService.commonPost(url, body)
-                        .then(function(res) {
-                            resolve(res);
-                        })
-                        .catch(function(err) {
-                            reject(err);
-                        })
+                    let str = '';
+                    if (type === 0) {
+                        //求购
+                        str = 'getNeedIntentionInfo'
+                    } else if (type === 1) {
+                        //资源
+                        str = 'getResourceIntentionInfo';
+                    };
+                    this.$store.dispatch(str, {
+                        path: url,
+                        body: body
+                    }).then((suc) => {
+                        resolve(suc);
+                    }, (error) => {
+                        reject(error);
+                    });
                 })
 
             },
-
-
         }
 }
 </script>

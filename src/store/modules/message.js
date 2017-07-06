@@ -6,7 +6,9 @@ const state = {
     messageIntention: { list: [], total: 0 },
     messageOfferList: { list: [], total: 0 },
     messageOlderList: { list: [], total: 0 },
-    messageActivityList: { list: [], total: 0 }
+    messageActivityList: { list: [], total: 0 },
+    needIntentionInfo: {},
+    resourceIntentionInfo: {}
 };
 
 const getters = {
@@ -16,9 +18,44 @@ const getters = {
     messageOfferList: state => state.messageOfferList,
     messageOlderList: state => state.messageOlderList,
     messageActivityList: state => state.messageActivityList,
+    needIntentionInfo: state => state.needIntentionInfo,
+    resourceIntentionInfo: state => state.resourceIntentionInfo,
 };
 
 const actions = {
+    //求购意向详情
+    getNeedIntentionInfo({ commit, state }, param) {
+        return new Promise((resolve, reject) => {
+            httpService.commonPost(param.path, param.body)
+                .then(function(res) {
+                    commit('setNeedIntentionInfo', res);
+                    resolve(res);
+                })
+                .catch(function(err) {
+                    reject(err);
+                });
+        })
+    },
+    //资源意向详情
+    getResourceIntentionInfo({ commit, state }, param) {
+        return new Promise((resolve, reject) => {
+            httpService.commonPost(param.path, param.body)
+                .then(function(res) {
+                    commit('setResourceIntentionInfo', res);
+                    resolve(res);
+                })
+                .catch(function(err) {
+                    reject(err);
+                });
+        })
+    },
+    //清除意向详情
+    clearIntentionInfo({ commit, state }) {
+        return new Promise((resolve, reject) => {
+            commit('clearIntentionInfo');
+            resolve();
+        })
+    },
     getMessageTotal({ commit, state }, param) {
         return new Promise((resolve, reject) => {
             httpService.commonPost(param.path, param.body)
@@ -127,6 +164,15 @@ const actions = {
 };
 
 const mutations = {
+    setNeedIntentionInfo(state, res) {
+        state.needIntentionInfo = res.biz_result;
+    },
+    setResourceIntentionInfo(state, res) {
+        state.resourceIntentionInfo = res.biz_result;
+    },
+    clearIntentionInfo(state, res) {
+        state.needIntentionInfo = {};
+    },
     setMessageTotal(state, res) {
         state.messageTotal = res.biz_result.total;
     },
