@@ -32,6 +32,7 @@
     width: 100%;
     height: 100%;
 }
+
 .content .center .right_form {
     flex: 0 0 auto;
     display: flex;
@@ -39,6 +40,7 @@
     justify-content: center;
     margin-left: 100px;
 }
+
 .content .center .right_form .form {
     background-color: #fff;
     border: 1px solid #eee;
@@ -161,8 +163,8 @@ export default {
         headerView,
         footerView
     },
-    created(){
-        if(this.$store.state.user.user.phone){
+    created() {
+        if (this.$store.state.user.user.phone) {
             this.$router.push('/');
         }
     },
@@ -214,17 +216,17 @@ export default {
                                 _self.$store.dispatch('getUserInformation', {
                                     body: body,
                                     path: url
-                                }).then(() => {
-
-                                }, () => {
+                                }).then(() => {}, () => {
 
                                 });
                             }
                         );
                         let srcUrl = _self.$store.state.user.srcUrl
                         if (srcUrl) {
+                            _self.getMessageTotals();
                             _self.$router.push(srcUrl);
                         } else {
+                            _self.getMessageTotals();
                             _self.$router.push('/');
                         }
 
@@ -259,6 +261,21 @@ export default {
             var exp = new Date();
             exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
             document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + "; path=/";
+        },
+        getMessageTotals() {
+            let url = httpService.urlCommon + httpService.apiUrl.most
+            let body = {
+                biz_module: 'pushService',
+                biz_method: 'showIsRead'
+            }
+            url = httpService.addSID(url);
+            body.version = 1;
+            body.time = Date.parse(new Date()) + parseInt(httpService.difTime);
+            body.sign = httpService.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
+            this.$store.dispatch('getMessageTotal', {
+                body: body,
+                path: url
+            }).then(() => {}, () => {})
         }
 
     }

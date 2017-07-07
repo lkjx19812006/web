@@ -47,7 +47,8 @@
                 max-width: 100%;
                 height: 320px;
                 img {
-                    width: 100%;
+                    min-width: 100%;
+                    // max-height: 100%;
                 }
                 margin-bottom:25px;
             }
@@ -209,9 +210,9 @@ export default {
                 })
             },
             lintTo() {
-                if(document.documentElement.scrollTop)document.documentElement.scrollTop = 0;
-                if(window.pageYOffset)window.pageYOffset = 0;
-                if(document.body.scrollTop)document.body.scrollTop = 0;
+                if (document.documentElement.scrollTop) document.documentElement.scrollTop = 0;
+                if (window.pageYOffset) window.pageYOffset = 0;
+                if (document.body.scrollTop) document.body.scrollTop = 0;
                 // var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
                 // this.$store.dispatch('getNewsIndex', '2');
                 // scrollTop = 0;

@@ -92,6 +92,9 @@ export default {
         navList() {
             let typeList = this.$store.state.message.messageType;
             let result = this.navData;
+            result.forEach(function(item) {
+                item.total = 0;
+            });
             if (this.$store.state.message.messageType.length > 0) {
                 typeList.forEach(function(item) {
                     for (var i = 0; i < result.length; i++) {
@@ -100,7 +103,7 @@ export default {
                         }
                     }
                 })
-            }
+            };
             return result;
         }
     }
