@@ -183,7 +183,7 @@
                     <span class="detail_tit">交货地点：</span>
                     <span class="detail_info">{{detailObj.address}}</span>
                 </div>
-                <div class="detail_wrap">
+                <div class="detail_wrap" v-if="false">
                     <span class="detail_tit">付款方式：</span>
                     <span class="detail_info">{{detailObj.paymentWay}}</span>
                 </div>

@@ -145,7 +145,7 @@
             <el-form-item label="交货地" prop="PCD">
                 <el-cascader @change="selectChange" style="width: 380px;" v-model="ruleForm.PCD" placeholder="请输入城市" :options="citys"></el-cascader>
             </el-form-item>
-            <div class="price_radio">
+            <div class="price_radio" v-if="false">
                 <el-form-item label="付款方式">
                     <el-radio-group @change="radioChange" v-model="payment">
                         <template>
@@ -225,7 +225,7 @@
                 <el-input v-model="ruleForm.customerPhone" :placeholder="user.phone"></el-input>
             </el-form-item> -->
             <el-form-item>
-                <el-button type="primary" size="large" class="orange_button" @click="offer('ruleForm')">提交</el-button>
+                <el-button style="width: 380px;" type="primary" size="large" class="orange_button" @click="offer('ruleForm')">提交</el-button>
             </el-form-item>
         </el-form>
         <el-dialog v-on:close="closeMsg" class="my_msg" v-model="dialogMsg">
@@ -425,28 +425,6 @@ export default {
                     this.ruleForm.description = arr
                 }
             },
-            //付款方式
-            radioChange(val) {
-                switch (val) {
-                    case 0:
-                        this.frontDate = '';
-                        this.otherStr = '';
-                        break;
-                    case 1:
-                        this.frontMoney = '';
-                        this.frontDate = '';
-                        this.otherStr = '';
-                        break;
-                    case 2:
-                        this.frontMoney = '';
-                        this.otherStr = '';
-                        break;
-                    case 3:
-                        this.frontMoney = '';
-                        this.frontDate = '';
-                        break;
-                }
-            },
             //截止时间
             radioDate(val) {
                 switch (val) {
@@ -461,104 +439,125 @@ export default {
                         break;
                 }
             },
-            //校验付款方式
-            vaildatePayment(payment) {
-                let validate = true;
-                let result;
-                let msg = '';
-                switch (payment) {
-                    case 0:
-                        if (!parseFloat(this.frontMoney)) {
-                            validate = false;
-                            msg = '请输入合法的百分比';
-                            break;
-                        };
-                        validate = !!this.frontMoney;
-                        msg = '请填写预付定金百分比';
-                        if (this.frontMoney > 100) {
-                            this.frontMoney = 100;
-                        } else if (this.frontMoney <= 0) {
-                            validate = false;
-                            msg = '预付定金百分比不能小于0';
-                        }
+            // //付款方式
+            // radioChange(val) {
+            //     switch (val) {
+            //         case 0:
+            //             this.frontDate = '';
+            //             this.otherStr = '';
+            //             break;
+            //         case 1:
+            //             this.frontMoney = '';
+            //             this.frontDate = '';
+            //             this.otherStr = '';
+            //             break;
+            //         case 2:
+            //             this.frontMoney = '';
+            //             this.otherStr = '';
+            //             break;
+            //         case 3:
+            //             this.frontMoney = '';
+            //             this.frontDate = '';
+            //             break;
+            //     }
+            // },
+            // //校验付款方式
+            // vaildatePayment(payment) {
+            //     let validate = true;
+            //     let result;
+            //     let msg = '';
+            //     switch (payment) {
+            //         case 0:
+            //             if (!parseFloat(this.frontMoney)) {
+            //                 validate = false;
+            //                 msg = '请输入合法的百分比';
+            //                 break;
+            //             };
+            //             validate = !!this.frontMoney;
+            //             msg = '请填写预付定金百分比';
+            //             if (this.frontMoney > 100) {
+            //                 this.frontMoney = 100;
+            //             } else if (this.frontMoney <= 0) {
+            //                 validate = false;
+            //                 msg = '预付定金百分比不能小于0';
+            //             }
 
-                        this.paymentWay = '合同签订后，预付定金' + this.frontMoney + '%';
-                        break;
-                    case 1:
-                        this.paymentWay = '验收合格后，立即付款';
-                        break;
-                    case 2:
-                        if (this.frontDate != '') {
-                            this.frontDate = parseInt(this.frontDate);
-                        }
-                        validate = !!this.frontDate;
-                        msg = '请填写付款期限';
-                        if (this.frontDate <= 0) {
-                            msg = '付款期限不能少于0';
-                        }
-                        this.paymentWay = '验收合格后，' + this.frontDate + '天内付款';
+            //             this.paymentWay = '合同签订后，预付定金' + this.frontMoney + '%';
+            //             break;
+            //         case 1:
+            //             this.paymentWay = '验收合格后，立即付款';
+            //             break;
+            //         case 2:
+            //             if (this.frontDate != '') {
+            //                 this.frontDate = parseInt(this.frontDate);
+            //             }
+            //             validate = !!this.frontDate;
+            //             msg = '请填写付款期限';
+            //             if (this.frontDate <= 0) {
+            //                 msg = '付款期限不能少于0';
+            //             }
+            //             this.paymentWay = '验收合格后，' + this.frontDate + '天内付款';
 
-                        break;
-                    case 3:
-                        validate = !!this.otherStr;
-                        this.paymentWay = this.otherStr;
-                        msg = '请填写付款方式内容';
-                        break;
-                }
-                if (!validate) {
-                    this.$message({
-                        message: msg,
-                        type: 'warning'
-                    });
-                    return false;
-                }
-                return true;
-            },
-            //编辑时获取付款方式
-            getEditPayment(paymentWay) {
-                let _self = this;
-                //获取Unicode编码
-                // var GB2312UnicodeConverter = {
-                //     ToUnicode: function(str) {
-                //         return escape(str).toLocaleLowerCase().replace(/%u/gi, '\\u');
-                //     },
-                //     ToGB2312: function(str) {
-                //         return unescape(str.replace(/\\u/gi, '%u'));
-                //     }
-                // };
-                let Reg0 = /^\u5408\u540c\u7b7e\u8ba2\u540e\uff0c\u9884\u4ed8\u5b9a\u91d1[1-9]\d*.\d*|0.\d*[1-9]\d*%$/;
-                let Reg1 = /^\u9a8c\u6536\u5408\u683c\u540e\uff0c\u7acb\u5373\u4ed8\u6b3e$/;
-                let Reg2 = /^\u9a8c\u6536\u5408\u683c\u540e\uff0c[1-9]\d*\u5929\u5185\u4ed8\u6b3e$/;
-                // 合同签订后，预付定金  % 0
-                // 验收合格后，立即付款    1
-                // 验收合格后，? 天内付款   2
-                // 其他                    3
-                if (Reg0.test(paymentWay)) {
-                    //处理第一种方式
-                    this.payment = 0;
-                } else if (Reg1.test(paymentWay)) {
-                    //处理第二种方式
-                    this.payment = 1;
-                } else if (Reg2.test(paymentWay)) {
-                    //处理第三种方式
-                    this.payment = 2;
-                } else {
-                    this.payment = 3;
-                    //处理第四种方式
-                }
-                switch (this.payment) {
-                    case 0:
-                        _self.frontMoney = paymentWay.substring(10, paymentWay.length - 1);
-                        break;
-                    case 2:
-                        _self.frontDate = paymentWay.substring(6, paymentWay.length - 4);
-                        break;
-                    case 3:
-                        _self.otherStr = paymentWay;
-                        break;
-                }
-
-            },
+            //             break;
+            //         case 3:
+            //             validate = !!this.otherStr;
+            //             this.paymentWay = this.otherStr;
+            //             msg = '请填写付款方式内容';
+            //             break;
+            //     }
+            //     if (!validate) {
+            //         this.$message({
+            //             message: msg,
+            //             type: 'warning'
+            //         });
+            //         return false;
+            //     }
+            //     return true;
+            // },
+            // //编辑时获取付款方式
+            // getEditPayment(paymentWay) {
+            //     let _self = this;
+            //     //获取Unicode编码
+            //     // var GB2312UnicodeConverter = {
+            //     //     ToUnicode: function(str) {
+            //     //         return escape(str).toLocaleLowerCase().replace(/%u/gi, '\\u');
+            //     //     },
+            //     //     ToGB2312: function(str) {
+            //     //         return unescape(str.replace(/\\u/gi, '%u'));
+            //     //     }
+            //     // };
+            //     let Reg0 = /^\u5408\u540c\u7b7e\u8ba2\u540e\uff0c\u9884\u4ed8\u5b9a\u91d1[1-9]\d*.\d*|0.\d*[1-9]\d*%$/;
+            //     let Reg1 = /^\u9a8c\u6536\u5408\u683c\u540e\uff0c\u7acb\u5373\u4ed8\u6b3e$/;
+            //     let Reg2 = /^\u9a8c\u6536\u5408\u683c\u540e\uff0c[1-9]\d*\u5929\u5185\u4ed8\u6b3e$/;
+            //     // 合同签订后，预付定金  % 0
+            //     // 验收合格后，立即付款    1
+            //     // 验收合格后，? 天内付款   2
+            //     // 其他                    3
+            //     if (Reg0.test(paymentWay)) {
+            //         //处理第一种方式
+            //         this.payment = 0;
+            //     } else if (Reg1.test(paymentWay)) {
+            //         //处理第二种方式
+            //         this.payment = 1;
+            //     } else if (Reg2.test(paymentWay)) {
+            //         //处理第三种方式
+            //         this.payment = 2;
+            //     } else {
+            //         this.payment = 3;
+            //         //处理第四种方式
+            //     }
+            //     switch (this.payment) {
+            //         case 0:
+            //             _self.frontMoney = paymentWay.substring(10, paymentWay.length - 1);
+            //             break;
+            //         case 2:
+            //             _self.frontDate = paymentWay.substring(6, paymentWay.length - 4);
+            //             break;
+            //         case 3:
+            //             _self.otherStr = paymentWay;
+            //             break;
+            //     }
+            // },
             changeDes() {
                 if (this.ruleForm.description.length != 0) {
                     this.otherdes = this.ruleForm.description.join(',') + ',';
@@ -583,10 +582,60 @@ export default {
                     this.getLocalSpecList(params.breedId);
                 }
             },
-            offerSubmit() {
+            offerSubmit(params) {
                 let _self = this;
                 this.$emit('showLoad', true);
                 let url = common.urlCommon + common.apiUrl.most;
+                let module = 'intentionService';
+                let method = 'htmlEditBegBuyInfo';
+                let title = '求购发布成功';
+                if (_self.ruleForm.id) {
+                    method = 'updatehtmlEditBegBuyInfo';
+                    title = '求购修改成功'
+                }
+                let body = {
+                    biz_module: module,
+                    biz_method: method,
+                    biz_param: {
+                        breedName: _self.ruleForm.breedName,
+                        breedId: _self.ruleForm.breedId,
+                        spec: _self.ruleForm.spec,
+                        location: _self.ruleForm.location,
+                        number: _self.ruleForm.number,
+                        unit: _self.ruleForm.unit,
+                        duedate: params.duedate,
+                        quality: params.quality,
+                        description: params.description,
+                        address: params.address,
+                        // paymentWay: paymentWay,
+                        province: _self.ruleForm.province,
+                        city: _self.ruleForm.city,
+                        district: _self.ruleForm.district
+                            // customerName: _self.ruleForm.customerName,
+                            // customerPhone: _self.ruleForm.customerPhone,
+                            // customerId: _self.ruleForm.customerId,
+                    }
+                };
+                if (_self.ruleForm.id) {
+                    body.biz_param.id = _self.ruleForm.id;
+                };
+                url = common.addSID(url);
+                body.version = 1;
+                body.time = Date.parse(new Date()) + parseInt(common.difTime);
+                body.sign = common.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
+                common.commonPost(url, body).then(function(suc) {
+                    _self.$emit('showLoad', false);
+                    _self.title = title;
+                    _self.dialogMsg = true;
+                }).catch(function(err) {
+                    _self.$emit('showLoad', false);
+                })
+            },
+            offer(formName) {
+                let _self = this;
+                // if (!this.ruleForm.customerName) this.ruleForm.customerName = this.user.fullname;
+                // if (!this.ruleForm.customerPhone) this.ruleForm.customerPhone = this.user.phone;
+                // if (!this.ruleForm.customerId) this.ruleForm.customerId = this.user.id;     
                 let duedate = '';
                 let quality;
                 let description;
@@ -621,9 +670,17 @@ export default {
                         type: 'warning'
                     });
                     return;
-                }
+                };
                 //处理质量要求
+                if (this.ruleForm.quality.length === 0) {
+                    this.$message({
+                        message: '请选择质量要求',
+                        type: 'warning'
+                    });
+                    return;
+                };
                 quality = this.ruleForm.quality.join(',');
+
                 //处理描述
                 let Reg = /,$/;
                 if (Reg.test(this.otherdes)) {
@@ -631,6 +688,13 @@ export default {
                 } else {
                     description = this.otherdes;
                 }
+                if (description === '') {
+                    this.$message({
+                        message: '请选择或填写备注信息',
+                        type: 'warning'
+                    });
+                    return;
+                };
                 //处理地址 地址Id 文本型的地址
                 var pp = [];
                 var cc = [];
@@ -669,59 +733,9 @@ export default {
                     }
                 })
                 address = address.join(',');
-
                 //处理付款方式
-                paymentWay = this.paymentWay;
-                let module = 'intentionService';
-                let method = 'htmlEditBegBuyInfo';
-                let title = '求购发布成功';
-                if (_self.ruleForm.id) {
-                    method = 'updatehtmlEditBegBuyInfo';
-                    title = '求购修改成功'
-                }
-                let body = {
-                    biz_module: module,
-                    biz_method: method,
-                    biz_param: {
-                        breedName: _self.ruleForm.breedName,
-                        breedId: _self.ruleForm.breedId,
-                        spec: _self.ruleForm.spec,
-                        location: _self.ruleForm.location,
-                        number: _self.ruleForm.number,
-                        unit: _self.ruleForm.unit,
-                        duedate: duedate,
-                        quality: quality,
-                        description: description,
-                        address: address,
-                        paymentWay: paymentWay,
-                        province: _self.ruleForm.province,
-                        city: _self.ruleForm.city,
-                        district: _self.ruleForm.district
-                            // customerName: _self.ruleForm.customerName,
-                            // customerPhone: _self.ruleForm.customerPhone,
-                            // customerId: _self.ruleForm.customerId,
-                    }
-                };
-                if (_self.ruleForm.id) {
-                    body.biz_param.id = _self.ruleForm.id;
-                };
-                url = common.addSID(url);
-                body.version = 1;
-                body.time = Date.parse(new Date()) + parseInt(common.difTime);
-                body.sign = common.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
-                common.commonPost(url, body).then(function(suc) {
-                    _self.$emit('showLoad', false);
-                    _self.title = title;
-                    _self.dialogMsg = true;
-                }).catch(function(err) {
-                    _self.$emit('showLoad', false);
-                })
-            },
-            offer(formName) {
-                let _self = this;
-                // if (!this.ruleForm.customerName) this.ruleForm.customerName = this.user.fullname;
-                // if (!this.ruleForm.customerPhone) this.ruleForm.customerPhone = this.user.phone;
-                // if (!this.ruleForm.customerId) this.ruleForm.customerId = this.user.id;                             
+                // paymentWay = this.paymentWay;
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         _self.$confirm('确定提交表单吗？', '提示', {
@@ -729,10 +743,15 @@ export default {
                             cancelButtonText: '取消',
                             type: 'info'
                         }).then(() => {
-                            if (!_self.vaildatePayment(this.payment)) {
-                                return;
-                            };
-                            _self.offerSubmit()
+                            // if (!_self.vaildatePayment(this.payment)) {
+                            //     return;
+                            // };                            
+                            _self.offerSubmit({
+                                duedate: duedate,
+                                quality: quality,
+                                description: description,
+                                address: address
+                            })
                         }).catch(() => {
                             this.$message({
                                 type: 'info',
@@ -860,8 +879,9 @@ export default {
 
                             // _self.ruleForm.address = _self.constructor.filter('countAddressStr')(data.address);
 
-                            _self.getEditPayment(data.paymentWay);
-                            _self.paymentWay = '';
+                            // _self.getEditPayment(data.paymentWay);
+                            // _self.paymentWay = '';
+
                             _self.otherdes = data.description;
                             //地址Id                            
                             _self.ruleForm.province = data.provinceId;

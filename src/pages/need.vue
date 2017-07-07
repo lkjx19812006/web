@@ -37,12 +37,15 @@ body {
                     border: 1px solid #FCFCFC;
                     position: relative;
                     .need_detail_left {
-                        flex: 1 1 auto;
+                        flex: 1 0 auto;
                         display: flex;
                         flex-direction: column;
-                        padding-top: 10px;
+                        justify-content:flex-start;
+                        height: 185px;
                         padding-left: 28px;
                         .title {
+                            flex: 0 0 auto;
+                            margin-top: 15px;
                             margin-bottom: 5px;
                             .hName {
                                 font-size: 26px;
@@ -68,6 +71,7 @@ body {
                             }
                         }
                         .detail {
+                            flex: 1;
                             display: flex;
                             flex-direction: column;
                             justify-content: space-around;
@@ -191,7 +195,7 @@ body {
                             <span class="spec" v-if="item.spec != ''">{{item.spec, 10 | filterTxt}}</span>
                         </div>
                         <div class="detail">
-                            <div class="detail_item">
+                            <div class="detail_item" v-if="false">
                                 <span class="htit">付款方式：</span>
                                 <span class="info" v-if="item.paymentWay != '' && item.paymentWay != '其他：'">{{item.paymentWay, 28 | filterTxt}}</span>
                                 <span class="info" v-else>面议</span>
@@ -264,7 +268,7 @@ let httpParam = {
     },
     location: [],
     keyWord: '',
-    indentType: -1,
+    indentType: '-1',
     pn: 1,
     pSize: 10,
     spec: ''
