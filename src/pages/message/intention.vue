@@ -16,12 +16,20 @@
             div {
                 padding: 3px 15px;
                 border: 1px solid #E0E0E0;
-                color: #666666;
+                color: #fff;
                 border-radius: 5px;
                 background-color: #fff;
                 font-size: 12px;
                 margin: 0 10px;
                 cursor: pointer;
+            }
+            .btn_read {
+                border: 1px solid #EDB200;
+                background-color: #FBBD00;
+            }
+            .btn_del {
+                border: 1px solid #EB7F00;
+                background-color: #FB8800;
             }
         }
     }
@@ -445,6 +453,7 @@ export default {
                     this.getIntentionList();
                     //再获取标题数量
                     this.getMessageType();
+                    this.httpParam.pn = 1;
                     //再获取列表
                     this.getIntentionList();
                 }, () => {

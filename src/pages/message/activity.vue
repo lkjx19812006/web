@@ -440,6 +440,7 @@ export default {
                     this.getMessageTotals();
                     //再获取标题数量
                     this.getMessageType();
+                    this.httpParam.pn = 1;
                     //再获取列表
                     this.getActivityList();
                 }, () => {

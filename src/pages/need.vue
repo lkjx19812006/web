@@ -250,7 +250,7 @@ body {
                 </div>
             </div>
         </div>
-        <footerView></footerView>
+        <footerView></footerView>s
     </div>
 </template>
 <script>

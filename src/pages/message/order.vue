@@ -461,6 +461,7 @@ export default {
                     //再获取标题数量
                     this.getMessageType();
                     //再获取列表
+                    this.httpParam.pn = 1;
                     this.getOlderList();
                 }, () => {
 

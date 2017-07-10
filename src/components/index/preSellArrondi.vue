@@ -221,34 +221,85 @@ export default {
         computed: {
             presellList() {
                 let goodsArr = [];
-                let i = Math.ceil(this.presellArr.length / 3);
-                for (let m = 0; m < i; m++) {
-                    let arr = [];
-                    let n = m * 3 + 0;
-                    arr.push(this.presellArr[n])
-                    if (this.presellArr[n + 1]) {
-                        arr.push(this.presellArr[n + 1])
-                    } else {
-                        if (this.presellArr.length % 3 === 1) {
-                            arr.push(this.presellArr[0])
-                        }
-                    };
-                    if (this.presellArr[n + 2]) {
-                        arr.push(this.presellArr[n + 2])
-                    } else {
-                        if (this.presellArr.length % 3 === 1) {
-                            arr.push(this.presellArr[1])
-
-                        } else if (this.presellArr.length % 3 === 2) {
-                            arr.push(this.presellArr[0])
-                        }
-                    };
-                    goodsArr.push(arr);
+                if (this.presellArr.length === 0) {
+                    return goodsArr;
                 }
+                let i = this.presellArr.length;
+                let n = i % 3;
+                var arr = this.getSwperList(n, this.presellArr);
+                let _self = this;
+                arr.forEach(function(item) {
+                    _self.presellArr.push(item);
+                })
+                goodsArr.push(this.presellArr.slice(0, 3));
+                if (this.presellArr.length > 3) {
+                    goodsArr.push(this.presellArr.slice(3, 6));
+                    if (this.presellArr.length > 6) {
+                        goodsArr.push(this.presellArr.slice(6, 9));
+                    }
+                }
+                console.log(goodsArr);
                 return goodsArr
             }
+            // presellList() {
+            //     let goodsArr = [];
+            //     let i = Math.ceil(this.presellArr.length / 3);
+            //     for (let m = 0; m < i; m++) {
+            //         let arr = [];
+            //         let n = m * 3 + 0;
+            //         arr.push(this.presellArr[n])
+            //         if (this.presellArr[n + 1]) {
+            //             arr.push(this.presellArr[n + 1])
+            //         } else {
+            //             if (this.presellArr.length % 3 === 1) {
+            //                 arr.push(this.presellArr[0])
+            //             }
+            //         };
+            //         if (this.presellArr[n + 2]) {
+            //             arr.push(this.presellArr[n + 2])
+            //         } else {
+            //             if (this.presellArr.length % 3 === 1) {
+            //                 arr.push(this.presellArr[1])
+
+            //             } else if (this.presellArr.length % 3 === 2) {
+            //                 arr.push(this.presellArr[0])
+            //             }
+            //         };
+            //         goodsArr.push(arr);
+            //     }
+            //     return goodsArr
+            // }
         },
         methods: {
+            getSwperList(n, arr) {
+                //如果是 7个 剪去前面3, 6个直接push 如果是1个 后面重复添加这一个
+                let goodsArr = [];
+                for (var i = 0; i < 3 - n; i++) {
+                    switch (n) {
+                        case 1:
+                            if (arr.length > 3) {
+                                goodsArr.push(arr[i]);
+                            } else {
+                                goodsArr.push(arr[n - 1]);
+                            }
+                            break;
+                        case 2:
+                            if (arr[i]) {
+                                goodsArr.push(arr[i]);
+                            } else {
+                                goodsArr.push(arr[0]);
+                            }
+                            break; // case 3:
+                            //     goodsArr.push(arr[i]);
+                            //     break;
+                            // case 4:
+                            //     goodsArr.push(arr[i]);
+                            //     break;
+
+                    }
+                }
+                return goodsArr
+            },
             getHttp() {
                 let _self = this;
                 common.commonPost(common.urlCommon + common.apiUrl.most, {
@@ -259,6 +310,11 @@ export default {
                         pSize: 9
                     }
                 }).then(function(suc) {
+                    // 测试数量
+                    // let arr = [];
+                    // for (var i = 0; i < 4; i++) {
+                    //     arr.push(suc.biz_result.list[i])
+                    // }
                     _self.presellArr = suc.biz_result.list;
                 }).catch(function(err) {
 

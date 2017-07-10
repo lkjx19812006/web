@@ -1,9 +1,30 @@
+div,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+dl,
+ol,
+th,
+td,
+tr,
+input,
+textarea {
+    font-family: "microsoft yahei" !important,
+}
+
 html,
 body {
     background-color: #fff;
     color: #000;
     letter-spacing: 0.5px;
-    font-family: "微软雅黑", 'Arial', "Source Sans Pro", 'sans-serif' !important;
+    font-family: "microsoft yahei", 'Arial', "Source Sans Pro", 'sans-serif' !important;
     margin: 0;
     overflow: auto !important;
 }
@@ -330,8 +351,8 @@ a:visited {
     text-indent: 30px;
 }
 
-.drugsEncy .search_wrap .el-input-group__append, 
-.selectBreed .search_wrap .el-input-group__append{
+.drugsEncy .search_wrap .el-input-group__append,
+.selectBreed .search_wrap .el-input-group__append {
     border-radius: 0;
     width: 100px;
     border: 2px solid #FA8435;
@@ -343,7 +364,7 @@ a:visited {
 }
 
 .drugsEncy .drugsEncy_body .el-carousel__item,
-.selectBreed .drugsEncy_body .el-carousel__item  {
+.selectBreed .drugsEncy_body .el-carousel__item {
     height: 380px;
 }
 

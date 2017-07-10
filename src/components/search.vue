@@ -21,6 +21,22 @@
         box-sizing: border-box;
         text-indent: 10px;
     }
+    input::-webkit-input-placeholder {
+        /* WebKit browsers */
+        font-size: 14px;
+    }
+    input:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        font-size: 14px;
+    }
+    input::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        font-size: 14px;
+    }
+    input:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        font-size: 14px;
+    }
     ul::-webkit-scrollbar {
         width: 6px;
         background-color: #fff;
