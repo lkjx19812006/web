@@ -420,11 +420,14 @@ export default {
                 number: 1,
             }
         },
-        // watch: {
-        //     '$route' (newVal, oldVal) {
-        //         this.gethttp(this.$route.params.id);
-        //     }
-        // },
+        watch: {
+            '$route' (newVal, oldVal) {
+                this.gethttp(this.$route.params.id);
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                window.pageYOffset = 0;
+            }
+        },
         components: {
             headerView,
             footerView,
@@ -522,6 +525,7 @@ export default {
             },
             gethttp(id) {
                 let _self = this;
+                _self.id = id;
                 common.commonPost(common.urlCommon + common.apiUrl.most, {
                     biz_module: 'intentionService',
                     biz_method: 'queryIntentionInfo',

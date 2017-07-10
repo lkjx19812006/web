@@ -95,6 +95,7 @@
                             }
                         }
                         .linkTo {
+                            flex: 0 0 auto;
                             color: #27A961;
                             cursor: pointer;
                             text-decoration: underline;
@@ -158,9 +159,7 @@
                                 <span class="pre_read" v-if="item.isRead === 0">[未读]</span>
                                 <span class="pre_read" style="color: #B3B3B3" v-if="item.isRead === 1">[已读]</span>
                                 <span>{{item.message, 60 | filterTxt}}</span>
-                            </div>
-                            <div class="linkTo">
-                                <span @click="linkTo(item)">点击查看详情</span>
+                                <span class="linkTo" @click="linkTo(item)">点击查看详情</span>
                             </div>
                         </div>
                     </div>

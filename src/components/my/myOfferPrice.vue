@@ -196,8 +196,8 @@
                         <span class="product_info_cot">{{item.quality}}</span>
                     </div>
                     <div class="product_info">
-                        <span class="product_info_tit">价格说明：</span>
-                        <span class="product_info_cot">{{item.priceDescription}}</span>
+                        <span class="product_info_tit">备注信息：</span>
+                        <span class="product_info_cot">{{item.description}}</span>
                     </div>
                 </div>
                 <div class="btn_wrap">

@@ -195,9 +195,9 @@ export default {
                 })
             },
             jump(id) {
-                // this.$router.push('/resourceDetail/' + id);
-                window.location.target = '_blank';
-                window.location.href = '/resourceDetail/' + id;
+                this.$router.push('/resourceDetail/' + id);
+                // window.location.target = '_blank';
+                // window.location.href = '/resourceDetail/' + id;
                 // let newWin = window.open();
                 // newWin.location.href = '/resourceDetail/' + id;
             },

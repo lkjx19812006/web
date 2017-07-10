@@ -282,6 +282,9 @@ export default {
         watch: {
             '$route' (newVal, oldVal) {
                 this.gethttp(this.$route.params.id);
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                window.pageYOffset = 0;
             }
         },
         components: {

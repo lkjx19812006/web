@@ -225,11 +225,11 @@ export default {
                 })
             },
             jump(id) {
-                window.location.target = '_blank';
-                window.location.href = '/presellDetail/' + id;
+                // window.location.target = '_blank';
+                // window.location.href = '/presellDetail/' + id;
                 // let newWin = window.open();
                 // newWin.location.href = '/presellDetail/' + id;
-                // this.$router.push('/presellDetail/' + id)
+                this.$router.push('/presellDetail/' + id)
             },
             // linkToInfo(id) {
             //     let newWin = window.open();

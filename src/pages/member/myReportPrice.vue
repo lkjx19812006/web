@@ -155,7 +155,7 @@
                             <span v-if="scope.row.accept == 3">待采用</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" width="200">
+                    <el-table-column label="操作" width="220">
                         <template scope="scope">
                             <span class='orange' @click="jumpDetail(scope.row)">详情</span>
                             <!-- 待处理 -->
