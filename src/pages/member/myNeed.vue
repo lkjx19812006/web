@@ -83,8 +83,8 @@
                 </el-table-column>
                 <el-table-column label="剩余日期">
                     <template scope="scope">
-                        <span v-if="validtaeDate(scope.row.duedate)">{{scope.row.duedate | timeDateNum}}天</span>
-                        <span v-if="!validtaeDate(scope.row.duedate)">已过期</span>
+                        <span v-if="scope.row.duedate">{{scope.row.duedate | timeDateNum}}天</span>
+                        <span v-if="!scope.row.duedate">已过期</span>
                     </template>
                 </el-table-column>
                 <el-table-column label="状态" width='95'>
@@ -180,6 +180,7 @@ export default {
                 }
             },
             validtaeDate(time) {
+                console.log(time)
                 let nowTime = new Date();
                 time = new Date(time);
                 let dateValue = time.getTime() - nowTime.getTime();

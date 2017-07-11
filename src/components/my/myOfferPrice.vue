@@ -69,11 +69,12 @@
         }
         .bot_info_des {
             padding-top: 15px;
-            flex: 1;
+            flex: 0 0 auto;
+            width: 908px;
             display: flex;
             flex-direction: column;
             .des_wrap {
-                flex: 1;
+                flex: 0 0 auto;
                 .product_info {
                     margin-bottom: 15px;
                     display: flex;
@@ -87,6 +88,7 @@
                 }
             }
             .btn_wrap {
+                flex: 0 0 auto;
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
@@ -197,7 +199,7 @@
                     </div>
                     <div class="product_info">
                         <span class="product_info_tit">备注信息：</span>
-                        <span class="product_info_cot">{{item.description}}</span>
+                        <span class="product_info_cot">{{item.priceDescription}}</span>
                     </div>
                 </div>
                 <div class="btn_wrap">
@@ -209,9 +211,9 @@
                     </div>
                     <div class="btn_cont" v-if="item.accept != 0 && item.accept != 2 &&  item.accept != 3" v-on:mouseenter="showConcate = index" v-on:mouseleave="showConcate = -1">
                         联系专属交易员
-                    </div>                
+                    </div>
                     <div class="erm_wrap_content" v-if="item.accept == 2 || item.accept === 3">
-                        <qrcode type="image"  level="H" :size="106" :value="getEWMUrl(item)"></qrcode>
+                        <qrcode type="image" level="H" :size="106" :value="getEWMUrl(item)"></qrcode>
                         <span>扫码再次报价</span>
                     </div>
                 </div>

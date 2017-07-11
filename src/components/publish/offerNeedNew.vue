@@ -870,7 +870,20 @@ export default {
                             } else {
                                 _self.ruleForm.duedate = date;
                             }
-                            _self.ruleForm.quality = data.quality.split(',');
+
+                            //处理编辑质量要求
+                            let arr = data.quality.split(',');
+                            let result = [];
+                            arr.forEach((item) => {
+                                for (var i = 0; i < _self.qualitys.length; i++) {
+                                    if (item === _self.qualitys[i].label) {
+                                        result.push(item);
+                                    }
+                                }
+                            });
+                            //处理编辑质量要求
+                            _self.ruleForm.quality = result;
+
                             if (data.description != '') {
                                 _self.ruleForm.description = data.description.split(',');
                             } else {

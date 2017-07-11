@@ -38,16 +38,20 @@
         }
         .bread_detail {
             display: flex;
+            flex: 0 0 auto;
+            width: 300px;
             flex-direction: row;
+            justify-content: flex-start;
             flex-wrap: wrap;
-            a {
+            span {
+                flex: 0 0 auto;
                 text-decoration: none;
                 font-size: 14px;
                 padding: 5px 10px 0 0;
                 cursor: pointer;
                 color: #7F7F7F;
             }
-            a:hover {
+            span:hover {
                 color: #FA8435;
                 cursor: pointer;
             }
@@ -70,10 +74,8 @@
                 <p>{{item.title}}</p>
             </router-link>
             <div class="bread_detail">
-                <span v-for="subItem in item.list">
-                    <router-link :to="item.infoLink + subItem.id">
-                       {{subItem.herbName}}{{subItem.breedName}}
-                    </router-link>                
+                <span v-for="subItem in item.list" @click="jump(item.infoLink + subItem.id)">
+                    {{subItem.herbName}}{{subItem.breedName}} 
                 </span>
             </div>
         </div>
@@ -119,6 +121,9 @@ export default {
 
     },
     methods: {
+        jump(link) {
+            if (link) this.$router.push(link);
+        },
         getResource() {
             let _self = this;
             common.commonPost(common.urlCommon + common.apiUrl.most, {

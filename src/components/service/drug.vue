@@ -40,6 +40,8 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
+            width: 300px;
+            justify-content: flex-start;
             span {
                 text-decoration: none;
                 font-size: 14px;

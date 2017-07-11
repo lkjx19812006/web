@@ -66,9 +66,11 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
+            width: 300px;
+            flex: 0 0 auto;
             justify-content: flex-start;
             .orange {
-                flex: 1 0 auto;
+                flex: 0 0 auto;
                 padding: 0 10px;
             }
         }

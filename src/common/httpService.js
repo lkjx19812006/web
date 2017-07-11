@@ -10,7 +10,7 @@ var httpService = new Vue({
         KEY: window.localStorage.KEY,
         SID: window.localStorage.SID,
         difTime: 0,
-        h5needUrl: 'http://192.168.1.141/htm5/#/needDetails/', //http://apps.yaocaimaimai.com/htm5/#/needDetails/ http://192.168.1.141/htm5/#/needDetails/
+        h5needUrl: 'http://apps.yaocaimaimai.com/htm5/#/needDetails/', //http://apps.yaocaimaimai.com/htm5/#/needDetails/ http://192.168.1.142:81/htm5/#/needDetails/
         apiUrl: {
             login: '/account/login.do',
             code_login: '/account/verifiLogin.do',
