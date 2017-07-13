@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="less" ref="stylesheet/less" type="text/css" scoped>
 @width : 1200px;
 .drugsEncy {
     .drugsEncy_body {

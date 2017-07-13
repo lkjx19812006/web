@@ -186,7 +186,8 @@ body {
             <div class="body_content">
                 <needTextCondition :httpParam="httpParam" v-on:getData="getHttp"></needTextCondition>
                 <needCondition :httpParam="httpParam" v-on:getData="getHttp"></needCondition>
-                <div class="need_detail" :class="{'need_top':item.indentType === 0}" v-for="(item,index) in needList">
+                <!-- v-show="item.isMy == '0'" -->
+                <div class="need_detail" :class="{'need_top':item.indentType === 0}" v-for="(item,index) in needList" v-show="item.isMy == '0'">
                     <div class="need_detail_left">
                         <div class="title">
                             <span class="hName">{{item.breedName}}</span>
@@ -297,7 +298,7 @@ export default {
         }
     },
     created() {
-        //确定消息中心带过来的数据    
+        //确定消息中心带过来的数据
         if (this.$route.query && this.$route.query.intentionId && this.$route.query.intentionId != undefined) {
             this.httpParam.keyWord = '';
             this.intentionId = this.$route.query.intentionId;

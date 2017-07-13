@@ -149,6 +149,7 @@ body {
             <div class="body_content">
                 <resourceTextCondition :httpParam="httpParam" v-on:getData="getHttp"></resourceTextCondition>
                 <resourceCondition :httpParam="httpParam" v-on:getData="getHttp"></resourceCondition>
+                <!-- v-show="item.isMy == '0'" -->
                 <div class="resource_detail" v-for="item in resourceList" v-show="item.isMy == '0'">
                     <div class="resource_image">
                         <img class="big_img" :src="item.image[0]" v-on:click="buy(item)">

@@ -198,7 +198,7 @@
             <div class="box">
                 <div class="name">身份信息：<span style="color: red">（必选）</span></div>
                 <div class="content" style="line-height: 36px">
-                    <el-radio-group @change="changeRadio" v-model="formDate.userType">
+                    <el-radio-group :disabled="true" @change="changeRadio" v-model="formDate.userType">
                         <el-radio :label="1">我是买方</el-radio>
                         <el-radio :label="2">我是卖方</el-radio>
                         <el-radio :label="3">我是买卖方</el-radio>
@@ -208,7 +208,7 @@
             <div class="box" style="width: 960px;">
                 <div class="name">具体信息：<span style="color: red">（必选）</span></div>
                 <div class="content" style="line-height: 36px; height: auto; min-height: 36px; width: 760px;">
-                    <el-radio-group v-model="formDate.manageType">
+                    <el-radio-group :disabled="true" v-model="formDate.manageType">
                         <el-radio :label="item.id" v-for="item in userTypeMap" :key="item.id">{{item.name}}</el-radio>
                     </el-radio-group>
                 </div>
@@ -216,7 +216,7 @@
             <div class="box">
                 <div class="name">主营品类：<span style="color: red">（必填）</span></div>
                 <div class="content">
-                    <el-select v-model="formDate.bizMain" :multiple-limit="10" multiple filterable remote placeholder="请输入关键词" :remote-method="querySearchAsync" :loading="loading">
+                    <el-select :disabled="true" v-model="formDate.bizMain" :multiple-limit="10" multiple filterable remote placeholder="请输入关键词" :remote-method="querySearchAsync" :loading="loading">
                         <el-option v-for="item in optionsList" :key="item.value" :label="item.breedName" :value="item.breedName">
                         </el-option>
                     </el-select>
@@ -275,6 +275,13 @@ export default {
     },
     components: {
         titleHead
+    },
+    created() {
+        if (!common.validateUserInfo(this.user, () => {})) {
+            this.$router.push('/register');
+            return;
+        }
+        // /member/personalInformation
     },
     mounted() {
         this.getHttp();

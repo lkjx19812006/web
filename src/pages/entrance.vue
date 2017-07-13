@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="less" scoped >
 .entrance{
     width:100%;
     .main{
@@ -20,7 +20,7 @@
     <div class="entrance">
         <MainHeader></MainHeader>
         <div class="main">
-            <img src="../static/icon/erp.png" @click="jump('http://erp.yaocaimaimai.net/erp/#!/login')"> 
+            <img src="../static/icon/erp.png" @click="jump('http://erp.yaocaimaimai.net/erp/#!/login')">
             <img src="../static/icon/WMS.png" @click="jump('http://erp.yaocaimaimai.net:3002')">
             <img src="../static/icon/cms.png" @click="jump('http://erp.yaocaimaimai.net/cms/login')">
         </div>
@@ -29,7 +29,7 @@
         </div>
     </div>
 </template>
-<script>
+<script type="es6">
 import {
     mapGetters
 } from 'vuex'
@@ -64,7 +64,7 @@ export default {
         }
     },
     mounted() {
-       
+
     }
 }
 </script>

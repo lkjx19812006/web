@@ -456,7 +456,7 @@ export default {
         titleHead
     },
     created() {
-        //确定消息中心带过来的数据   
+        //确定消息中心带过来的数据
         if (this.$route.query && this.$route.query.status && this.$route.query.status != undefined) {
             this.status = parseInt(this.$route.query.status);
             this.httpParam.orderStatus = this.status;
@@ -570,14 +570,14 @@ export default {
         payMoney() {
             let _self = this;
             _self.$message({
-                message: '支付功能尚未开通~',
+                message: '支付功能尚未开通！您可通过药材买卖网App进行支付~',
                 type: 'success'
             });
         },
         payRetainage() {
             let _self = this;
             _self.$message({
-                message: '支付尾款功能尚未开通~',
+                message: '支付尾款功能尚未开通！您可通过药材买卖网App进行支付~',
                 type: 'success'
             });
         },

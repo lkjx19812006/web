@@ -252,7 +252,7 @@
                 <mySearch v-model="search.value" style="width: 200px;" placeholder="请输入您需要的产品名称" v-on:fetch-suggestions="querySearchAsync" v-on:select="handleSelect"></mySearch>
                 <el-button icon="search" class="orange_button" @click="searchResource()"></el-button>
                 <!--  <el-input placeholder="请输入您需要的产品名称" size="large" v-model="search.value" class="el-select">
-                    
+
                 </el-input> -->
             </div>
         </div>
@@ -468,7 +468,7 @@ export default {
         },
         selectType(val) {
             this.search.value = '';
-            // if (this.search.type === '0') {               
+            // if (this.search.type === '0') {
             //     this.search.value = this.$store.state.search.searchValue.resourceValue;
             // } else {
             //     this.search.value = this.$store.state.search.searchValue.needValue;
