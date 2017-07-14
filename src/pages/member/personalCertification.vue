@@ -407,6 +407,7 @@
   import myTitle from '../../components/common/title'
   import imageUpload from '../../components/imageUpload'
   import validation from '../../validation/validation.js'
+  import {IdentityCodeValid} from '../../filters/index.js'
   let step = [{
     step: '1',
     title: '个人身份认证',
@@ -602,8 +603,6 @@
         if (!this.formData.name) this.formData.name = this.user.fullname;
         let checkNameDes = validation.checkLook(_self.formData.name);
         checkArr.push(checkNameDes);
-        let checkIdCard = validation.checkIdCard(_self.formData.idCard);
-        checkArr.push(checkIdCard);
         let checkImg = validation.checkArr(_self.formData.imgArr);
         checkArr.push(checkImg);
         for (let i = 0; i < checkArr.length; i++) {
@@ -627,6 +626,14 @@
               return;
             }
           }
+        }
+        //校验身份证号码
+        if (!IdentityCodeValid(this.formData.idCard)) {
+          this.$message({
+            message: '请输入正确的身份证号码',
+            type: 'info'
+          });
+          return;
         }
         this.$confirm('确定提交个人认证信息?', '提示', {
           confirmButtonText: '确定',

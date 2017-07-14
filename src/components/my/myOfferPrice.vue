@@ -206,7 +206,7 @@
             <span style="color: #75AA53" v-if="item.accept === 0">处理中</span>
             <span style="color: #D65B5B" v-if="item.accept === 1">已采用</span>
             <span style="color: #FF291E" v-if="item.accept === 2">未采用</span>
-            <!--<span style="color: #75AA53" v-if="item.accept === 3">待采用</span>-->
+            <span style="color: #75AA53" v-if="item.accept === 3">处理中</span>
             <div style="display: flex; flex-direction: row; margin-top: 5px; width: 100%" v-if="item.accept == 2 && item.comments != ''">
               <span style="width: 50px; flex: 0 0 auto">原因：</span>
               <span style="flex: 1">{{item.comments}}</span>
@@ -230,7 +230,7 @@
               <span class="product_info_cot">{{item.priceDescription}}</span>
             </div>
           </div>
-          <div class="btn_wrap" v-if="item.accept != 0">
+          <div class="btn_wrap" v-if="item.accept != 0 &&  item.accept != 3">
             <div class="btn_cont" v-if="item.accept === 1"
                  v-on:mouseenter="showConcate = index" v-on:mouseleave="showConcate = -1">
               联系专属交易员

@@ -152,16 +152,16 @@
               <span v-if="scope.row.accept == 0">处理中</span>
               <span v-if="scope.row.accept == 1">已采用</span>
               <span v-if="scope.row.accept == 2">未采用</span>
-              <!--<span v-if="scope.row.accept == 3">待采用</span>-->
+              <span v-if="scope.row.accept == 3">处理中</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" width="220">
             <template scope="scope">
               <span class='orange' @click="jumpDetail(scope.row)">详情</span>
               <!-- 待处理 -->
-              <span class="gray" v-if="scope.row.accept == 0">联系专属客服</span>
+              <span class="gray" v-if="scope.row.accept == 0 || scope.row.accept == 3">联系专属客服</span>
               <!-- 未采用 -->
-              <span class='green again' v-if="scope.row.accept == 2 ||scope.row.accept == 3"
+              <span class='green again' v-if="scope.row.accept == 2"
                     v-on:mouseenter="scope.row.showEWM = true" v-on:mouseleave="scope.row.showEWM = false">
                 扫码再次报价
                 <div class="erm_wrap_content" v-show="scope.row.showEWM">

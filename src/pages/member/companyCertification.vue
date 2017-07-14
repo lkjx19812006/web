@@ -24,7 +24,7 @@
 
   .company_certifi .content .basic .name_title {
     float: left;
-    width: 200px;
+    width: 120px;
     line-height: 36px;
     color: #333;
     text-align: right;
@@ -370,13 +370,13 @@
               <div v-for="item in companyValidate.list" v-show='item.category == 11' class='img_box'>
                 <img :src="item.path">
               </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 11'>GSP资格证书</div>
+              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 11'>GMP资格证书</div>
             </div>
             <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 12' class='img_box'>
+              <div v-for="item in companyValidate.list" v-show='item.category == 14' class='img_box'>
                 <img :src="item.path">
               </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 12'>GMP资格证书</div>
+              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 14'>生产许可证</div>
             </div>
             <!--6证-->
             <div class="box">
@@ -407,13 +407,13 @@
               <div v-for="item in companyValidate.list" v-show='item.category == 7' class='img_box'>
                 <img :src="item.path">
               </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 7'>GSP资格证书</div>
+              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 7'>GMP资格证书</div>
             </div>
             <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 8' class='img_box'>
+              <div v-for="item in companyValidate.list" v-show='item.category == 13' class='img_box'>
                 <img :src="item.path">
               </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 8'>GMP资格证书</div>
+              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 13'>生产许可证</div>
             </div>
           </div>
         </div>
@@ -437,21 +437,21 @@
         <div class="name">
           <div class="name_title">公司名称：</div>
           <div class="name_input">
-            <el-input v-model="formData.company" placeholder="请输入公司名称"></el-input>
+            <el-input style="font-size: 14px;" v-model="formData.company" placeholder="请输入公司名称"></el-input>
           </div>
         </div>
-        <div class="name">
-          <div class="name_title">公司地址：</div>
-          <div class="name_input">
-            <el-input v-model="formData.address" placeholder="请输入公司地址"></el-input>
-          </div>
-        </div>
-        <div class="name">
-          <div class="name_title">公司联系方式：</div>
-          <div class="name_input">
-            <el-input v-model="formData.tel" placeholder="请输入公司联系方式"></el-input>
-          </div>
-        </div>
+        <!--<div class="name">-->
+        <!--<div class="name_title">公司地址：</div>-->
+        <!--<div class="name_input">-->
+        <!--<el-input v-model="formData.address" placeholder="请输入公司地址"></el-input>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="name">-->
+        <!--<div class="name_title">公司联系方式：</div>-->
+        <!--<div class="name_input">-->
+        <!--<el-input v-model="formData.tel" placeholder="请输入公司联系方式"></el-input>-->
+        <!--</div>-->
+        <!--</div>-->
         <div class="name">
           <div class="name_title">&nbsp;</div>
           <div class="name_input">
@@ -479,7 +479,13 @@
             <imageUpload :param="imgUp[index]" v-on:postUrl="getUrl"></imageUpload>
             <div class="word" v-if="!imgUp[index].url">上传图片</div>
           </div>
-          <div class="images_title">{{todo.name}}</div>
+          <div class="images_title">
+            {{todo.name}}
+            <span v-if="index === 4 || index === 5">
+              <span v-if="user.manageType !== 3 && user.manageType !== 23">（非必传项）</span>
+              <!--<span style="color: red" v-else>（必传项）</span>-->
+            </span>
+          </div>
         </div>
       </div>
       <div class="images" v-if="show == 2">
@@ -488,7 +494,13 @@
             <imageUpload :param="specilImgUp[index]" v-on:postUrl="getUrl"></imageUpload>
             <div class="word" v-if="!imgUp[index].url">上传图片</div>
           </div>
-          <div class="images_title">{{todo.name}}</div>
+          <div class="images_title">
+            {{todo.name}}
+            <span v-if="index === 2 || index === 3">
+              <span v-if="user.manageType !== 3 && user.manageType !== 23">（非必传项）</span>
+              <!--<span style="color: red" v-else>（必传项）</span>-->
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -538,18 +550,18 @@
         }, {
           name: '银行开户许可证'
         }, {
-          name: 'GMP资格证书(非必传)'
+          name: 'GMP资格证书'
         }, {
-          name: 'GSP资格证书(非必传)'
+          name: '生产许可证'
         }],
         specilData: [{
           name: "三证合一"
         }, {
           name: '银行开户许可证'
         }, {
-          name: 'GMP资格证书(非必传)'
+          name: 'GMP资格证书'
         }, {
-          name: 'GSP资格证书(非必传)'
+          name: '生产许可证'
         }],
         //普通证件
         imgUp: [{
@@ -626,7 +638,7 @@
             catagory: 7
           }, {
             path: '',
-            catagory: 8
+            catagory: 13
           }],
           specilImg: [{
             path: '',
@@ -639,7 +651,7 @@
             catagory: 11
           }, {
             path: '',
-            catagory: 12
+            catagory: 14
           }]
         },
         show: 1
@@ -779,12 +791,12 @@
         let checkArr = [];
         let checkName = validation.checkNull(_self.formData.company, '请输入公司名');
         checkArr.push(checkName);
-        let checkNameDes = validation.checkLook(_self.formData.company);
-        checkArr.push(checkNameDes);
-        let checkAddress = validation.checkNull(_self.formData.address, '请输入地址');
-        checkArr.push(checkAddress);
-        let checkTel = validation.checkNull(_self.formData.tel, '请输入联系方式');
-        checkArr.push(checkTel);
+//        let checkNameDes = validation.checkLook(_self.formData.company);
+//        checkArr.push(checkNameDes);
+//        let checkAddress = validation.checkNull(_self.formData.address, '请输入地址');
+//        checkArr.push(checkAddress);
+//        let checkTel = validation.checkNull(_self.formData.tel, '请输入联系方式');
+//        checkArr.push(checkTel);
         if (_self.show == 1) {
           let checkImg = validation.checkArr(_self.formData.commonImg);
           checkArr.push(checkImg);
@@ -821,15 +833,25 @@
           }
         }
         //判断药厂/饮片厂 必须上传GMP 生成许可证
-        if(this.user.manageType === 3 || this.user.manageType === 23){
-          if(this.formData.specilImg[2].path === '' || this.formData.specilImg[3].path === ''){
-            this.$message({
-              message: '根据您的身份信息，请上传GMP资格证书，以便更好为您服务！',
-              type: 'info'
-            });
-            return
-          };
-        };
+        let flag = true;
+        if (this.user.manageType === 3 || this.user.manageType === 23) {
+          if (_self.show === 2) {
+            if (this.formData.specilImg[2].path === '' || this.formData.specilImg[3].path === '') {
+              flag = false;
+            }
+          } else if (_self.show === 1) {
+            if (this.formData.commonImg[4].path === '' || this.formData.commonImg[5].path === '') {
+              flag = false;
+            }
+          }
+        }
+        if (!flag) {
+          this.$message({
+            message: '根据您的身份信息，请上传GMP资格证书和生产许可证书，以便更好为您服务！',
+            type: 'info'
+          });
+          return
+        }
         this.$confirm('确定提交企业信息认证？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
