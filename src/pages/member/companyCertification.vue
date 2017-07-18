@@ -185,15 +185,20 @@
             flex-wrap: wrap;
             .box {
               display: flex;
+              width: 235px;
               flex-direction: column;
               margin-bottom: 10px;
               .img_box {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
                 width: 235px;
                 height: 165px;
                 margin-right: 60px;
+                cursor: pointer;
                 img {
-                  width: 235px;
-                  height: 165px;
+                  max-height: 165px;
                 }
               }
               .name {
@@ -302,6 +307,51 @@
       }
     }
   }
+
+  .dialogWrap {
+    position: fixed;
+    z-index: 999999;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .dialog_imgWrap {
+      position: relative;
+      width: 1000px;
+      height: 80%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      img {
+        max-height: 100%;
+      }
+    }
+    .close {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      cursor: pointer;
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border: 2px solid #fff;
+      border-radius: 50% 50%;
+    }
+    .close:hover {
+      color: #FF8500;
+      border-color: #FF8500;
+    }
+
+  }
 </style>
 <template>
   <div class="company_certifi">
@@ -347,73 +397,18 @@
       <div class="suc_info">
         <div class="info">
           <span>公司名称:{{user.company}}</span>
-          <!-- <span style="margin-left: 40px;">公司地址:</span>
-          <span style="margin-left: 40px;">联系电话:</span> -->
         </div>
         <div class="info_img">
           <span>公司证件照:</span>
           <div class="img_wrap">
-            <!--传统三证-->
             <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 9' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 9'>三证合一</div>
-            </div>
-            <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 10' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 10'>银行开户许可证</div>
-            </div>
-            <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 11' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 11'>GMP资格证书</div>
-            </div>
-            <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 14' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 14'>生产许可证</div>
-            </div>
-            <!--6证-->
-            <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 3' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 3'>工商营业执照</div>
-            </div>
-            <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 4' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 4'>组织机构代码证</div>
-            </div>
-            <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 5' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 5'>税务登记证</div>
-            </div>
-            <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 6' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 6'>银行开户许可证</div>
-            </div>
-            <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 7' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 7'>GMP资格证书</div>
-            </div>
-            <div class="box">
-              <div v-for="item in companyValidate.list" v-show='item.category == 13' class='img_box'>
-                <img :src="item.path">
-              </div>
-              <div class="name" v-for="item in companyValidate.list" v-show='item.category == 13'>生产许可证</div>
+              <el-carousel indicator-position="none" height="165px">
+                <el-carousel-item v-for="item in companyValidate.list" :key="item">
+                  <div class='img_box' @click="showBigIMG(item.path)">
+                    <img :src="item.path">
+                  </div>
+                </el-carousel-item>
+              </el-carousel>
             </div>
           </div>
         </div>
@@ -462,7 +457,7 @@
           <div class="blank">&nbsp;</div>
           <div class="name_input">
             <div class="select">
-              <el-radio class="radio" v-model="show" :label="1">普通营业执照</el-radio>
+              <el-radio class="radio" v-model="show" :label="1">传统三证</el-radio>
             </div>
             <div class="select">
               <el-radio class="radio" v-model="show" :label="2">三证合一</el-radio>
@@ -505,6 +500,14 @@
       </div>
     </div>
     <div class="confirm" v-show="companyType == 0 || again" @click="confirm">提交申请</div>
+    <div class="dialogWrap" v-if="showDialog" @click.self.stop="showDialog = false">
+      <div class="dialog_imgWrap">
+        <img :src="bigImgUrl" alt="">
+      </div>
+      <div class="close" @click="showDialog = false">
+        <i class="el-icon-close"></i>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -528,6 +531,9 @@
     name: 'company-certifi-view',
     data() {
       return {
+        bigImgUrl: '',
+        showDialog: false,
+        companyValidate: {},
         step: step,
         again: false,
         myhead: {
@@ -621,6 +627,7 @@
           company: '',
           address: '',
           tel: '',
+          authenStyle: 3,//三证合一是 2 传统三证是3
           commonImg: [{
             path: '',
             catagory: 3
@@ -659,15 +666,12 @@
     },
     computed: {
       companyType() {
-        if (this.$store.state.authentication.companyType === 3) {
+        if (this.$store.state.user.user.ctype === 3) {
           this.step[2].title = '审核不通过'
-        } else {
+        } else if (this.$store.state.user.user.utype === 2) {
           this.step[2].title = '审核通过'
         }
-        return this.$store.state.authentication.companyType;
-      },
-      companyValidate() {
-        return this.$store.state.authentication.companyValidate;
+        return this.$store.state.user.user.ctype;
       },
       user() {
         return this.$store.state.user.user;
@@ -684,11 +688,14 @@
         this.$router.push('/register');
         return;
       }
-    },
-    mounted() {
       this.getHttp();
+      this.getUserInfo();
     },
     methods: {
+      showBigIMG(imgUrl){
+        this.bigImgUrl = imgUrl;
+        this.showDialog = true;
+      },
       againValidate() {
         this.again = true;
       },
@@ -719,9 +726,9 @@
         let localTime = new Date().getTime();
         body.time = localTime + common.difTime;
         body.sign = common.getSign('biz_module=' + body.biz_module + '&biz_method=' + body.biz_method + '&time=' + body.time);
-        _self.$store.dispatch('personAuthenCompany', {
-          body: body,
-          path: url
+        common.commonPost(url, body).then((suc) => {
+          _self.companyValidate = suc.biz_result;
+        }, () => {
         })
       },
       selectType(val) {
@@ -764,6 +771,7 @@
             type: 1,
             company: _self.formData.company,
             address: _self.formData.address,
+            authenStyle: _self.formData.authenStyle,
             tel: _self.formData.tel
           }
         };
@@ -816,8 +824,12 @@
         ;
         let arr = [];
         if (_self.show == 1) {
+          //传统三证
+          this.formData.authenStyle = 3
           arr = this.formData.commonImg;
         } else if (_self.show == 2) {
+          //三证合一
+          this.formData.authenStyle = 2
           arr = this.formData.specilImg;
         }
         for (var i = 0; i < arr.length; i++) {

@@ -87,8 +87,9 @@
     <div class="main" v-if="!show">
       <div class="box">
         <div class="name">姓名：</div>
+        <!--认证通过显示 name-->
         <div class="tcontent">
-          {{user.fullname}}
+          {{user.utype === 2 ? user.name : user.fullname}}
         </div>
       </div>
       <div class="box">
@@ -176,7 +177,9 @@
       <div class="box">
         <div class="name">姓名：<span style="color: red">（必填）</span></div>
         <div class="content">
-          <el-input v-model="formDate.fullname" placeholder="请输入"></el-input>
+          <!--完成个人认证通过后 不让编辑-->
+          <el-input :disabled="user.utype === 2" v-model="user.utype === 2?user.name:formDate.fullname"
+                    placeholder="请输入"></el-input>
         </div>
       </div>
       <div class="box">

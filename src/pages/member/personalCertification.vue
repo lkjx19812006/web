@@ -322,7 +322,7 @@
       </div>
       <div class="suc_info">
         <div class="info">
-          <span>姓名:{{user.fullname}}</span>
+          <span>姓名:{{user.name}}</span>
           <span style="margin-left: 95px;">身份证号:{{user.idnumber}}</span>
         </div>
         <div class="info_img">
@@ -561,7 +561,7 @@
           biz_param: {
             type: 0,
             authenImage: _self.formData.imgArr,
-            fullname: _self.formData.name,
+            name: _self.formData.name,
             idnumber: _self.formData.idCard
           }
         };

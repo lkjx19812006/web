@@ -243,6 +243,7 @@ export default {
 
             },
             handleSelect(val) {
+                console.log(val);
                 this.isSearch = true;
                 this.httpParam.letter = '';
                 this.httpParam.area = '';
