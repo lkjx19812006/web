@@ -207,7 +207,8 @@
             <span style="color: #D65B5B" v-if="item.accept === 1">已采用</span>
             <span style="color: #FF291E" v-if="item.accept === 2">未采用</span>
             <span style="color: #75AA53" v-if="item.accept === 3">处理中</span>
-            <div style="display: flex; flex-direction: row; margin-top: 5px; width: 100%" v-if="item.accept == 2 && item.comments != ''">
+            <div style="display: flex; flex-direction: row; margin-top: 5px; width: 100%"
+                 v-if="item.accept == 2 && item.comments != ''">
               <span style="width: 50px; flex: 0 0 auto">原因：</span>
               <span style="flex: 1">{{item.comments}}</span>
             </div>
@@ -241,7 +242,7 @@
                 <span class="phone">{{item.employeeMobil}}</span>
               </div>
             </div>
-            <div class="erm_wrap_content" v-if="item.accept == 2">
+            <div class="erm_wrap_content" v-if="item.accept == 2 && ValidateOverTime(topDetail.overTime)">
               <qrcode type="image" level="H" :size="106" :value="getEWMUrl(item)"></qrcode>
               <span>扫码再次报价</span>
             </div>
@@ -268,12 +269,20 @@
       }
     },
     props: {
-      detailObj: ''
+      detailObj: '',
+      topDetail: ''
     },
     components: {
       qrcode
     },
     methods: {
+      ValidateOverTime(param){
+        if (parseFloat(param) <= 0) {
+          return false;
+        } else {
+          return true;
+        }
+      },
       getEWMUrl(row) {
         return common.commonGetEWMURL(row.breedName, row.intentionId);
       }

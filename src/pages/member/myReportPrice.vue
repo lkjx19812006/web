@@ -160,14 +160,15 @@
               <span class='orange' @click="jumpDetail(scope.row)">详情</span>
               <!-- 待处理 -->
               <span class="gray" v-if="scope.row.accept == 0 || scope.row.accept == 3">联系专属客服</span>
-              <!-- 未采用 -->
-              <span class='green again' v-if="scope.row.accept == 2"
+              <!-- 未采用未过期-->
+              <span class='green again' v-if="scope.row.accept == 2 && ValidateOverTime(scope.row.overTime)"
                     v-on:mouseenter="scope.row.showEWM = true" v-on:mouseleave="scope.row.showEWM = false">
                 扫码再次报价
                 <div class="erm_wrap_content" v-show="scope.row.showEWM">
                     <qrcode type="image" level="H" :size="106" :value="getEWMUrl(scope.row)"></qrcode>
                 </div>
               </span>
+              <span class="gray" v-if="scope.row.accept == 2 && !ValidateOverTime(scope.row.overTime)">扫码再次报价</span>
               <span class='green' v-on:mouseenter="scope.row.showtips = true"
                     v-on:mouseleave="scope.row.showtips = false" @click="jumpDetail(scope.row)"
                     v-if="scope.row.accept == 1">
@@ -204,7 +205,7 @@
           <span>我的报价</span>
         </div>
         <div class="offer_price_wrap">
-          <myOfferPrice :detailObj="detail"></myOfferPrice>
+          <myOfferPrice :detailObj="detail" :topDetail="top_detail"></myOfferPrice>
         </div>
       </div>
     </div>
@@ -283,6 +284,13 @@
       this.getHttp();
     },
     methods: {
+      ValidateOverTime(param){
+        if (parseFloat(param) <= 0) {
+          return false;
+        } else {
+          return true;
+        }
+      },
       showTips(index) {
         this.myList[index].showtips = true;
       },

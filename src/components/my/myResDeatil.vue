@@ -148,7 +148,7 @@
           </div>
           <div class='right'>
             <span class="tit">剩余时间：</span>
-            <span class="cnt">{{detailObj.duedate | timeDays}}</span>
+            <span class="cnt">{{ValidateOverTime(detailObj.overTime)}}</span>
           </div>
         </div>
         <div class='row trow'>
@@ -183,6 +183,15 @@
       type: ''
     },
     methods: {
+      ValidateOverTime(param){
+        if (parseFloat(param) <= 0) {
+          return '已过期';
+        } else if (parseFloat(param) > 30 && param.indexOf('天') > -1) {
+          return '30天';
+        } else {
+          return param;
+        }
+      },
       getDetail(id) {
         let _self = this;
         let url = common.addSID(common.urlCommon + common.apiUrl.most);

@@ -20,7 +20,7 @@
 <template>
     <div class="my_Resource">
         <titleHead :param="myhead" v-on:empty='empty'></titleHead>
-        <div class='box' v-if='!detailObj'>
+        <div class='box' v-show='!detailObj'>
             <el-table :data="myResource.list" border style="width: 100%">
                 <el-table-column label="发布时间">
                     <template scope="scope">
@@ -105,7 +105,7 @@ export default {
         }
     },
     created() {
-        //确定消息中心带过来的数据    
+        //确定消息中心带过来的数据
         if (this.$route.query && this.$route.query.intentionId && this.$route.query.intentionId != undefined) {
             this.intentionId = this.$route.query.intentionId;
             if (!this.$store.state.message.resourceIntentionInfo.id) {

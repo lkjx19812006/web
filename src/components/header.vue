@@ -111,9 +111,6 @@
           margin: 5px 0 0 0;
         }
       }
-      .district:hover {
-        background-color: #FA8435;
-      }
       .active {
         background-color: #FA8435;
       }
@@ -274,28 +271,25 @@
     </div>
     <tabView v-if="tab" :tab="tab"></tabView>
     <div class="left_static" :style="{ marginTop: disTop + 'px' }" v-show="showNav">
-      <div class="district" :class="{'active':item.name === pathName && !hoverShow}" v-for="(item,index) in leftArray"
-           @click="searchId(index)" v-on:mouseenter="show(index)" v-on:mouseleave="hide(index)">
+      <div class="district"
+           :class="{'active':(item.name === pathName && codeIndex !== 3) || (codeIndex === 3 && index=== 3)}"
+           v-for="(item,index) in leftArray"
+           @click="searchId(index)">
         <img :src="item.image">
         <p>{{item.title}}</p>
       </div>
-      <div class="qr_code" v-show="codeShow">
-        <div class="img_wrap">
-          <div class="title">安卓用户</div>
-          <img src="../assets/images/android.png">
-        </div>
-        <div class="img_wrap">
-          <div class="title">苹果用户</div>
-          <img src="../assets/images/ios.png">
-        </div>
-      </div>
     </div>
+    <transition name="fade">
+      <ScanCode v-on:close="closeCode" v-if="codeIndex === 3"></ScanCode>
+    </transition>
+
   </div>
 </template>
 <script>
   import httpService from '../common/httpService.js'
   import tabView from '../components/tab.vue'
   import mySearch from '../components/search.vue'
+  import ScanCode from '../components/common/ScanCode.vue'
   import {
     device
   } from '../filters/index.js'
@@ -304,7 +298,7 @@
     data() {
       return {
         showNav: false,
-        hoverShow: false,
+        codeIndex: -1,
         verInfo: {},
         showVerInfo: false,
         pathName: '',
@@ -431,28 +425,28 @@
       if (this.pathName === '/need' || this.pathName === '/resource' || this.pathName === '/presell') {
         this.showNav = true;
       }
-      ;
       if (this.pathName === '/need') {
-        ;
         this.search.type = '1';
       } else {
         this.search.type = '0';
       }
-      ;
 
     },
     components: {
       tabView,
-      mySearch
+      mySearch,
+      ScanCode
     },
     methods: {
+      closeCode(){
+        this.codeIndex = -1;
+      },
       linkIndex() {
         this.$router.push('/');
       },
       searchId(index) {
         let _self = this;
-        let anchor = document.getElementById("a" + index)
-        let top = 0;
+        this.codeIndex = -1;
         switch (index) {
           case 0:
             _self.$router.push('/need')
@@ -462,6 +456,9 @@
             break;
           case 2:
             _self.$router.push('/presell')
+            break;
+          case 3:
+            _self.codeIndex = 3;
             break;
           case 4:
             document.body.scrollTop = 0;
@@ -474,18 +471,6 @@
       },
       close() {
         this.showVerInfo = false;
-      },
-      show(index) {
-        this.hoverShow = true;
-        if (index == 3) {
-          this.codeShow = true;
-        }
-      },
-      hide(index) {
-        this.hoverShow = false;
-        if (index == 3) {
-          this.codeShow = false;
-        }
       },
       selectType(val) {
         this.search.value = '';
