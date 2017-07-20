@@ -140,7 +140,7 @@
     data() {
       return {
         showUpgrade: false,
-        showIndex: 3,
+        showIndex: -1,
         imgArray: [],
         disTop: 55,
         leftArray: [{
