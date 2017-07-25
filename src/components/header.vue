@@ -399,16 +399,24 @@
             }).then(() => {
               let path = _self.$route.matched[0].path;
               if (httpService.validateUserInfo(_self.$store.state.user.user, () => {
+                  console.log('adfasdfsad', path);
                   if (path != '/member' && !_self.flag && path != '/register') {
-                    _self.$confirm('您还未完善个人信息,是否现在去完善？', '提示', {
+                    _self.$alert('您还未完善个人信息,请立即去完善', '提示', {
                       confirmButtonText: '确定',
-                      cancelButtonText: '取消',
-                      type: 'info'
-                    }).then(() => {
-                      _self.$router.push('/register')
-                    }).catch(() => {
-                      _self.$store.dispatch('changeFlag', true);
+                      callback: action => {
+                        _self.$router.push('/register');
+                      }
                     });
+                    return;
+//                    _self.$confirm('您还未完善个人信息,是否现在去完善？', '提示', {
+//                      confirmButtonText: '确定',
+//                      cancelButtonText: '取消',
+//                      type: 'info'
+//                    }).then(() => {
+//                      _self.$router.push('/register')
+//                    }).catch(() => {
+//                      _self.$store.dispatch('changeFlag', true);
+//                    });
                   }
                 }));
             }, () => {

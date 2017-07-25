@@ -96,17 +96,17 @@
     <div class="content">
       <div class="swiper">
         <el-carousel height='400px'>
-          <el-carousel-item v-for="item in imgArray" :key="item.webImg">
-            <img :src="item.webImg" @click="jump(item.activityUrl)" class="bigImgs">
+          <el-carousel-item v-for="item, index in imgArray" :key="item.webImg">
+            <img :src="item.webImg" @click="jump(item.activityUrl, index)" class="bigImgs">
           </el-carousel-item>
         </el-carousel>
       </div>
       <div class="arrondi">
         <transition name="fade">
-          <ScanCode v-on:close="closeCode" v-if="showIndex === 3"></ScanCode>
+          <ScanCode v-on:close="closeCode" v-if="(showIndex === 3 && !isClose) || !isClose"></ScanCode>
         </transition>
         <div class="left_static" :style="{ marginTop: disTop + 'px' }">
-          <div class="district" :class="{'activeCode': index === showIndex}"
+          <div class="district" :class="{'activeCode': index === showIndex || (!isClose && index === 3)}"
                v-for="(item,index) in leftArray"
                :key="index" @click="searchId(index)">
             <img :src="item.image">
@@ -161,6 +161,11 @@
         }]
       }
     },
+    computed: {
+      isClose(){
+        return this.$store.state.user.isClose;
+      }
+    },
     components: {
       headerView,
       footerView,
@@ -207,6 +212,7 @@
       },
       closeCode(){
         this.showIndex = -1;
+        this.$store.dispatch('setIsClose', true);
       },
       getImgArr() {
         let _self = this;
@@ -232,10 +238,23 @@
           console.log(err);
         })
       },
-      jump(path) {
-        if (path) {
-          let newWin = window.open();
-          newWin.location.href = path;
+      jump(path, index) {
+        //登录了的 跳转到发布页 没有登录的 跳转到登录页
+        //资源发布页 是最后一个链接的地址 求购发布是
+        //publish/resource
+        let Reg1 = /\/publish\/resource/g;
+        if (Reg1.test(path)) {
+          //登录了并且是资源发布页 或者求购发布页的路径时
+          if (this.$store.state.user.user.phone) {
+            this.$router.push('/publish/resource');
+          } else {
+            this.$router.push('/login');
+          }
+        } else {
+          if (path) {
+            let newWin = window.open();
+            newWin.location.href = path;
+          }
         }
       },
       searchId(index) {
@@ -252,6 +271,9 @@
             break;
           case 2:
             top = anchor.offsetTop - 200;
+            break;
+          case 3:
+            this.$store.dispatch('setIsClose', false);
             break;
           case 4:
             top = 1;

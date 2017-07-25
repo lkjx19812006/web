@@ -223,7 +223,7 @@
             }
         }
     }
-   
+
 }
 
 .echarts {
@@ -236,7 +236,7 @@
         <headerView tab='5'></headerView>
         <div class="main">
             <div class="left">
-                <marketNav :httpParam="httpParam" v-on:result='getValue'></marketNav>                
+                <marketNav :httpParam="httpParam" v-on:result='getValue'></marketNav>
                 <div class="margin"></div>
                 <div class="left_head">
                     <p>品种</p>
@@ -312,6 +312,7 @@ export default {
                 letter: "",
                 categoryId: '-1',
                 name: "",
+                breedId: '',
                 pn: 1,
                 pSize: 10
             },
@@ -355,9 +356,9 @@ export default {
         footerView,
         marketNav,
         mediaNew,
-     
+
     },
-    methods: {       
+    methods: {
         gesturesClick(market) {
             let name = market.name;
             let breedId = market.breedId;
@@ -405,7 +406,7 @@ export default {
             this.getHttp();
         },
         getValue(params) {
-            this.$store.dispatch('clearsMarketName');           
+            this.$store.dispatch('clearsMarketName');
             this.httpParam = params
             this.getHttp();
         },
@@ -455,7 +456,7 @@ export default {
                 _self.loading = false
             });
         },
-      
+
     },
     mounted() {}
 }

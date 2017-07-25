@@ -3,6 +3,7 @@ import httpService from '../../common/httpService'
 
 const state = {
   user: {name: "", idnumber: ""},
+  isClose: false,//是否关闭二维码
   userTypeMap: [],
   srcUrl: '',
   targetUrl: '',
@@ -20,6 +21,7 @@ const state = {
 const getters = {
   user: state => state.user,
   userTypeMap: state => state.userTypeMap,
+  isClose: state => state.isClose,
   srcUrl: state => state.srcUrl,
   targetUrl: state => state.targetUrl,
   userList: state => state.userList,
@@ -36,6 +38,12 @@ const actions = {
   changeFlag({commit, state}, param) {
     return new Promise((resolve, reject) => {
       commit('changeFlag', param);
+      resolve();
+    })
+  },
+  setIsClose({commit, state}, param) {
+    return new Promise((resolve, reject) => {
+      commit('setIsClose', param);
       resolve();
     })
   },
@@ -153,6 +161,9 @@ const actions = {
 const mutations = {
   setUrl(state, res) {
     state.srcUrl = res;
+  },
+  setIsClose(state, res){
+    state.isClose = res;
   },
   initUser(state, res) {
     state.user = res.biz_result;
