@@ -153,6 +153,49 @@
 
       }
     }
+    .step {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+      .step_item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .img_item {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          .line {
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+          }
+          img {
+            width: 50px;
+            height: 50px;
+            margin: 0 20px;
+          }
+          .steped {
+            border-bottom-color: #79B054;
+          }
+        }
+        .content {
+          text-align: center;
+        }
+        .steped {
+          color: #79B054;
+        }
+        .noSelect {
+          color: #FF6869;
+        }
+      }
+
+    }
     .btn_wrap_showList {
       padding: 10px 0;
       text-align: center;
@@ -203,10 +246,10 @@
         <div class="state_wrap">
           <div class="comments_info">
             <span style="color: #333">报价状态：</span>
-            <span style="color: #75AA53" v-if="item.accept === 0">处理中</span>
+            <span style="color: #75AA53" v-if="item.accept === 0">受理中</span>
             <span style="color: #D65B5B" v-if="item.accept === 1">已采用</span>
             <span style="color: #FF291E" v-if="item.accept === 2">未采用</span>
-            <span style="color: #75AA53" v-if="item.accept === 3">处理中</span>
+            <span style="color: #75AA53" v-if="item.accept === 3">受理中</span>
             <div style="display: flex; flex-direction: row; margin-top: 5px; width: 100%"
                  v-if="item.accept == 2 && item.comments != ''">
               <span style="width: 50px; flex: 0 0 auto">原因：</span>
@@ -217,6 +260,21 @@
             <img src="../../static/icon/caiyong.png" height="93" width="101">
           </div>
 
+        </div>
+      </div>
+      <div class="step">
+        <div class="step_item" v-for="subitem,idx in item.step">
+          <div class="img_item" :style="{'margin-top': !!subitem.info === true?'20px': '' }">
+            <div class="line" :class="{'steped': subitem.show}"></div>
+            <!--默认图片地址-->
+            <img src="../../../static/icon/offerStep1.png" v-if="!subitem.show">
+            <img :src="subitem.img" v-else>
+            <div class="line" :class="{'steped': subitem.show}"></div>
+          </div>
+          <div class="content" :class="{'steped': subitem.show}">
+            <span :class="{'noSelect': idx === 2 &&item.accept === 2}">{{subitem.title}}</span><br/>
+            <span v-if="subitem.info" style="color: #FF6869">（{{subitem.info}}）</span>
+          </div>
         </div>
       </div>
       <div class="bot_info_des">
@@ -231,7 +289,7 @@
               <span class="product_info_cot">{{item.priceDescription}}</span>
             </div>
           </div>
-          <div class="btn_wrap" v-if="item.accept != 0 &&  item.accept != 3">
+          <div class="btn_wrap">
             <div class="btn_cont" v-if="item.accept === 1"
                  v-on:mouseenter="showConcate = index" v-on:mouseleave="showConcate = -1">
               联系专属交易员
@@ -242,7 +300,8 @@
                 <span class="phone">{{item.employeeMobil}}</span>
               </div>
             </div>
-            <div class="erm_wrap_content" v-if="item.accept == 2 && ValidateOverTime(topDetail.overTime)">
+            <!--只要没采纳并且没过期 都能再次报价 -->
+            <div class="erm_wrap_content" v-if="item.accept != 1 && ValidateOverTime(topDetail.overTime)">
               <qrcode type="image" level="H" :size="106" :value="getEWMUrl(item)"></qrcode>
               <span>扫码再次报价</span>
             </div>
@@ -257,6 +316,7 @@
   </div>
 </template>
 <script>
+  //detailObj.accept 0 3 = 已报价=受理中  已采用 = 1 未采用=2
   import common from '../../common/httpService.js'
   import qrcode from 'v-qrcode'
   export default {
@@ -265,12 +325,44 @@
         showConcate: -1,
         showIndex: 0,
         showList: false,
-
       }
     },
     props: {
       detailObj: '',
       topDetail: ''
+    },
+    created(){
+      this.detailObj.list.forEach((item) => {
+        let imgs = [
+          require('../../../static/icon/offerStep1.png'),
+          require('../../../static/icon/offerStep2.png'),
+          require('../../../static/icon/offerStep3.png')
+        ];
+        let step = [
+          {title: '已报价', accept: 0, img: imgs[1], show: false},
+          {title: '受理中', accept: 3, img: imgs[1], show: false},
+          {title: '待采用', accept: 1, img: imgs[1], show: false},
+          {title: '待寄样', info: '即将上线', img: imgs[1], show: false},
+          {title: '待成交', info: '即将上线', img: imgs[1], show: false}
+        ];
+        item.step = step;
+        item.step[0].show = true;
+        item.step[1].show = true;
+        switch (item.accept) {
+          //已采用
+          case 1:
+            item.step[2].title = '已采用';
+            item.step[2].img = imgs[1];
+            item.step[2].show = true;
+            break;
+          //未采用
+          case 2:
+            item.step[2].title = '未采用';
+            item.step[2].img = imgs[2];
+            item.step[2].show = true;
+            break;
+        }
+      })
     },
     components: {
       qrcode

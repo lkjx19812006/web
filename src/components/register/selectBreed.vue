@@ -351,7 +351,7 @@ export default {
                     let arr = suc.biz_result.list;
                     let result = [];
                     if (_self.$store.state.user.user.bizMain !== '') {
-                        let result = _self.$store.state.user.user.bizMain.split(',');
+                        result = _self.$store.state.user.user.bizMain.split(',');
                     }
                     result.forEach(function(item) {
                         _self.breedLists.push({

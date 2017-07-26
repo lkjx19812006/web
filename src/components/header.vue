@@ -246,6 +246,8 @@
                     <span class="message_num orange_span">{{messageTotal}}</span>
                     </span>
           <span class="center_span">|</span>
+          <span class="point_span" @click="jumpCenter('/selectBreed')">我的主营</span>
+          <span class="center_span">|</span>
           <span>客服电话：021-55502736</span>
         </div>
       </div>
@@ -399,7 +401,6 @@
             }).then(() => {
               let path = _self.$route.matched[0].path;
               if (httpService.validateUserInfo(_self.$store.state.user.user, () => {
-                  console.log('adfasdfsad', path);
                   if (path != '/member' && !_self.flag && path != '/register') {
                     _self.$alert('您还未完善个人信息,请立即去完善', '提示', {
                       confirmButtonText: '确定',
@@ -554,14 +555,7 @@
           this.$store.dispatch('setUrl', path).then(() => {
             this.$router.push('/login');
           });
-          // _self.$message({
-          //     showClose: true,
-          //     message: '请先登录',
-          //     type: 'warning'
-          // });
-          // _self.$router.push('/login')
         }
-
       },
       jump(path) {
         if (path === '/login') {

@@ -149,26 +149,30 @@
           </el-table-column>
           <el-table-column label="状态" width="80">
             <template scope="scope">
-              <span v-if="scope.row.accept == 0">处理中</span>
+              <span v-if="scope.row.accept == 0">受理中</span>
               <span v-if="scope.row.accept == 1">已采用</span>
               <span v-if="scope.row.accept == 2">未采用</span>
-              <span v-if="scope.row.accept == 3">处理中</span>
+              <span v-if="scope.row.accept == 3">受理中</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" width="220">
             <template scope="scope">
               <span class='orange' @click="jumpDetail(scope.row)">详情</span>
-              <!-- 待处理 -->
-              <span class="gray" v-if="scope.row.accept == 0 || scope.row.accept == 3">联系专属客服</span>
-              <!-- 未采用未过期-->
-              <span class='green again' v-if="scope.row.accept == 2 && ValidateOverTime(scope.row.overTime)"
+              <!-- 受理中 可以再次报价 -->
+              <!--<span class="gray" v-if="scope.row.accept == 0 || scope.row.accept == 3">联系专属客服</span>-->
+
+              <!-- 受理中未采用 未过期 都可以报价-->
+              <span class='green again' v-if="scope.row.accept != 1 && ValidateOverTime(scope.row.overTime)"
                     v-on:mouseenter="scope.row.showEWM = true" v-on:mouseleave="scope.row.showEWM = false">
                 扫码再次报价
                 <div class="erm_wrap_content" v-show="scope.row.showEWM">
                     <qrcode type="image" level="H" :size="106" :value="getEWMUrl(scope.row)"></qrcode>
                 </div>
               </span>
-              <span class="gray" v-if="scope.row.accept == 2 && !ValidateOverTime(scope.row.overTime)">扫码再次报价</span>
+              <!-- 受理中未采用 已过期过期 不能报价-->
+              <span class="gray" v-if="scope.row.accept != 1 && !ValidateOverTime(scope.row.overTime)">扫码再次报价</span>
+
+              <!--报价成功 联系客服-->
               <span class='green' v-on:mouseenter="scope.row.showtips = true"
                     v-on:mouseleave="scope.row.showtips = false" @click="jumpDetail(scope.row)"
                     v-if="scope.row.accept == 1">
@@ -189,7 +193,7 @@
         </div>
       </template>
     </div>
-    <div class='detail' v-if='detail && top_detail'>
+    <div class='detail' v-if='detail != "" && top_detail != ""'>
       <div class='title'>
         <div class='name'>
           <img src="../../static/icon/myOffer1.png" height="23" width="23">
