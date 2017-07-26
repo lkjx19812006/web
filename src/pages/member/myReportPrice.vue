@@ -149,7 +149,7 @@
           </el-table-column>
           <el-table-column label="状态" width="80">
             <template scope="scope">
-              <span v-if="scope.row.accept == 0">受理中</span>
+              <span v-if="scope.row.accept == 0">已报价</span>
               <span v-if="scope.row.accept == 1">已采用</span>
               <span v-if="scope.row.accept == 2">未采用</span>
               <span v-if="scope.row.accept == 3">受理中</span>

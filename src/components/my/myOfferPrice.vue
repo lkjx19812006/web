@@ -246,7 +246,7 @@
         <div class="state_wrap">
           <div class="comments_info">
             <span style="color: #333">报价状态：</span>
-            <span style="color: #75AA53" v-if="item.accept === 0">受理中</span>
+            <span style="color: #75AA53" v-if="item.accept === 0">已报价</span>
             <span style="color: #D65B5B" v-if="item.accept === 1">已采用</span>
             <span style="color: #FF291E" v-if="item.accept === 2">未采用</span>
             <span style="color: #75AA53" v-if="item.accept === 3">受理中</span>
@@ -316,6 +316,11 @@
   </div>
 </template>
 <script>
+  let imgs = [
+    require('../../../static/icon/offerStep1.png'),
+    require('../../../static/icon/offerStep2.png'),
+    require('../../../static/icon/offerStep3.png')
+  ];
   //detailObj.accept 0 3 = 已报价=受理中  已采用 = 1 未采用=2
   import common from '../../common/httpService.js'
   import qrcode from 'v-qrcode'
@@ -333,11 +338,6 @@
     },
     created(){
       this.detailObj.list.forEach((item) => {
-        let imgs = [
-          require('../../../static/icon/offerStep1.png'),
-          require('../../../static/icon/offerStep2.png'),
-          require('../../../static/icon/offerStep3.png')
-        ];
         let step = [
           {title: '已报价', accept: 0, img: imgs[1], show: false},
           {title: '受理中', accept: 3, img: imgs[1], show: false},
@@ -347,18 +347,22 @@
         ];
         item.step = step;
         item.step[0].show = true;
-        item.step[1].show = true;
         switch (item.accept) {
+          case 3:
+            item.step[1].show = true;
+            break;
+          //未采用
           //已采用
           case 1:
             item.step[2].title = '已采用';
-            item.step[2].img = imgs[1];
+            item.step[1].show = true;
             item.step[2].show = true;
             break;
           //未采用
           case 2:
             item.step[2].title = '未采用';
             item.step[2].img = imgs[2];
+            item.step[1].show = true;
             item.step[2].show = true;
             break;
         }

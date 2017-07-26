@@ -215,7 +215,8 @@
       </div>
       <div class="validate_img_wrap">
         <img src="../../static/icon/xjing.png" height="94" width="133" v-if="detailObj.onSell === 2">
-        <img src="../../static/icon/xjend.png" height="94" width="133" v-if="detailObj.onSell === 4">
+        <img src="../../static/icon/xjend.png" height="94" width="133"
+             v-if="detailObj.onSell === 4 || detailObj.onSell ===3">
         <img src="../../static/icon/xjvalidate.png" height="94" width="133"
              v-if="detailObj.onSell === 0 || detailObj.onSell === 1">
       </div>
@@ -223,7 +224,8 @@
     <div class='button_wrap' v-if="detailObj.onSell != 1 && detailObj.onSell != 0">
       <div class='edit_btn' @click='resive(detailObj.id)'>编辑</div>
       <div class='end_btn' @click='endEnquiry(detailObj.id)' v-if="detailObj.onSell === 2">结束询价</div>
-      <div class='agin_btn' @click='resive(detailObj.id)' v-if="detailObj.onSell === 4">再次询价</div>
+      <div class='agin_btn' @click='resive(detailObj.id)' v-if="detailObj.onSell === 4 || detailObj.onSell ===3">再次询价
+      </div>
     </div>
     <div class="validate_wrap" v-else>
       <img src="../../static/icon/myNeedValidate.png" height="75" width="75">

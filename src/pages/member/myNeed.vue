@@ -92,6 +92,7 @@
             <span v-show="scope.row.onSell == 2">询价中</span>
             <span v-show="scope.row.onSell == -2">审核失败</span>
             <span v-show="scope.row.onSell == 4">询价结束</span>
+            <span v-show="scope.row.onSell == 3">询价结束</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" width='150'>

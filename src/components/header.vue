@@ -378,6 +378,14 @@
       }
     },
     mounted() {
+      //从window中拿地址缓存
+      if (this.$store.state.search.cityList.length === 0) {
+        if (window.localStorage.cityList == undefined) {
+          this.getLocation();
+        } else {
+          this.$store.dispatch('sch_getCityList', JSON.parse(window.localStorage.cityList));
+        }
+      }
       let _self = this;
       this.search.value = this.$store.state.search.searchValue.resourceValue;
       let user = this.$store.state.user.user;
@@ -439,7 +447,6 @@
       } else {
         this.search.type = '0';
       }
-
     },
     components: {
       tabView,
@@ -674,7 +681,35 @@
         }).then(() => {
         }, () => {
         })
+      },
+      //获取地址 存入本地
+      getLocation(){
+        function sortArr(item, type) {
+          item.label = item.cname;
+          item.value = item.id;
+          if (item.childList.length > 0) item.children = item.childList;
+          if (item.childList.length > 0) item.children.forEach(function (childItem) {
+            sortArr(childItem);
+          })
+        }
+
+        let _self = this;
+        httpService.commonPost(httpService.urlCommon + httpService.apiUrl.most, {
+          biz_module: 'locationService',
+          biz_method: 'queryLocationList',
+          biz_param: {}
+        }).then(function (suc) {
+          suc.biz_result.list.forEach(function (item) {
+            sortArr(item);
+          });
+          //存入VUX
+          _self.$store.dispatch('sch_getCityList', suc.biz_result.list);
+          window.localStorage.cityList = JSON.stringify(suc.biz_result.list);
+        }).catch(function (err) {
+          _self.$store.dispatch('sch_getCityList', []);
+        })
       }
     }
+
   }
 </script>

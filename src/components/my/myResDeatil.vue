@@ -120,6 +120,7 @@
           <span v-show="detailObj.onSell == 2">（已上架）</span>
           <span v-show="detailObj.onSell == -2">（上架失败）</span>
           <span v-show="detailObj.onSell == 4">（已下架）</span>
+          <span v-show="detailObj.onSell == 3">（已下架）</span>
         </div>
         <div class='row'>
           <div class='left'>

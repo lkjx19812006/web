@@ -419,7 +419,7 @@
           }
         });
         return;
-      } else if (!this.user.phone) {
+      } else if (!this.user.phone && common.KEY == undefined) {
         this.$store.dispatch('setUrl', '/publish/need').then(() => {
           this.$router.push('/login');
         });
