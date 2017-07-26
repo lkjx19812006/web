@@ -275,7 +275,11 @@
           </div>
           <div class="intention_row">
             <div class="btn_wrap" v-if="intention.isMy !== 1">
-              <el-button type="primary" size="large" class="orange_button" @click="buy()">立即购买</el-button>
+              <el-button
+                type="primary"
+                size="large"
+                class="orange_button"
+                @click="buy()">{{intention.especial == 1 && intention.type == 1 === true ? '立即抢购' : '我要购买'}}</el-button>
               <a @click="linkToPub">我有更低价的资源</a>
             </div>
           </div>

@@ -169,7 +169,7 @@
         <div class="resource_detail" v-for="item in resourceList">
           <div class="resource_image">
             <img class="big_img" :src="item.image[0]" v-on:click="buy(item)">
-            <img :src="item.cFlagsPath"  class="small_img">
+            <img :src="item.cFlagsPath" class="small_img">
           </div>
           <div class="need_detail_left">
             <div class="title">
@@ -207,7 +207,11 @@
             </div>
           </div>
           <div class="need_detail_right">
-            <el-button type="primary" size="large" class="border_orange_button" @click="buy(item)">立即采购</el-button>
+            <el-button type="primary"
+                       size="large"
+                       class="border_orange_button"
+                       @click="buy(item)">{{item.especial == 1 && item.type == 1 === true ? '立即抢购' : '我要购买'}}
+            </el-button>
           </div>
         </div>
         <div class="page">
