@@ -207,10 +207,16 @@
             </div>
           </div>
           <div class="need_detail_right">
-            <el-button type="primary"
+            <el-button v-if='item.isMy !== 1' type="primary"
                        size="large"
                        class="border_orange_button"
                        @click="buy(item)">{{item.especial == 1 && item.type == 1 === true ? '立即抢购' : '我要购买'}}
+            </el-button>
+            <el-button v-else type="primary"
+                       size="large"
+                       class="border_orange_button"
+                       style="background-color: #fa5748;"
+                       @click="buy(item)">我的资源
             </el-button>
           </div>
         </div>
