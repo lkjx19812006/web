@@ -135,7 +135,9 @@
       <el-table-column type="expand">
         <template scope="props">
           <div v-for="item in orderList[props.$index].goodsArray" class="arr">
-            <img :src="item.image" class="image" @click="bigImgs(item.image)">
+            <img v-if="item.image" :src="item.image" class="image" @click="bigImgs(item.image)">
+            <img v-if="!item.image" src="../../../static/icon/default_logo.png" class="image"
+                 @click="bigImgs('../../../static/icon/default_logo.png')">
             <div class="name">{{item.goodsName}}</div>
             <div class="number">购买数量:{{item.number}}</div>
             <div class="spec">规格:{{item.spec}}</div>
