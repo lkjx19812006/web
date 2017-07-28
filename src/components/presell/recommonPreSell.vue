@@ -59,7 +59,7 @@ a {
                         position: absolute;
                         left: 0;
                         top: 0;
-                        max-width: 24px;
+                        max-width: 30px;
                         border: 0 none;
                     }
                 }
