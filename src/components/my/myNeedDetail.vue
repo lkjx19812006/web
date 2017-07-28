@@ -180,8 +180,8 @@
           <span class="detail_info">{{detailObj.quality}}</span>
         </div>
         <div class="detail_wrap">
-          <span class="detail_tit">交货地点：</span>
-          <span class="detail_info">{{detailObj.address}}</span>
+          <span class="detail_tit">交货地址：</span>
+          <span class="detail_info">{{detailObj.province}}</span>
         </div>
         <div class="detail_wrap" v-if="false">
           <span class="detail_tit">付款方式：</span>

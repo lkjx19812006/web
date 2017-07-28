@@ -248,7 +248,9 @@
           if (this.$store.state.user.user.phone) {
             this.$router.push('/publish/resource');
           } else {
-            this.$router.push('/login');
+            this.$store.dispatch('setUrl', '/publish/resource').then(() => {
+              this.$router.push('/login');
+            });
           }
         } else {
           if (path) {

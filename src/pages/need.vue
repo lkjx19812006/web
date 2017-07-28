@@ -220,8 +220,8 @@
                 <span class="info" v-else>面议</span>
               </div>
               <div class="detail_item">
-                <span class="htit">交货地点：</span>
-                <span class="info" v-if="item.address != ''">{{item.province + ',' + item.city}}</span>
+                <span class="htit">交货地址：</span>
+                <span class="info" v-if="item.address != ''">{{item.province}}</span>
                 <span class="info" v-else>面议</span>
               </div>
               <div class="detail_item">
