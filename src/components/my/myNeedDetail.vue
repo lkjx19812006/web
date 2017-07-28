@@ -257,7 +257,8 @@
         }
       },
       resive(id) {
-        this.$router.push('/publish/need/' + id);
+        //再次询价 operation=again
+        this.$router.push('/publish/need/' + id + '?operation=again');
       },
       endEnquiryHttp(id) {
         let _self = this;

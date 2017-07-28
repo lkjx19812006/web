@@ -610,9 +610,11 @@
         let module = 'intentionService';
         let method = 'htmlEditBegBuyInfo';
         let title = '求购发布成功';
-        if (_self.ruleForm.id) {
+        if (_self.ruleForm.id && this.$route.query.operation === 'edit') {
           method = 'updatehtmlEditBegBuyInfo';
           title = '求购修改成功'
+        } else if (_self.ruleForm.id && this.$route.query.operation === 'again') {
+          title = '再次询价发布成功';
         }
         let body = {
           biz_module: module,

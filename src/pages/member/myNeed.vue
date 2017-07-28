@@ -287,7 +287,7 @@
           })
       },
       resive(id) {
-        this.$router.push('/publish/need/' + id);
+        this.$router.push('/publish/need/' + id + '?operation=edit');
       },
       deleteNeed(id) {
         let _self = this;
