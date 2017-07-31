@@ -9,7 +9,7 @@
     bottom: 0;
     width: 100%;
     height: 240px;
-    background-color: rgba(0, 0, 0, .6);
+    background-color: rgba(0, 0, 0, .5);
     .img_left {
       flex: 0 0 auto;
       height: 280px;

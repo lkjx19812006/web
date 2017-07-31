@@ -282,7 +282,7 @@
       </div>
     </div>
     <transition name="fade">
-      <ScanCode v-on:close="closeCode" v-if="codeIndex === 3"></ScanCode>
+      <ScanCode v-on:close="closeCode" v-if="showNav && ((codeIndex === 3 && !isClose) || !isClose)"></ScanCode>
     </transition>
 
   </div>
@@ -369,6 +369,9 @@
       },
       messageTotal() {
         return this.$store.state.message.messageTotal
+      },
+      isClose(){
+        return this.$store.state.user.isClose;
       }
     },
     beforeMount() {
@@ -439,7 +442,7 @@
         this.getMessageTotals();
       }
       this.pathName = this.$route.path;
-      if (this.pathName === '/need' || this.pathName === '/resource' || this.pathName === '/presell') {
+      if (this.pathName === '/need' || this.pathName === '/resource' || this.pathName === '/presell' || this.pathName === '/market') {
         this.showNav = true;
       }
       if (this.pathName === '/need') {
@@ -456,6 +459,7 @@
     methods: {
       closeCode(){
         this.codeIndex = -1;
+        this.$store.dispatch('setIsClose', true);
       },
       linkIndex() {
         this.$router.push('/');
@@ -475,6 +479,7 @@
             break;
           case 3:
             _self.codeIndex = 3;
+            _self.$store.dispatch('setIsClose', false);
             break;
           case 4:
             document.body.scrollTop = 0;

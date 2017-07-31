@@ -301,7 +301,8 @@
               </div>
             </div>
             <!--只要没采纳并且没过期 都能再次报价 -->
-            <div class="erm_wrap_content" v-if="item.accept != 1 && ValidateOverTime(topDetail.overTime)">
+            <div class="erm_wrap_content"
+                 v-if="item.accept != 1 && ValidateOverTime(topDetail.overTime) && detailObj.list[0].accept != 1">
               <qrcode type="image" level="H" :size="106" :value="getEWMUrl(item)"></qrcode>
               <span>扫码再次报价</span>
             </div>
