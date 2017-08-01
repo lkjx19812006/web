@@ -288,7 +288,7 @@ export default {
                         // console.log && console.log(p);
                         return [p[0] + 10, p[1] - 10];
                     },
-                },               
+                },
                 series: [],
                 color: ['#7BC69B', '#FA8535', '#F54C9F', '#00A0E8']
             },
@@ -388,11 +388,13 @@ export default {
                 _self.series[1].data = [];
                 _self.series[2].data = [];
                 _self.series[3].data = [];
+                //有的药市有 有的药市没有 这种情况下 凑数据 否则 线条长度不一致
                 for (var i = 0; i < data.length; i++) {
                     _self.xData.unshift(data[i].pricaDate);
                     for (var j = 0; j < data[i].showDate.length; j++) {
                         switch (data[i].showDate[j].area) {
                             case '亳州':
+                                //判断其他3个药市有没有数据
                                 _self.series[0].data.unshift(data[i].showDate[j].unitprice);
                                 break;
                             case '荷花池':
@@ -409,7 +411,6 @@ export default {
                     }
 
                 }
-
                 _self.option.xAxis.data = _self.xData;
                 _self.option.series = _self.series
                 _self.getEchart();

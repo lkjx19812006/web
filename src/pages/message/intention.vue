@@ -127,7 +127,7 @@
 <template>
   <div class="intention">
     <div class="top_checkBox">
-      <el-checkbox v-model="checked" @change="allChecked">
+        <el-checkbox v-model="checked" @change="allChecked">
         <span style="font-size: 12px; color: #666">全选</span>
       </el-checkbox>
       <div class="btn_wrap">
