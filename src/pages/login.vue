@@ -223,7 +223,6 @@
                       _self.getMessageTotals();
                       _self.$router.push(srcUrl);
                     } else {
-                      _self.getMessageTotals();
                       _self.$router.push('/');
                     }
                   }, () => {
