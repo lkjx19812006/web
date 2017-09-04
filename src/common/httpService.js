@@ -6,10 +6,12 @@ import CryptoJS from "crypto-js"
 var httpService = new Vue({
   data: {
     customerId: '',
+    phone: '021-55502769',
     urlCommon: '/front',
     KEY: window.localStorage.KEY,
     SID: window.localStorage.SID,
     difTime: 0,
+    version: '3.6.1',
     h5needUrl: 'http://apps.yaocaimaimai.com/htm5/#/needDetails/', //http://apps.yaocaimaimai.com/htm5/#/needDetails/ http://192.168.1.142:81/htm5/#/needDetails/
     apiUrl: {
       login: '/account/login.do',
@@ -94,6 +96,7 @@ var httpService = new Vue({
     },
     commonPost: function commonPost(url, data) {
       var _self = this;
+      data.version = this.version;
       return new Promise(function (resolve, reject) {
         axios({method: 'post', url: url, data: data}).then(function (response) {
           if (response.status === 200) {

@@ -179,7 +179,7 @@
                 联系专属客服
                 <div class="employ"
                      v-show="scope.row.showtips && scope.row.employeeName && scope.row.employeeMobil">
-                    {{scope.row.employeeName + ' ' + scope.row.employeeMobil}}
+                    {{scope.row.employeeMobil}}
                     <span class="el-icon-caret-bottom"></span>
                 </div>
               </span>

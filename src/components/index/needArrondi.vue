@@ -224,7 +224,7 @@ th {
                     </el-table-column>
                     <el-table-column label="咨询电话" width="95">
                         <template scope="scope">
-                            <el-tooltip class="item" effect="dark" :content="'交易员:' + scope.row.employeeName +'   ' +  '电话:' + scope.row.employeeMobil" placement="top-start">
+                            <el-tooltip class="item" effect="dark" :content="'客服电话:' + scope.row.employeeMobil" placement="top-start">
                                 <div class="phone"></div>
                             </el-tooltip>
                         </template>

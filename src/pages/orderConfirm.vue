@@ -238,7 +238,7 @@
       <reviseAddress v-on:getHttp="getAddress" :formData="params"></reviseAddress>
     </el-dialog>
     <el-dialog v-on:close="closeMsg" class="my_msg" v-model="dialogMsg">
-      <msg title="信息发送成功，请耐心等待" phone="021-55502736"></msg>
+      <msg title="信息发送成功，请耐心等待" :phone="phone"></msg>
     </el-dialog>
   </div>
 </template>
@@ -256,6 +256,7 @@
     name: 'orderConfirm_view',
     data() {
       return {
+        phone:common.phone,
         dialogMsg: false,
         cart: [],
         findLoading: false,

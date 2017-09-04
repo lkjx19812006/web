@@ -292,10 +292,8 @@
           <div class="btn_wrap">
             <div class="btn_cont" v-if="item.accept === 1"
                  v-on:mouseenter="showConcate = index" v-on:mouseleave="showConcate = -1">
-              联系专属交易员
+              联系专属客服
               <div class="contact_info" v-show="showConcate === index">
-                <!-- {{item.employeeName}} -->
-                <span class="name">{{item.employeeName}}</span>
                 <!-- {{item.employeeMobil}} -->
                 <span class="phone">{{item.employeeMobil}}</span>
               </div>

@@ -248,7 +248,7 @@
           <span class="center_span">|</span>
           <span class="point_span" @click="jumpCenter('/selectBreed')">我的主营</span>
           <span class="center_span">|</span>
-          <span>客服电话：021-55502736</span>
+          <span>{{phone}}</span>
         </div>
       </div>
     </div>
@@ -299,6 +299,7 @@
     name: 'head-view',
     data() {
       return {
+        phone: httpService.phone,
         showNav: false,
         codeIndex: -1,
         verInfo: {},

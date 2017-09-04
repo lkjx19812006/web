@@ -198,9 +198,8 @@
                 <div class='item' v-if="item.quality == ''">卖点：暂未填写卖点</div>
                 <div class='item' v-if="item.quality != ''">卖点：{{item.quality}}</div>
                 <div class="image item">
-                  <div>专属交易员：{{item.employeeName}}</div>
-                  <div class="distance">|</div>
                   <img src="../assets/images/phone-green.png">
+                  <div>客服电话：</div>
                   <div>{{item.employeeMobil}}</div>
                 </div>
               </div>

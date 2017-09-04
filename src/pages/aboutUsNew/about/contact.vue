@@ -124,7 +124,7 @@
                     <div class="left_wrap">
                         <div class="detail_wrap">
                             <span class="tit">电话：</span>
-                            <span class="cont">021-55502736</span>
+                            <span class="cont">{{phone}}</span>
                         </div>
                         <div class="detail_wrap">
                             <span class="tit">邮编：</span>
@@ -181,6 +181,7 @@
 </template>
 <script>
 import titleView from '../../../components/about/title.vue'
+import common from '../../../common/httpService'
 let place = [{
     name: '亳州子公司',
     phone: '0558-5558157',
@@ -220,6 +221,7 @@ let place = [{
 export default {
     data() {
             return {
+              phone: common.phone,
                 place: place,
                 title: {
                     enTitle: 'CONTACT US',
